@@ -1,2 +1,3 @@
-# cse62420
-CSE 6242 project
+# CSE 6242 Project
+
+Please upload all code and files pertaining to the project in this repo.
