@@ -4,4 +4,3 @@ Please upload all code and files pertaining to the project in this repo.
 
 We can edit the readme as we develop our codebase.
 
-Edit made on my computer.
