@@ -5,7 +5,7 @@
 from nba_api.stats.static import players
 from nba_api.stats.library.parameters import SeasonAll
 from nba_api.stats.static import teams
-from nba_api.stats.endpoints import playergamelog, playergamelogs, boxscoreadvancedv2, boxscoremiscv2
+from nba_api.stats.endpoints import playergamelogs, boxscoreadvancedv2, boxscoremiscv2, boxscoreplayertrackv2, boxscorescoringv2
 
 import time
 import pandas as pd
@@ -54,13 +54,25 @@ game_ids = game_df["GAME_ID"].unique().tolist()
 game_ids.sort()
 total_games = len(game_ids)
 frames = []
+
+def merge_nba_frames(df1, df2, on_col='PLAYER_ID'):
+    df = pd.merge(df1, df2, on=on_col, how='inner')
+    df = df[df.columns.drop(list(df.filter(regex='_y')))]
+    df.columns = df.columns.str.rstrip('_x')
+    return df
+
 for i, id in enumerate(game_ids):
     print(str(i)+"/"+str(total_games))
     df_adv = boxscoreadvancedv2.BoxScoreAdvancedV2(game_id=id).get_data_frames()[0] # want first item which is player-based (2nd is team-based)
     df_misc = boxscoremiscv2.BoxScoreMiscV2(game_id=id).get_data_frames()[0]
-    df = pd.merge(df_adv, df_misc, on='PLAYER_ID', how='inner')
-    df = df[df.columns.drop(list(df.filter(regex='_y')))]
-    df.columns = df.columns.str.rstrip('_x')
+    df_track = boxscoreplayertrackv2.BoxScorePlayerTrackV2(game_id=id).get_data_frames()[0]
+    df_scoring = boxscorescoringv2.BoxScoreScoringV2(game_id=id).get_data_frames()[0]
+    # df_hustle = hustlestatsboxscore.HustleStatsBoxScore(game_id=id).get_data_frames()  # hit or miss with if each game has data
+    #df_playbyplay = playbyplayv2.PlayByPlayV2(game_id=id).get_data_frames() # playbyplay data if need be
+    # merge all dataframes
+    df_temp = merge_nba_frames(df_adv, df_misc)
+    df_temp2 = merge_nba_frames(df_temp, df_track)
+    df = merge_nba_frames(df_temp2, df_scoring)
     frames.append(df)
 advanced_game_df = pd.concat(frames)
 advanced_game_df.to_csv("advanced_game_df.csv", index=False) # write to CSV
