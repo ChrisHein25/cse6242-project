@@ -45,4 +45,5 @@ game_data.to_csv("game_data.csv", index=False) # write to CSV
 # query the dataframe with SQL
 res = mysql(""" select * from game_data where season_year="2015-16"; """)
 
-# TODO - pull more unique/advanced stats next
+# TODO - pull more unique/advanced stats next + player biometric and characteristic data for that season
+# TODO - merge injury data
