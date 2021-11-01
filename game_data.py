@@ -9,17 +9,20 @@ from nba_api.stats.endpoints import playergamelogs, boxscoreadvancedv2, boxscore
 
 import time
 import pandas as pd
+import os
 from pandasql import sqldf
 
 start_time = time.time()
+cwd = os.getcwd()
+csv_path = cwd + "/output_data"
 
 # setup helper functions
 mysql = lambda q: sqldf(q, globals()) # setup to run sql queries on data
 sort_order = ["GAME_ID", "TEAM_ID", "PLAYER_ID"] # sorting order used throughout
 
 # enter starting and ending seasons of interest
-season_start_startyear = 2015
-seasons_end_startyear = 2015 # starting season year, eg 2019 would be 2019-2020 season
+season_start_startyear = 2009
+seasons_end_startyear = 2018 # starting season year, eg 2019 would be 2019-2020 season
 seasons = list(range(season_start_startyear, seasons_end_startyear+1))
 
 # grab all NBA players
@@ -43,7 +46,7 @@ game_df['GAME_DATE']= pd.to_datetime(game_df['GAME_DATE']) # clean up game date 
 game_df['GAME_DATE'] = game_df['GAME_DATE'].dt.date # eliminate time part of datetime column (all 0's anyway)
 game_df = game_df.sort_values(by=sort_order)
 # the resulting dataframe game_df contains core player stats on a per game basis for every player for every game in the season range selected
-game_df.to_csv("game_df.csv", index=False) # write to CSV
+#game_df.to_csv(csv_path+"/game_data.csv", index=False) # write to CSV
 
 # query the dataframe with SQL
 #res = mysql(""" select * from game_df where season_year="2015-16"; """)
@@ -62,20 +65,22 @@ def merge_nba_frames(df1, df2, on_col='PLAYER_ID'):
     return df
 
 for i, id in enumerate(game_ids):
-    print(str(i)+"/"+str(total_games))
-    df_adv = boxscoreadvancedv2.BoxScoreAdvancedV2(game_id=id).get_data_frames()[0] # want first item which is player-based (2nd is team-based)
-    df_misc = boxscoremiscv2.BoxScoreMiscV2(game_id=id).get_data_frames()[0]
-    df_track = boxscoreplayertrackv2.BoxScorePlayerTrackV2(game_id=id).get_data_frames()[0]
-    df_scoring = boxscorescoringv2.BoxScoreScoringV2(game_id=id).get_data_frames()[0]
-    # df_hustle = hustlestatsboxscore.HustleStatsBoxScore(game_id=id).get_data_frames()  # hit or miss with if each game has data
-    #df_playbyplay = playbyplayv2.PlayByPlayV2(game_id=id).get_data_frames() # playbyplay data if need be
-    # merge all dataframes
-    df_temp = merge_nba_frames(df_adv, df_misc)
-    df_temp2 = merge_nba_frames(df_temp, df_track)
-    df = merge_nba_frames(df_temp2, df_scoring)
-    frames.append(df)
+    try:
+        print(str(i)+"/"+str(total_games))
+        df_adv = boxscoreadvancedv2.BoxScoreAdvancedV2(game_id=id).get_data_frames()[0] # want first item which is player-based (2nd is team-based)
+        df_misc = boxscoremiscv2.BoxScoreMiscV2(game_id=id).get_data_frames()[0]
+        df_track = boxscoreplayertrackv2.BoxScorePlayerTrackV2(game_id=id).get_data_frames()[0]
+        df_scoring = boxscorescoringv2.BoxScoreScoringV2(game_id=id).get_data_frames()[0]
+        # df_hustle = hustlestatsboxscore.HustleStatsBoxScore(game_id=id).get_data_frames()  # hit or miss with if each game has data
+        #df_playbyplay = playbyplayv2.PlayByPlayV2(game_id=id).get_data_frames() # playbyplay data if need be
+        # merge all dataframes
+        df_temp = merge_nba_frames(df_adv, df_misc)
+        df_temp2 = merge_nba_frames(df_temp, df_track)
+        df = merge_nba_frames(df_temp2, df_scoring)
+        frames.append(df)
+    except Exception as e:
+        print(Exception)
 advanced_game_df = pd.concat(frames)
-advanced_game_df.to_csv("advanced_game_df.csv", index=False) # write to CSV
 
 # join with larger game dataset (just fyi you lose some possible injury data (look at df value))
 full_game_df = pd.merge(game_df, advanced_game_df, on=['GAME_ID', 'TEAM_ID', 'PLAYER_ID'], how='inner').sort_values(by=['GAME_ID']).sort_values(by=sort_order)
@@ -83,6 +88,6 @@ full_game_df = pd.merge(game_df, advanced_game_df, on=['GAME_ID', 'TEAM_ID', 'PL
 full_game_df = full_game_df[full_game_df.columns.drop(list(full_game_df.filter(regex='_y')))]
 # restore original column names before merge
 full_game_df.columns = full_game_df.columns.str.rstrip('_x')
-full_game_df.to_csv("full_game_df.csv", index=False) # write to CSV
+full_game_df.to_csv(csv_path+"/full_game_df.csv", index=False) # write to CSV
 
 print("--- %s seconds ---" % (time.time() - start_time))
