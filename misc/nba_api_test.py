@@ -1,5 +1,10 @@
 from nba_api.stats.static import players
+import pandas as pd
 player_dict = players.get_players()
+
+player_df = pd.DataFrame(player_dict).sort_values(by=['id'])
+
+
 
 # Use ternary operator or write function
 # Names are case sensitive
