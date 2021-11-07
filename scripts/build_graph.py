@@ -1,7 +1,7 @@
 import http.client
 import json
 import csv
-
+import pandas as pd
 
 class Graph:
 
@@ -22,16 +22,18 @@ class Graph:
             edges_CSV = list(edges_CSV)[1:]
             self.edges = [(e[0], e[1]) for e in edges_CSV]
 
-    def add_node(self, id: str, name: str) -> None:
+    def add_node(self, id: str, name: str, group: str, avg_min: str) -> None:
         """
-        add a tuple (id, name) representing a node to self.nodes if it does not already exist
+        add a tuple (id, name, group) representing a node to self.nodes if it does not already exist
         The graph should not contain any duplicate nodes
         """
         #convert to string if not already
         id = str(id)
+        group = str(group)
+        avg_min = str(avg_min)
 
         # check for commas in name and replace
-        name = name.replace(",", "")
+        #name = name.replace(",", "")
 
         # Check for duplicate nodes
         existing_nodes = [node for node in self.nodes if node[0] == id]
@@ -39,7 +41,7 @@ class Graph:
             #print("ID {} already contains a node. Node has been ignored.".format(id))
             return
         else:
-            self.nodes.append((id, name))
+            self.nodes.append((id, name, group, avg_min))
         return
 
     def add_edge(self, source: str, target: str) -> None:
@@ -141,7 +143,7 @@ class Graph:
         print(self.edges)
 
     # Do not modify
-    def write_edges_file(self, path="edges.csv")->None:
+    def write_edges_file(self, path="output_data/edges.csv")->None:
         """
         write all edges out as .csv
         :param path: string
@@ -159,7 +161,7 @@ class Graph:
         print("finished writing edges to csv")
 
     # Do not modify
-    def write_nodes_file(self, path="nodes.csv")->None:
+    def write_nodes_file(self, path="output_data/nodes.csv")->None:
         """
         write all nodes out as .csv
         :param path: string
@@ -168,77 +170,49 @@ class Graph:
         nodes_path = path
         nodes_file = open(nodes_path, 'w', encoding='utf-8')
 
-        nodes_file.write("id,name" + "\n")
+        nodes_file.write("id,name,group,avg_min" + "\n")
         for n in self.nodes:
-            nodes_file.write(n[0] + "," + n[1] + "\n")
+            nodes_file.write(str(n[0]) + "," + str(n[1]) + "," + str(n[2]) + "," + str(n[3]) + "\n")
         nodes_file.close()
         print("finished writing nodes to csv")
 
-
-
 if __name__ == "__main__":
 
-    starting_id = '2975'
-    starting_name = 'Laurence Fishburne'
-    # we only want the top 3 co-actors in each movie credit of an actor having a vote average >= 8.0.
-    # Build your co-actor graph on the actor 'Laurence Fishburne' w/ person_id 2975.
+    csv_path = "./output_data/player_clusters_py.csv"
+    df = pd.read_csv(csv_path)
+    df = df.drop_duplicates()  # drop duplicate columns
+    df = df.astype({"ID": int, "group": int, "id1": int, "id2": int, "id3": int})  # recast some columns as needed
 
-    # BEGIN BUILD CO-ACTOR NETWORK
-    #
-    # INITIALIZE GRAPH
-    #   Initialize a Graph object with a single node representing Laurence Fishburne
+    # initialize Graph object
     graph = Graph()
-    graph.add_node(starting_id, starting_name)
 
-    tmdb = TMDBAPIUtils(api_key='44d2ae389cbcdddf353cc142e09d164c')
+    # iterate through all players, adding each's 3 nodes and edges
+    for index, row in df.iterrows():
+        player = row['PLAYER_NAME']
+        name_1 = df[df['ID'] == row['id1']]['PLAYER_NAME'].values[0]
+        group_1 = df[df['ID'] == row['id1']]['group'].values[0]
+        min_1 = df[df['ID'] == row['id1']]['MIN'].values[0]
+        name_2 = df[df['ID'] == row['id2']]['PLAYER_NAME'].values[0]
+        group_2 = df[df['ID'] == row['id3']]['group'].values[0]
+        min_2 = df[df['ID'] == row['id2']]['MIN'].values[0]
+        name_3 = df[df['ID'] == row['id3']]['PLAYER_NAME'].values[0]
+        group_3 = df[df['ID'] == row['id3']]['group'].values[0]
+        min_3 = df[df['ID'] == row['id3']]['MIN'].values[0]
 
-    #
-    # BEGIN BUILD BASE GRAPH:
-    #   Find all of Laurence Fishburne's movie credits that have a vote average >= 8.0
-    initial_credits = tmdb.get_movie_credits_for_person(person_id=starting_id,vote_avg_threshold=8.0)
+        # add nodes
+        graph.add_node(row['ID'], row['PLAYER_NAME'], row['group'], row['MIN'])  # add player himself
+        graph.add_node(row['id1'], name_1, group_1, min_1)  # add player neighbor 1
+        graph.add_node(row['id2'], name_2, group_2, min_2)  # add player neighbor 2
+        graph.add_node(row['id3'], name_3, group_3, min_3)  # add player neighbor 3
 
-    nodes_added_1 = []
-    for cred in initial_credits:
-        movie_cast = tmdb.get_movie_cast(movie_id=cred['id'],limit=3)
-        for member in movie_cast:
-            nodes_before = len(graph.nodes)
-            graph.add_node(member['id'],member['name'])
-            nodes_after = len(graph.nodes)
-            if nodes_after > nodes_before:
-                # if a new node was added
-                nodes_added_1.append((member['id'], member['name']))
-                # print('Node added for {}: {}'.format(member['id'],member['name']))
-            graph.add_edge(starting_id, member['id'])
+        # add edges
+        graph.add_edge(row['ID'], row['id1'])
+        graph.add_edge(row['ID'], row['id2'])
+        graph.add_edge(row['ID'], row['id3'])
 
+    graph.write_nodes_file("output_data/nodes.csv")
+    graph.write_edges_file("output_data/edges.csv")
 
-    nodes_added_2 = []
-    for i in range(2):
-        if i == 0:
-            nodes = nodes_added_1.copy()
-        else:
-            nodes = nodes_added_2.copy()
-
-        cnt = 0
-        for node in nodes:
-            cnt += 1
-            print("Evaluating node {}/{}".format(cnt, len(nodes)))
-            credits = tmdb.get_movie_credits_for_person(node[0],vote_avg_threshold=8.0)
-            for cred in credits:
-                movie_cast = tmdb.get_movie_cast(movie_id=cred['id'], limit=3)
-                for member in movie_cast:
-                    nodes_before = len(graph.nodes)
-                    graph.add_node(member['id'], member['name'])
-                    nodes_after = len(graph.nodes)
-                    if nodes_after > nodes_before:
-                        nodes_added_2.append((member['id'], member['name']))
-                        # print('Node added for {}: {}'.format(member['id'],member['name']))
-                    graph.add_edge(node[0], member['id'])
-
-    graph.write_nodes_file()
-    graph.write_edges_file()
-
-    k = graph.count_nodes_w_deg_greater_than_1()
-
-    print(k)
+    print('done')
 
 
