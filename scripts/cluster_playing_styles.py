@@ -5,7 +5,7 @@ import os
 from pandasql import sqldf
 
 cwd = os.getcwd()
-csv_path = cwd +
+csv_path = cwd + "../pathtofile"
 
 # setup helper functions
 mysql = lambda q: sqldf(q, globals()) # setup to run sql queries on data
