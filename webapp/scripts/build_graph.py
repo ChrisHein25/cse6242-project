@@ -173,3 +173,72 @@ class Graph:
             nodes_file.write(n[0] + "," + n[1] + "\n")
         nodes_file.close()
         print("finished writing nodes to csv")
+
+
+
+if __name__ == "__main__":
+
+    starting_id = '2975'
+    starting_name = 'Laurence Fishburne'
+    # we only want the top 3 co-actors in each movie credit of an actor having a vote average >= 8.0.
+    # Build your co-actor graph on the actor 'Laurence Fishburne' w/ person_id 2975.
+
+    # BEGIN BUILD CO-ACTOR NETWORK
+    #
+    # INITIALIZE GRAPH
+    #   Initialize a Graph object with a single node representing Laurence Fishburne
+    graph = Graph()
+    graph.add_node(starting_id, starting_name)
+
+    tmdb = TMDBAPIUtils(api_key='44d2ae389cbcdddf353cc142e09d164c')
+
+    #
+    # BEGIN BUILD BASE GRAPH:
+    #   Find all of Laurence Fishburne's movie credits that have a vote average >= 8.0
+    initial_credits = tmdb.get_movie_credits_for_person(person_id=starting_id,vote_avg_threshold=8.0)
+
+    nodes_added_1 = []
+    for cred in initial_credits:
+        movie_cast = tmdb.get_movie_cast(movie_id=cred['id'],limit=3)
+        for member in movie_cast:
+            nodes_before = len(graph.nodes)
+            graph.add_node(member['id'],member['name'])
+            nodes_after = len(graph.nodes)
+            if nodes_after > nodes_before:
+                # if a new node was added
+                nodes_added_1.append((member['id'], member['name']))
+                # print('Node added for {}: {}'.format(member['id'],member['name']))
+            graph.add_edge(starting_id, member['id'])
+
+
+    nodes_added_2 = []
+    for i in range(2):
+        if i == 0:
+            nodes = nodes_added_1.copy()
+        else:
+            nodes = nodes_added_2.copy()
+
+        cnt = 0
+        for node in nodes:
+            cnt += 1
+            print("Evaluating node {}/{}".format(cnt, len(nodes)))
+            credits = tmdb.get_movie_credits_for_person(node[0],vote_avg_threshold=8.0)
+            for cred in credits:
+                movie_cast = tmdb.get_movie_cast(movie_id=cred['id'], limit=3)
+                for member in movie_cast:
+                    nodes_before = len(graph.nodes)
+                    graph.add_node(member['id'], member['name'])
+                    nodes_after = len(graph.nodes)
+                    if nodes_after > nodes_before:
+                        nodes_added_2.append((member['id'], member['name']))
+                        # print('Node added for {}: {}'.format(member['id'],member['name']))
+                    graph.add_edge(node[0], member['id'])
+
+    graph.write_nodes_file()
+    graph.write_edges_file()
+
+    k = graph.count_nodes_w_deg_greater_than_1()
+
+    print(k)
+
+
