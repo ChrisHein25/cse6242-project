@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<head>
+  <title>Injuries</title>
+  <meta charset="utf-8">
+  <script type="text/javascript" src="../lib/d3.v5.min.js"></script>
+  <script type="text/javascript" src="../lib/d3-dsv.min.js"></script>
+</head>
+
+<body>
+
+<div id="container"></div>
+<div id="playerSelectButton"></div>
+<div id="parameterSelectButton"></div>
+
+<script>
+
+// define dimensions and margins for the graph
+var w = 1500;
+var h = 1500;
+var pad = 50;
+
+// import injury data
+d3.dsv(",", "injuries_open_refine.csv", function(d) 
+{ return {
+	date : d["Date"],
+	team : d["Team"],
+	name : d["Relinquished"],
+	notes: d["Notes"],
+	body_injury : d["Body Injury"],
+}
+}).then(function(injuryList) 
+{
+
+// import game data
+d3.dsv(",", "gamedatatest.csv", function(d) 
+{ return {
+	name : d["PLAYER_NAME"],
+	date : d["GAME_DATE"],
+	MIN : d["MIN"],
+	PTS : d["PTS"],
+	PIE : d["PIE"]
+}
+}).then(function(gameData) 
+{
+
+// create parameter drop down
+var parameters = ["MIN", "PTS", "PIE"];
+
+// create drop down button
+var parameterSelect = d3.select("#parameterSelectButton")
+  					 	.append('select');
+
+// add the options to the button
+parameterSelect.selectAll('myOptions')
+ 		       .data(parameters)
+ 		       .enter()
+ 		       .append('option')
+ 		       .text(function (d) { return d; }) 		  		 // text showed in the menu
+ 		       .attr("value", function (d) { return d; }) // corresponding value returned by the button
+
+// create SVG
+var svg = d3.select("body")
+			.append("svg")
+			.attr("width", w)
+			.attr("height", h/2)
+			.attr("id", "svg");
+
+// create SVG groups
+var lines = svg.append("g")
+			   .attr("id", "lines");
+
+var circles = svg.append("g")
+			   	 .attr("id", "circles");
+
+var line_chart_title = svg.append("g")
+			  			  .attr("id", "line_chart_title");
+
+var credit = svg.append("g")
+		     	.attr("id", "credit");
+
+var legend = svg.append("g")
+		     	.attr("id", "legend");
+
+// add the title
+line_chart_title.append("text")
+   				.attr("id", "title")
+   				.attr("x", w/2 - 2*pad)
+   				.attr("y", h/16)
+   				.text("Injuries");
+
+// nest game data by player
+var game_data_nest = d3.nest()
+					   .key(function(d) {return d.name;}).sortKeys(d3.ascending)
+					   .entries(gameData);
+
+// get a list of all player names from game data
+var playerNames_games = [];
+
+for (let i = 0; i < game_data_nest.length; i++)
+{
+	playerNames_games.push(game_data_nest[i].key);
+}
+
+// create drop down button
+var playerSelect = d3.select("#playerSelectButton")
+  					 .append('select');
+
+// add the options to the button
+playerSelect.selectAll('myOptions')
+ 		    .data(playerNames_games)
+  			.enter()
+			.append('option')
+  			.text(function (d) { return d; }) 		   // text showed in the menu
+  			.attr("value", function (d) { return d; }) // corresponding value returned by the button
+
+// nest injury data by player
+var injury_nest = d3.nest()
+				    .key(function(d) {return d.name;}).sortKeys(d3.ascending)
+					.entries(injuryList);
+
+// set the first name to be the start of the group
+var setName = playerNames_games[0]
+var setParameter = parameters[0]
+
+// when the user selects a new name, update the chart
+d3.select("#playerSelectButton").on("change", function(d)
+{
+	var selectedPlayerOption = playerSelect.property("value")
+	var selectedParameterOption = parameterSelect.property("value")
+	update(selectedPlayerOption, selectedParameterOption)
+})
+
+// when the user selects a new paramter, update the chart
+d3.select("#parameterSelectButton").on("change", function(d)
+{
+	var selectedPlayerOption = playerSelect.property("value")
+	var selectedParameterOption = parameterSelect.property("value")
+	update(selectedPlayerOption, selectedParameterOption)
+})
+
+// initialize the graph with player data vs injuries
+var game_date = []
+var game_info = []
+
+// populate the arrays
+for (let i = 0; i < game_data_nest.length; i++)
+{
+	if (game_data_nest[i].key == setName)
+	{
+		for (let k = 0; k < game_data_nest[i].values.length; k++)
+		{
+			game_date.push(game_data_nest[i].values[k].date)
+			game_info.push(parseFloat(game_data_nest[i].values[k][setParameter]))
+		}
+	}
+}
+
+var players_game_data_rearranged = game_date.map((d, i) => 
+							 	   {return {x: d, y: game_info[i]}})
+
+var injury_date = []
+var injury_type = []
+
+// populate the arrays
+for (let i = 0; i < injury_nest.length; i++)
+{
+	if (injury_nest[i].key == setName)
+	{
+		for (let k = 0; k < injury_nest[i].values.length; k++)
+		{
+			injury_date.push(injury_nest[i].values[k].date)
+			injury_type.push(injury_nest[i].values[k].body_injury)
+		}
+	}
+}
+
+var injury_data_rearranged = injury_date.map((d, i) => 
+							 {return {x: d, y: injury_type[i]}})
+
+// axes
+var xScale = d3.scaleTime()
+			   .domain([new Date(game_date[0]), new Date(game_date[game_date.length - 1])])
+			   .range([pad, w - 2*pad]);
+
+var yScale = d3.scaleLinear()
+			   .domain([d3.min([0, d3.min(game_info)]), d3.max(game_info)])
+			   .range([h/2 - 2*pad, 0]);
+
+var x = d3.axisBottom()
+			  .scale(xScale)
+			  .ticks(10);
+
+var y = d3.axisLeft()
+			  .scale(yScale)
+			  .ticks(10);
+			  
+// add the x axis
+var xAxis = svg.append("g")
+   			   .attr("id", "x-axis-lines")
+   			   .attr("class", "axis")
+   			   .attr("transform", "translate(0," + (h/2 - pad) + ")")
+   			   .call(x)
+
+// add the text label for the x axis
+xAxis.append("text")
+   	 .attr("id", "x-axis label")
+     .style("fill", "black")
+     .attr("x", w/2 - pad/2)
+     .attr("y", pad*4/5)
+     .text("Date");
+
+// add the y axis
+var yAxis = svg.append("g")
+   			   .attr("id", "y-axis-lines")
+   			   .attr("class", "axis")
+   			   .attr("transform", "translate(" + (pad) + "," + (pad) + ")")
+   			   .call(y);
+
+// add the text label for Y axis
+yAxis.append("text")
+   	 .attr("id", "y-axis label")
+   	 .style("fill", "black")
+   	 .attr("x", (-h/2 + 2*pad)/2)
+   	 .attr("y", -pad*4/5)
+   	 .attr("transform", "rotate(-90)")
+   	 .text(setParameter);
+
+// append the path
+lines.append("path")
+   	 .datum(players_game_data_rearranged)
+     .attr("fill", "none")
+     .attr("stroke", "steelblue")
+     .attr("stroke-width", 1.5)
+     .attr("transform", "translate(" + (0) + "," + (pad) + ")")
+     .attr("d", d3.line().x(function(d) {return xScale(new Date(d.x))})
+   					     .y(function(d) {return yScale(d.y)}));
+
+circles.selectAll("null")
+	   .data(injury_data_rearranged, function(d) { return d; })
+	   .enter()
+	   .append("circle")
+	   .attr("fill", "red")
+	   .attr("cx", function(d) {return xScale(new Date(d.x))})
+	   .attr("cy", 50)
+	   //.attr("cy", function(d) {return yScale(d.y)})
+	   .attr("class", "circle")
+	   .attr("r", 2)
+	   .attr("transform", "translate(" + (0) + "," + (pad) + ")")
+	   .attr("id", function(d, i) {return injury_type[i]})
+	   .on("mouseover", handleMouseOver)
+	   .on("mouseout", handleMouseOut);
+
+
+// hover over
+function handleMouseOver(d, i) 
+{
+	d3.select(this).attr("r", 10);
+
+	var injury_type_text = d3.select(this).attr("id");
+	var injury_type_svg = svg.append("g")
+		     				 .attr("id", "injury_type_svg")
+
+	injury_type_svg.append("text")
+				   .attr("dx", pad)
+				   .attr("dy", h/2 - pad/4)
+				   .text(injury_type_text)
+				   .attr("font-size", "12.5px")
+				   .attr("font-family", "arial")
+				   .attr("fill", "black")
+				   .attr("id", "injury_type_text");
+}
+
+// hover away
+function handleMouseOut(d, i) 
+{
+	d3.select(this).attr("r", 2);
+	d3.select("#injury_type_svg").remove()
+	d3.select("#injury_type_text").remove()
+}
+
+// update graph based on selected player or parameter
+function update(selectPlayer, selectParameter)
+{
+	var setName = selectPlayer
+	var setParameter = selectParameter
+
+	var game_date = []
+	var game_info = []
+	var injury_date = []
+	var injury_type = []
+
+	// populate the arrays
+	for (let i = 0; i < game_data_nest.length; i++)
+	{
+		if (game_data_nest[i].key == setName)
+		{
+			for (let k = 0; k < game_data_nest[i].values.length; k++)
+			{
+				game_date.push(game_data_nest[i].values[k].date)
+				game_info.push(parseFloat(game_data_nest[i].values[k][setParameter]))
+			}
+		}
+	}
+
+	for (let i = 0; i < injury_nest.length; i++)
+	{
+		if (injury_nest[i].key == setName)
+		{
+			for (let k = 0; k < injury_nest[i].values.length; k++)
+			{
+				injury_date.push(injury_nest[i].values[k].date)
+				injury_type.push(injury_nest[i].values[k].body_injury)
+			}
+		}
+	}
+
+	// remove existing circles and lines
+	d3.select("#circles").remove();
+	d3.select("#lines").remove();
+	d3.select("#x-axis-lines").remove();
+	d3.select("#y-axis-lines").remove();
+
+	// axes
+	var xScale = d3.scaleTime()
+				   .domain([new Date(game_date[0]), new Date(game_date[game_date.length - 1])])
+				   .range([pad, w - 2*pad]);
+
+	var yScale = d3.scaleLinear()
+				   .domain([d3.min([0, d3.min(game_info)]), d3.max(game_info)])
+				   .range([h/2 - 2*pad, 0]);
+
+	var x = d3.axisBottom()
+				  .scale(xScale)
+				  .ticks(10);
+
+	var y = d3.axisLeft()
+				  .scale(yScale)
+				  .ticks(10);
+				  
+	// add the x axis
+	var xAxis = svg.append("g")
+	   			   .attr("id", "x-axis-lines")
+	   			   .attr("class", "axis")
+	   			   .attr("transform", "translate(0," + (h/2 - pad) + ")")
+	   			   .call(x)
+
+	// add the text label for the x axis
+	xAxis.append("text")
+	   	 .attr("id", "x-axis label")
+	     .style("fill", "black")
+	     .attr("x", w/2 - pad/2)
+	     .attr("y", pad*4/5)
+	     .text("Date");
+
+	// add the y axis
+	var yAxis = svg.append("g")
+	   			   .attr("id", "y-axis-lines")
+	   			   .attr("class", "axis")
+	   			   .attr("transform", "translate(" + (pad) + "," + (pad) + ")")
+	   			   .call(y);
+
+	// add the text label for Y axis
+	yAxis.append("text")
+	   	 .attr("id", "y-axis label")
+	   	 .style("fill", "black")
+	   	 .attr("x", (-h/2 + 2*pad)/2)
+	   	 .attr("y", -pad*4/5)
+	   	 .attr("transform", "rotate(-90)")
+	   	 .text(setParameter);
+
+	// create new circle and line groups
+	var circles = svg.append("g")
+			   	 	 .attr("id", "circles")
+
+	var lines = svg.append("g")
+			   	   .attr("id", "lines")
+
+	var players_game_data_rearranged = game_date.map((d, i) => 
+								 	   {return {x: d, y: game_info[i]}})
+
+	var injury_data_rearranged = injury_date.map((d, i) => 
+								 {return {x: d, y: injury_type[i]}})
+
+	circles.selectAll("null")
+		   .data(injury_data_rearranged, function(d) { return d; })
+		   .enter()
+		   .append("circle")
+		   .attr("fill", "red")
+		   .attr("cx", function(d) {return xScale(new Date(d.x))})
+		   .attr("cy", 50)
+		   //.attr("cy", function(d) {return yScale(d.y)})
+		   .attr("class", "circle")
+		   .attr("r", 2)
+		   .attr("transform", "translate(" + (0) + "," + (pad) + ")")
+		   .attr("id", function(d, i) {return injury_type[i]})
+		   .on("mouseover", handleMouseOver)
+		   .on("mouseout", handleMouseOut);
+
+	lines.append("path")
+	   	 .datum(players_game_data_rearranged)
+	     .attr("fill", "none")
+	     .attr("stroke", "steelblue")
+	     .attr("stroke-width", 1.5)
+	     .attr("transform", "translate(" + (0) + "," + (pad) + ")")
+	     .attr("d", d3.line().x(function(d) {return xScale(new Date(d.x))})
+	   					     .y(function(d) {return yScale(d.y)}));
+}
+
+}).catch(function(error) {
+  console.log(error);
+});
+
+}).catch(function(error) {
+  console.log(error);
+});
+</script>
+
+</body>
