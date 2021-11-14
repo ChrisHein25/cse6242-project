@@ -178,7 +178,7 @@ class Graph:
 
 if __name__ == "__main__":
 
-    csv_path = "./output_data/player_clusters_py.csv"
+    csv_path = "../webapp/data/player_clusters_py.csv"
     df = pd.read_csv(csv_path)
     df = df.drop_duplicates()  # drop duplicate columns
     df = df.astype({"ID": int, "group": int, "id1": int, "id2": int, "id3": int})  # recast some columns as needed

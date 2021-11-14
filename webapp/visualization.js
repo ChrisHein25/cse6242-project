@@ -15,8 +15,10 @@ var svg = d3.select("#visualization").append("svg")
 
 // load all csv data as Promises
 
-var injury_data_path = "./data/injury_data.csv";
-var player_data_path = "./data/player_data.csv";
+var injury_data_path = "../time_graphs/html/injuries_open_refine.csv";
+var player_data_path = "./data/player_clusters_py.csv";
+var nodes_path = "./data/nodes.csv";
+var edges_path = "./data/edges.csv";
 
 // help functions
 const timeConv = d3.timeParse("%m/%d/%Y")
@@ -25,225 +27,195 @@ Promise.all([
     d3.csv(injury_data_path, function (d) {
         return {
             // format data attributes
-            date: timeConv(d["Date"]),
-            team: String(d["Team"]).trim(),
-            player: String(d["player"]).trim(),
-            notes: String(d["Notes"]).trim(),
-            body_part: String(d["body_part"]).trim(),
-            is_severe: parseInt(d["is_severe"])
+            date: timeConv(d["Date"])
         }
     }),
-    d3.csv(player_data_path, function (d) {
+    d3.csv(nodes_path, function (d) {
         return {
             // format data attributes
             id: parseInt(d["id"]),
-            full_name: String(d["full_name"]).trim(),
-            first_name: String(d["first_name"]).trim(),
-            last_name: String(d["last_name"]).trim(),
-            is_active: String(d["is_active"]).trim(),
-            playing_style: parseInt(d["playing_style"])
+            name: String(d["name"]).trim(),
+            group: parseInt(d["group"]),
+            avg_min: parseFloat(d["avg_min"])
+        }
+    }),
+    d3.csv(edges_path, function (d) {
+        return {
+            // format data attributes
+            source: parseInt(d["source"]),
+            target: parseInt(d["target"])
         }
     })
+
 ]).then(function(data) {
     injury_data = data[0];
-    player_data = data[1];
-    console.log(injury_data);
-    console.log(player_data);
-    ready(injury_data, player_data);
+    clustering_data = data[1];
+    nodes = data[2];
+    edges = data[3];
+
+    ready(nodes, edges, injury_data);
 }).catch(function(err) {
     // handle error here
 })
 
-function ready(injury_data, player_data) {
+function ready(nodes, edges, injury_data) {
     // based on current user selection prepare inputs to the Graph
-
+    // grab selection items like dropdowns from the DOM
     // will eventually need listerners which are in Cloropleth.js code from HW2
 
     options = {"stuff": "selected by above logic"};
-    createGraph(injury_data, player_data, options); // with selected inputs build the Graph
+    createGraph(nodes, edges, injury_data, options); // with selected inputs build the Graph
 }
 
-function createGraph(injury_data, player_data, options){
+function createGraph(nodes, edges, injury_data, options){
 
-    console.log('Graph has not been set up. Need edges and nodes files.')
+    var links = edges;
+    var nodes = nodes;
 
-    // NODES ARE A PLAYER
-    // NODE SIZE IS NUMBER OF INJURIES
-    // EDGES ARE A PLAYER'S KNN NEIGHBORS
-    // EDGE SIZE/LENGTH/THICKNESS ARE STRENGTH OF CONNECTION
+    var width = chart_width;
+    var height = chart_height;
 
-//
-//    var links = data;
-//    var nodes = {};
-//
-//    // compute the distinct nodes from the links and initialize degree at 0
-//    links.forEach(function(link) {
-//      link.source = nodes[link.source] || (nodes[link.source] = {name: link.source, degree: 0});
-//      link.target = nodes[link.target] || (nodes[link.target] = {name: link.target, degree: 0});
-//    });
-//
-//    // for each node find how many times it occurs in the links and increment degree
-//    maxDegree = 0; // track max degree of set
-//    links.forEach(function(link) {
-//      // increment degree of both source and target by 1
-//      nodes[link.source.name].degree = nodes[link.source.name].degree + 1
-//      nodes[link.target.name].degree = nodes[link.target.name].degree + 1
-//      if (nodes[link.source.name].degree > maxDegree) {
-//        maxDegree = nodes[link.source.name].degree;
-//      } else if (nodes[link.target.name].degree > maxDegree) {
-//        maxDegree = nodes[link.target.name].degree;
-//      }
-//    });
-//
-//    var width = 1200,
-//      height = 700;
-//
-//    var force = d3.forceSimulation()
-//      .nodes(d3.values(nodes))
-//      .force("link", d3.forceLink(links).distance(100))
-//      .force('center', d3.forceCenter(width / 2, height / 2))
-//      .force("x", d3.forceX())
-//      .force("y", d3.forceY())
-//      .force("charge", d3.forceManyBody().strength(-250))
-//      .alphaTarget(1)
-//      .on("tick", tick);
-//
-//    var svg = d3.select("body").append("svg")
-//      .attr("width", width)
-//      .attr("height", height);
-//
-//    // add the links
-//    var path = svg.append("g")
-//      .selectAll("path")
-//      .data(links)
-//      .enter()
-//      .append("path")
-//      .attr("class", function(d) { return "link " + d.type; });
-//
-//    // define the nodes
-//    var node = svg.selectAll(".node")
-//      .data(force.nodes())
-//      .enter().append("g")
-//      .attr("class", "node")
-//      .call(d3.drag()
-//          .on("start", dragstarted)
-//          .on("drag", dragged)
-//          .on("end", dragended))
-//
-//    // add the nodes
-//    node.append("circle")
-//      .attr("id", function(d){
-//         return (d.name.replace(/\s+/g,'').toLowerCase());
-//      })
-//      .attr("r", function (d) { return 3 + d.degree * 2 })
-//      .attr("fill", function (d) { return "rgb(?, ?, ?)".replaceAll("?", 250 - (d.degree / maxDegree ) * 250) });
-//
-//    // add the curvy lines
-//    function tick() {
-//      path.attr("d", function(d) {
-//          var dx = d.target.x - d.source.x,
-//              dy = d.target.y - d.source.y,
-//              dr = Math.sqrt(dx * dx + dy * dy);
-//          return "M" +
-//              d.source.x + "," +
-//              d.source.y + "A" +
-//              dr + "," + dr + " 0 0,1 " +
-//              d.target.x + "," +
-//              d.target.y;
-//      });
-//
-//      // add edge styling
-//      path.attr("stroke", function (d) {
-//        if (d.value === 0) {
-//            return "#666"
-//        } else {
-//            return "#7ED321"
-//        }
-//      });
-//
-//      path.attr("stroke-width", function (d) {
-//        if (d.value === 0) {
-//            return "5px"
-//        } else {
-//            return "1.5px"
-//        }
-//      });
-//
-//      path.attr("stroke-dasharray", function (d) {
-//        if (d.value === 0) {
-//            return
-//        } else {
-//            return "4"
-//        }
-//      });
-//
-//      node.attr("transform", function(d) {
-//          return "translate(" + d.x + "," + d.y + ")";
-//      });
-//
-//    };
-//
-//    // add listener for double click
-//    node.selectAll("circle")
-//    //.on("mousedown", function (d) {
-//    //    console.log(' ')
-//    //    console.log(' ')
-//    //    console.log('mousedown detected');
-//    //    d3.select(this).attr("fill", "yellow");
-//    //    d.fixed = true;
-//    //    d.fx = d.x;
-//    //    d.fy = d.y;
-//    //    console.log('mousedown finished');
-//    //})
-//    .on("dblclick", function (d) {
-//        console.log('double click detected');
-//        d.fx = null;
-//        d.fy = null;
-//        d.fixed = false;
-//        d3.select(this).attr("fill", "rgb(?, ?, ?)".replaceAll("?", 250 - (d.degree / maxDegree ) * 250));
-//        console.log('double click finished');
-//    });
-//
-//    function dragstarted(d) {
-//      if (!d3.event.active) force.alphaTarget(0.3).restart();
-//      d.fixed = true;
-//      d.fx = d.x;
-//      d.fy = d.y;
-//      d3.select(d3.select(this)._groups[0][0].children[0]).attr("fill", "yellow");
-//    };
-//
-//    function dragged(d) {
-//      d.fx = d3.event.x;
-//      d.fy = d3.event.y;
-//    };
-//
-//    function dragended(d) {
-//      if (!d3.event.active) force.alphaTarget(0);
-//      if (d.fixed == true) {
-//          d.fx = d.x;
-//          d.fy = d.y;
-//          console.log('detected that fixed is true')
-//      }
-//      else {
-//          d.fx = null;
-//          d.fy = null;
-//      }
-//    };
-//
-//    // append labels to nodes
-//    var labels = node.append("text")
-//    .text(function (d) { return d.name; })
-//    .attr('x', 10)
-//    .attr('y', -10)
-//    .attr('font-weight', 'bold')
-//
-//    // Add GT username
-//    svg.append("text")
-//    .attr("id", "credit")
-//    .attr("text-anchor", "middle")
-//    .attr("x", width-50)
-//    .attr("y", 50)
-//    .text("chein8");
+    var force = d3.forceSimulation()
+      .nodes(d3.values(nodes))
+      .force("link", d3.forceLink(links).distance(100))
+      .force('center', d3.forceCenter(width / 2, height / 2))
+      .force("x", d3.forceX())
+      .force("y", d3.forceY())
+      .force("charge", d3.forceManyBody().strength(-250))
+      .alphaTarget(1)
+      .on("tick", tick);
+
+    // add the links
+    var path = svg.append("g")
+      .selectAll("path")
+      .data(links)
+      .enter()
+      .append("path");
+
+    // define the nodes
+    var node = svg.selectAll(".node")
+      .data(force.nodes())
+      .enter().append("g")
+      .attr("class", "node")
+      .call(d3.drag()
+          .on("start", dragstarted)
+          .on("drag", dragged)
+          .on("end", dragended))
+
+    // add the nodes
+    node.append("circle")
+      .attr("id", function(d){
+         return (d.name.replace(/\s+/g,'').toLowerCase());
+      })
+      .attr("r", function (d) { return 3 + d.degree * 2 })
+      .attr("fill", function (d) { return "rgb(?, ?, ?)".replaceAll("?", 250 - (d.degree / maxDegree ) * 250) });
+
+    // add the curvy lines
+    function tick() {
+      path.attr("d", function(d) {
+          var dx = d.target.x - d.source.x,
+              dy = d.target.y - d.source.y,
+              dr = Math.sqrt(dx * dx + dy * dy);
+          return "M" +
+              d.source.x + "," +
+              d.source.y + "A" +
+              dr + "," + dr + " 0 0,1 " +
+              d.target.x + "," +
+              d.target.y;
+      });
+
+      // add edge styling
+      path.attr("stroke", function (d) {
+        if (d.value === 0) {
+            return "#666"
+        } else {
+            return "#7ED321"
+        }
+      });
+
+      path.attr("stroke-width", function (d) {
+        if (d.value === 0) {
+            return "5px"
+        } else {
+            return "1.5px"
+        }
+      });
+
+      path.attr("stroke-dasharray", function (d) {
+        if (d.value === 0) {
+            return
+        } else {
+            return "4"
+        }
+      });
+
+      node.attr("transform", function(d) {
+          return "translate(" + d.x + "," + d.y + ")";
+      });
+
+    };
+
+    // add listener for double click
+    node.selectAll("circle")
+    //.on("mousedown", function (d) {
+    //    console.log(' ')
+    //    console.log(' ')
+    //    console.log('mousedown detected');
+    //    d3.select(this).attr("fill", "yellow");
+    //    d.fixed = true;
+    //    d.fx = d.x;
+    //    d.fy = d.y;
+    //    console.log('mousedown finished');
+    //})
+    .on("dblclick", function (d) {
+        console.log('double click detected');
+        d.fx = null;
+        d.fy = null;
+        d.fixed = false;
+        d3.select(this).attr("fill", "rgb(?, ?, ?)".replaceAll("?", 250 - (d.degree / maxDegree ) * 250));
+        console.log('double click finished');
+    });
+
+    function dragstarted(d) {
+      if (!d3.event.active) force.alphaTarget(0.3).restart();
+      d.fixed = true;
+      d.fx = d.x;
+      d.fy = d.y;
+      d3.select(d3.select(this)._groups[0][0].children[0]).attr("fill", "yellow");
+    };
+
+    function dragged(d) {
+      d.fx = d3.event.x;
+      d.fy = d3.event.y;
+    };
+
+    function dragended(d) {
+      if (!d3.event.active) force.alphaTarget(0);
+      if (d.fixed == true) {
+          d.fx = d.x;
+          d.fy = d.y;
+          console.log('detected that fixed is true')
+      }
+      else {
+          d.fx = null;
+          d.fy = null;
+      }
+    };
+
+    // append labels to nodes
+    var labels = node.append("text")
+    .text(function (d) { return d.name; })
+    .attr('x', 10)
+    .attr('y', -10)
+    .attr('font-weight', 'bold')
+
+    // Add GT username
+    svg.append("text")
+    .attr("id", "credit")
+    .attr("text-anchor", "middle")
+    .attr("x", width-50)
+    .attr("y", 50)
+    .text("chein8");
 
 
 }
