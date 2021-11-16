@@ -18,6 +18,88 @@
 var w = 1500;
 var h = 1500;
 var pad = 50;
+var day = 30;
+var radius = 3;
+
+////////////////////// begin: helper functions ///////////////////////
+function getArrayDates(startDate, endDate)
+{
+	// reset endDate as +1 to ensure last day of new array matches game data
+	endDate.setDate(endDate.getDate() + 1)
+
+	var dateArray = new Array();
+	var currentDate = startDate;
+	while (currentDate <= endDate)
+	{
+		var year = currentDate.getFullYear()
+		var month = currentDate.getMonth() + 1
+		var day = currentDate.getDate()
+
+		if (month.toString().length < 2) month = "0" + month;
+		if (day.toString().length < 2) day = "0" + day;
+
+	    var pushDate = year + "-" + month + "-" + day
+		dateArray.push(pushDate);
+		currentDate.setDate(currentDate.getDate() + 1)
+	}
+
+	return dateArray
+}
+
+function mapData(dateArray, gameDate, gameInfo, day)
+{	
+	var mapDateOut = []
+	for (let i = 0; i < dateArray.length; i++)
+	{
+		var flag = 0
+		for (let k = 0; k < gameDate.length; k++)
+		{
+			if (dateArray[i] == gameDate[k])
+			{
+				mapDateOut.push([dateArray[i], gameInfo[k]])
+				flag = 1
+				break
+			}
+		}
+		if (flag) continue
+		mapDateOut.push([dateArray[i], null])
+	}
+	return mapDateOut
+}
+
+function movingAverage(mappedDataIn, day)
+{
+	var day_moving_average = [] 
+	var previousAverage = 0
+	for (let i = 0; i < mappedDataIn.length - day + 1; i++)
+	{
+		moving_average_array = mappedDataIn.slice(i, i + day)
+		var average = 0
+		var sum = 0
+		var count = 0
+		for (let k = 0; k < moving_average_array.length; k++)
+		{
+			if (moving_average_array[k][1] != null)
+			{
+				sum += moving_average_array[k][1]
+				count++
+			}
+		}
+		average = sum/count
+		if (isNaN(average))
+		{
+			day_moving_average.push([mappedDataIn[i + day - 1][0], previousAverage])
+		}
+		else
+		{
+			day_moving_average.push([mappedDataIn[i + day - 1][0], average])
+			previousAverage = average
+		}
+	}
+
+	return day_moving_average
+}
+////////////////////// end: helper functions /////////////////////////
 
 // import injury data
 d3.dsv(",", "injuries_open_refine.csv", function(d) 
@@ -158,6 +240,16 @@ for (let i = 0; i < game_data_nest.length; i++)
 var players_game_data_rearranged = game_date.map((d, i) => 
 							 	   {return {x: d, y: game_info[i]}})
 
+// calculate moving average
+var startDate = new Date(game_date[0])
+var endDate = new Date(game_date[game_date.length - 1])
+var date_array = getArrayDates(startDate, endDate)
+var mappedDataOut = mapData(date_array, game_date, game_info, day)
+var moving_average_data = movingAverage(mappedDataOut, day)
+
+var moving_average_data_rearranged = moving_average_data.map((d) =>
+					  				 {return {x: d[0], y: d[1]}})
+
 var injury_date = []
 var injury_type = []
 
@@ -173,6 +265,23 @@ for (let i = 0; i < injury_nest.length; i++)
 		}
 	}
 }
+
+var holder = []
+for (let i = 0; i < injury_date.length; i++)
+{
+	for (let k = 0; k < moving_average_data.length; k++)
+	{
+		if(injury_date[i] == moving_average_data[k][0])
+		{
+			//console.log(injury_date[i])
+			holder.push([injury_date[i], moving_average_data[k][1], injury_type[i]])
+		}
+	}
+}
+
+
+var holder_rearranged = holder.map((d) => 
+							 {return {x: d[0], y: d[1], z: d[2]}})
 
 var injury_data_rearranged = injury_date.map((d, i) => 
 							 {return {x: d, y: injury_type[i]}})
@@ -225,31 +334,55 @@ yAxis.append("text")
    	 .attr("transform", "rotate(-90)")
    	 .text(setParameter);
 
-// append the path
+// // append the path
+// lines.append("path")
+//    	 .datum(players_game_data_rearranged)
+//      .attr("fill", "none")
+//      .attr("stroke", "steelblue")
+//      .attr("stroke-width", 1.5)
+//      .attr("transform", "translate(" + (0) + "," + (pad) + ")")
+//      .attr("d", d3.line().x(function(d) {return xScale(new Date(d.x))})
+//    					     .y(function(d) {return yScale(d.y)}));
+
 lines.append("path")
-   	 .datum(players_game_data_rearranged)
+   	 .datum(moving_average_data_rearranged)
      .attr("fill", "none")
-     .attr("stroke", "steelblue")
+     .attr("stroke", "gold")
      .attr("stroke-width", 1.5)
      .attr("transform", "translate(" + (0) + "," + (pad) + ")")
      .attr("d", d3.line().x(function(d) {return xScale(new Date(d.x))})
    					     .y(function(d) {return yScale(d.y)}));
 
+// circles.selectAll("null")
+// 	   .data(injury_data_rearranged, function(d) { return d; })
+// 	   .enter()
+// 	   .append("circle")
+// 	   .attr("fill", "red")
+// 	   .attr("cx", function(d) {return xScale(new Date(d.x))})
+// 	   .attr("cy", 50)
+// 	   //.attr("cy", function(d) {return yScale(d.y)})
+// 	   .attr("class", "circle")
+// 	   .attr("r", 2)
+// 	   .attr("transform", "translate(" + (0) + "," + (pad) + ")")
+// 	   .attr("id", function(d, i) {return injury_type[i]})
+// 	   .on("mouseover", handleMouseOver)
+// 	   .on("mouseout", handleMouseOut);
+
+
 circles.selectAll("null")
-	   .data(injury_data_rearranged, function(d) { return d; })
+	   .data(holder_rearranged, function(d) { return d; })
 	   .enter()
 	   .append("circle")
 	   .attr("fill", "red")
 	   .attr("cx", function(d) {return xScale(new Date(d.x))})
-	   .attr("cy", 50)
+	   .attr("cy", function(d) {return yScale(d.y)})
 	   //.attr("cy", function(d) {return yScale(d.y)})
 	   .attr("class", "circle")
-	   .attr("r", 2)
+	   .attr("r", radius)
 	   .attr("transform", "translate(" + (0) + "," + (pad) + ")")
-	   .attr("id", function(d, i) {return injury_type[i]})
+	   .attr("id", function(d) {return d.z})
 	   .on("mouseover", handleMouseOver)
 	   .on("mouseout", handleMouseOut);
-
 
 // hover over
 function handleMouseOver(d, i) 
@@ -369,41 +502,78 @@ function update(selectPlayer, selectParameter)
 	   	 .text(setParameter);
 
 	// create new circle and line groups
-	var circles = svg.append("g")
-			   	 	 .attr("id", "circles")
-
 	var lines = svg.append("g")
 			   	   .attr("id", "lines")
 
+	var circles = svg.append("g")
+			   	 	 .attr("id", "circles")
+
+
+
 	var players_game_data_rearranged = game_date.map((d, i) => 
 								 	   {return {x: d, y: game_info[i]}})
+	// calculate moving average
+	var startDate = new Date(game_date[0])
+	var endDate = new Date(game_date[game_date.length - 1])
+	var date_array = getArrayDates(startDate, endDate)
+	var mappedDataOut = mapData(date_array, game_date, game_info, day)
+	var moving_average_data = movingAverage(mappedDataOut, day)
+
+	var moving_average_data_rearranged = moving_average_data.map((d) =>
+					  				 	 {return {x: d[0], y: d[1]}})
 
 	var injury_data_rearranged = injury_date.map((d, i) => 
 								 {return {x: d, y: injury_type[i]}})
 
+	var holder = []
+	for (let i = 0; i < injury_date.length; i++)
+	{
+		for (let k = 0; k < moving_average_data.length; k++)
+		{
+			if(injury_date[i] == moving_average_data[k][0])
+			{
+				//console.log(injury_date[i])
+				holder.push([injury_date[i], moving_average_data[k][1], injury_type[i]])
+			}
+		}
+	}
+
+
+	var holder_rearranged = holder.map((d) => 
+								 {return {x: d[0], y: d[1], z: d[2]}})
+
+	// lines.append("path")
+	//    	 .datum(players_game_data_rearranged)
+	//      .attr("fill", "none")
+	//      .attr("stroke", "steelblue")
+	//      .attr("stroke-width", 1.5)
+	//      .attr("transform", "translate(" + (0) + "," + (pad) + ")")
+	//      .attr("d", d3.line().x(function(d) {return xScale(new Date(d.x))})
+	//    					     .y(function(d) {return yScale(d.y)}));
+
+	lines.append("path")
+   	 	 .datum(moving_average_data_rearranged)
+   	 	 .attr("fill", "none")
+   	 	 .attr("stroke", "gold")
+   	 	 .attr("stroke-width", 1.5)
+   	 	 .attr("transform", "translate(" + (0) + "," + (pad) + ")")
+   	 	 .attr("d", d3.line().x(function(d) {return xScale(new Date(d.x))})
+   					     	 .y(function(d) {return yScale(d.y)}));
+
 	circles.selectAll("null")
-		   .data(injury_data_rearranged, function(d) { return d; })
+		   .data(holder_rearranged, function(d) { return d; })
 		   .enter()
 		   .append("circle")
 		   .attr("fill", "red")
 		   .attr("cx", function(d) {return xScale(new Date(d.x))})
-		   .attr("cy", 50)
+		   .attr("cy", function(d) {return yScale(d.y)})
 		   //.attr("cy", function(d) {return yScale(d.y)})
 		   .attr("class", "circle")
-		   .attr("r", 2)
+		   .attr("r", radius)
 		   .attr("transform", "translate(" + (0) + "," + (pad) + ")")
-		   .attr("id", function(d, i) {return injury_type[i]})
+		   .attr("id", function(d) {return d.z})
 		   .on("mouseover", handleMouseOver)
 		   .on("mouseout", handleMouseOut);
-
-	lines.append("path")
-	   	 .datum(players_game_data_rearranged)
-	     .attr("fill", "none")
-	     .attr("stroke", "steelblue")
-	     .attr("stroke-width", 1.5)
-	     .attr("transform", "translate(" + (0) + "," + (pad) + ")")
-	     .attr("d", d3.line().x(function(d) {return xScale(new Date(d.x))})
-	   					     .y(function(d) {return yScale(d.y)}));
 }
 
 }).catch(function(error) {
