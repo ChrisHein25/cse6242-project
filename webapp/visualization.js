@@ -20,7 +20,7 @@ var player_data_path = "./data/player_clusters_py.csv";
 var nodes_path = "./data/nodes.csv";
 var edges_path = "./data/edges.csv";
 
-// help functions
+// helper functions
 const timeConv = d3.timeParse("%m/%d/%Y")
 
 Promise.all([
@@ -49,10 +49,9 @@ Promise.all([
 
 ]).then(function(data) {
     injury_data = data[0];
-    clustering_data = data[1];
-    nodes = data[2];
-    edges = data[3];
-
+    //clustering_data = data[1];
+    nodes = data[1];
+    edges = data[2];
     ready(nodes, edges, injury_data);
 }).catch(function(err) {
     // handle error here
@@ -67,21 +66,47 @@ function ready(nodes, edges, injury_data) {
     createGraph(nodes, edges, injury_data, options); // with selected inputs build the Graph
 }
 
-function createGraph(nodes, edges, injury_data, options){
+function createGraph(nodes_orig, edges, injury_data, options){
 
-    var links = edges;
-    var nodes = nodes;
+    width = w;
+    height = h;
 
-    var width = chart_width;
-    var height = chart_height;
+    links = edges;
+    //nodes = nodes;
+
+    nodes = {};
+
+    // compute the distinct nodes from the links and initialize degree at 0
+    links.forEach(function(link) {
+      link.source = nodes[link.source] || (nodes[link.source] = {id: link.source, degree: 0});
+      link.target = nodes[link.target] || (nodes[link.target] = {id: link.target, degree: 0});
+    });
+
+    // for each node find how many times it occurs in the links and increment degree
+    maxDegree = 0; // track max degree of set
+    links.forEach(function(link) {
+      // increment degree of both source and target by 1
+      nodes[link.source.id].degree = nodes[link.source.id].degree + 1
+      nodes[link.target.id].degree = nodes[link.target.id].degree + 1
+      if (nodes[link.source.id].degree > maxDegree) {
+        maxDegree = nodes[link.source.id].degree;
+      } else if (nodes[link.target.id].degree > maxDegree) {
+        maxDegree = nodes[link.target.id].degree;
+      }
+    });
+
+    // grab additional node info from input node data
+    for (const [key, value] of Object.entries(nodes)) {
+      nodes[key]['test'] = 'answer' // add
+    }
 
     var force = d3.forceSimulation()
       .nodes(d3.values(nodes))
-      .force("link", d3.forceLink(links).distance(100))
+      .force("link", d3.forceLink(links).distance(1))
       .force('center', d3.forceCenter(width / 2, height / 2))
       .force("x", d3.forceX())
       .force("y", d3.forceY())
-      .force("charge", d3.forceManyBody().strength(-250))
+      .force("charge", d3.forceManyBody().strength(-5))
       .alphaTarget(1)
       .on("tick", tick);
 
@@ -97,18 +122,16 @@ function createGraph(nodes, edges, injury_data, options){
       .data(force.nodes())
       .enter().append("g")
       .attr("class", "node")
-      .call(d3.drag()
-          .on("start", dragstarted)
-          .on("drag", dragged)
-          .on("end", dragended))
+//      .call(d3.drag()
+//          .on("start", dragstarted)
+//          .on("drag", dragged)
+//          .on("end", dragended))
 
     // add the nodes
     node.append("circle")
-      .attr("id", function(d){
-         return (d.name.replace(/\s+/g,'').toLowerCase());
-      })
-      .attr("r", function (d) { return 3 + d.degree * 2 })
-      .attr("fill", function (d) { return "rgb(?, ?, ?)".replaceAll("?", 250 - (d.degree / maxDegree ) * 250) });
+      .attr("id", function(d){ d.id })
+      .attr("r", function (d) { return d.degree })
+      //.attr("fill", function (d) { return "rgb(?, ?, ?)".replaceAll("?", 250 - (d.degree / maxDegree ) * 250) });
 
     // add the curvy lines
     function tick() {
@@ -125,29 +148,9 @@ function createGraph(nodes, edges, injury_data, options){
       });
 
       // add edge styling
-      path.attr("stroke", function (d) {
-        if (d.value === 0) {
-            return "#666"
-        } else {
-            return "#7ED321"
-        }
-      });
-
-      path.attr("stroke-width", function (d) {
-        if (d.value === 0) {
-            return "5px"
-        } else {
-            return "1.5px"
-        }
-      });
-
-      path.attr("stroke-dasharray", function (d) {
-        if (d.value === 0) {
-            return
-        } else {
-            return "4"
-        }
-      });
+      path.attr("stroke", "gray");
+      path.attr("fill", "none");
+      path.attr("stroke-width", "0.5px");
 
       node.attr("transform", function(d) {
           return "translate(" + d.x + "," + d.y + ")";
@@ -156,7 +159,7 @@ function createGraph(nodes, edges, injury_data, options){
     };
 
     // add listener for double click
-    node.selectAll("circle")
+    //node.selectAll("circle")
     //.on("mousedown", function (d) {
     //    console.log(' ')
     //    console.log(' ')
@@ -167,55 +170,48 @@ function createGraph(nodes, edges, injury_data, options){
     //    d.fy = d.y;
     //    console.log('mousedown finished');
     //})
-    .on("dblclick", function (d) {
-        console.log('double click detected');
-        d.fx = null;
-        d.fy = null;
-        d.fixed = false;
-        d3.select(this).attr("fill", "rgb(?, ?, ?)".replaceAll("?", 250 - (d.degree / maxDegree ) * 250));
-        console.log('double click finished');
-    });
-
-    function dragstarted(d) {
-      if (!d3.event.active) force.alphaTarget(0.3).restart();
-      d.fixed = true;
-      d.fx = d.x;
-      d.fy = d.y;
-      d3.select(d3.select(this)._groups[0][0].children[0]).attr("fill", "yellow");
-    };
-
-    function dragged(d) {
-      d.fx = d3.event.x;
-      d.fy = d3.event.y;
-    };
-
-    function dragended(d) {
-      if (!d3.event.active) force.alphaTarget(0);
-      if (d.fixed == true) {
-          d.fx = d.x;
-          d.fy = d.y;
-          console.log('detected that fixed is true')
-      }
-      else {
-          d.fx = null;
-          d.fy = null;
-      }
-    };
+//    .on("dblclick", function (d) {
+//        console.log('double click detected');
+//        d.fx = null;
+//        d.fy = null;
+//        d.fixed = false;
+//        d3.select(this).attr("fill", "rgb(?, ?, ?)".replaceAll("?", 250 - (d.degree / maxDegree ) * 250));
+//        console.log('double click finished');
+//    });
+//
+//    function dragstarted(d) {
+//      if (!d3.event.active) force.alphaTarget(0.3).restart();
+//      d.fixed = true;
+//      d.fx = d.x;
+//      d.fy = d.y;
+//      d3.select(d3.select(this)._groups[0][0].children[0]).attr("fill", "yellow");
+//    };
+//
+//    function dragged(d) {
+//      d.fx = d3.event.x;
+//      d.fy = d3.event.y;
+//    };
+//
+//    function dragended(d) {
+//      if (!d3.event.active) force.alphaTarget(0);
+//      if (d.fixed == true) {
+//          d.fx = d.x;
+//          d.fy = d.y;
+//          console.log('detected that fixed is true')
+//      }
+//      else {
+//          d.fx = null;
+//          d.fy = null;
+//      }
+//    };
 
     // append labels to nodes
-    var labels = node.append("text")
-    .text(function (d) { return d.name; })
-    .attr('x', 10)
-    .attr('y', -10)
-    .attr('font-weight', 'bold')
+//    var labels = node.append("text")
+//    .text(function (d) { return d.name; })
+//    .attr('x', 10)
+//    .attr('y', -10)
+//    .attr('font-weight', 'bold')
 
-    // Add GT username
-    svg.append("text")
-    .attr("id", "credit")
-    .attr("text-anchor", "middle")
-    .attr("x", width-50)
-    .attr("y", 50)
-    .text("chein8");
 
 
 }
