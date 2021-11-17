@@ -27,6 +27,7 @@ class Graph:
         add a tuple (id, name, group) representing a node to self.nodes if it does not already exist
         The graph should not contain any duplicate nodes
         """
+        #TODO create a dictionary input parameter for multiple kwargs rather than avg_min
         #convert to string if not already
         id = str(id)
         group = str(group)
