@@ -27,7 +27,7 @@ class Classifier:
         self.show_plots = show_plots
         self.prints = prints
 
-    def cluster(self):
+    def cluster(self, no_df=False):
 
         # Step 0: Setup
         os.environ["OMP_NUM_THREADS"] = '4'  # set env to avoid kmeans error on Windows machine
@@ -78,7 +78,7 @@ class Classifier:
 
         sse = []
         silhouette_coeffs = []
-        r = range(2, 15)  # evaluate between 2 to 15 playing styles
+        r = range(4, 12)  # evaluate between 4 to 12 playing style groups
         for k in r:
             kmeans = KMeans(n_clusters=k, **kmeans_kwargs)
             kmeans.fit(scaled_features)
@@ -137,5 +137,8 @@ class Classifier:
             # Todo: update this path
             df_final.to_csv("output_data/player_clusters_py.csv", index=False)
 
-        return df_final
+        if no_df:
+            return k_opt, kmeans.inertia_
+        else:
+            return df_final, k_opt, kmeans.inertia_
 

@@ -1,7 +1,14 @@
 from classifier import Classifier
 from build_player_graph import Graph
+from itertools import combinations
+import pandas as pd
+import time
+
 
 if __name__=="__main__":
+
+    start_time = time.time()
+
     possible_stats = [
         "FGM",
         "FGA",  # field goal attempts
@@ -20,66 +27,131 @@ if __name__=="__main__":
         "PTS_FB",  # fast-break points
         "PTS_PAINT"]  # points in the paint
 
+    # exclusion rules are reciprocal (if PTS in combo and FGM in combo do not consider that combo)
     exclusion_rules = {
         "FGM": "PTS",
         "FG3M": "PTS",
         "OREB": "REB",
         "DREB": "REB",
-        "PTS": ["PTS_2ND_CHANCE", "PTS_FB", "PTS_PAINT"]
+        "PTS": ["PTS_2ND_CHANCE", "PTS_FB", "PTS_PAINT"]  # if pts is present, then pts_2nd_chance, etc cannot be and visa versa
     }
 
+    # inclusion rules are not reciprocal (if FGM and FG3M in combo but not PTS_2ND_CHANCE that is okay)
     inclusion_rules = {
         "PTS_2ND_CHANCE": ["FGM", "FG3M"],  # both FGM and FG3M must be present to include pts_2nd_chance
         "PTS_FB": ["FGM", "FG3M"],
         "PTS_PAINT": ["FGM", "FG3M"]
     }
 
-    # TODO: build out all the combinations making sure each combo adheres to rules
+    min_num_stats_considered = 8
+    combos_to_check = []
 
-    # TODO: run all the clustering combos
+    def check_exclusion_rules(combo, exclusion_rules):
+        for key, value in exclusion_rules.items():
+            if key in combo:
+                if isinstance(value, list):
+                    for item in value:
+                        if item in combo:
+                            return False
+                else:
+                    if value in combo:
+                        return False
+            if isinstance(value, list):
+                for item in value:
+                    if item in combo:
+                        if key in combo:
+                            return False
+            else:
+                if value in combo:
+                    if key in combo:
+                        return False
+        return True
+
+    def check_inclusion_rules(combo, inclusion_rules):
+        # only checking for keys in inclusion rules, could have any combo of values and be okay even if key is not there
+        for key, value in inclusion_rules.items():
+            if key in combo:
+                if isinstance(value, list):
+                    for item in value:
+                        if item not in combo:
+                            return False
+                else:
+                    if value not in combo:
+                        return False
+            # if isinstance(value, list):
+            #     for item in value:
+            #         if item in combo:
+            #             if key not in combo:
+            #                 return False
+            # elif value in combo:
+            #     if key not in combo:
+            #         return False
+        return True
+
+    for i in range(min_num_stats_considered, len(possible_stats)):
+        for combo in combinations(possible_stats, i):  # 2 for pairs, 3 for triplets, etc
+            if check_exclusion_rules(combo, exclusion_rules) and check_inclusion_rules(combo, inclusion_rules):
+                combos_to_check.append(combo)
+
+    # run the DOE for all combinations deemed okay to check by the rules
+    csv_path = "C:/Users/212761772/Box/MyBox/Georgia Tech/Fall 2021/CSE6242/Project/external/full_game_df.csv"
+
+    res_df = pd.DataFrame(columns=['combo', 'k', 'inertia'])
+    for i, combo in enumerate(combos_to_check):
+        print('Checking {}/{} combinations'.format(str(i+1), str(len(combos_to_check))))
+        grouping_factors = list(combo)  # convert to list for function
+        cl = Classifier(csv_path, grouping_factors, write_csv=False, prints=False)
+        k_opt, inertia = cl.cluster(no_df=True)
+        row = {'combo': grouping_factors, 'k': k_opt, 'inertia': inertia}
+        res_df = res_df.append(row, ignore_index=True)
+
+    end_time = time.time()
+    print('Finished. Code took {} seconds.'.format(str(end_time-start_time)))
+
+    print('done')
 
     # TODO: manually down-select
 
-
-
-    # example usage
-    csv_path = "C:/Users/212761772/Box/MyBox/Georgia Tech/Fall 2021/CSE6242/Project/external/full_game_df.csv"
-    grouping_factors = ["FGA", "FG3A", "FTA", "REB", "AST", "PTS"]  # ['PCT_FGA_2PT', 'PCT_FGA_3PT', 'PTS_PAINT', 'PTS_2ND_CHANCE','PTS_FB', 'OREB', 'DREB', 'STL', 'BLK', 'AST', 'TOV'] #["FGA", "FG3A", "FTA", "REB", "AST", "PTS"]
-
-    cl = Classifier(csv_path, grouping_factors, write_csv=False, prints=True)
-    clustered_df = cl.cluster()
-
-    # initialize Graph object
-    graph = Graph()
-
-    df = clustered_df
-
-    # iterate through all players, adding each's 3 nodes and edges
-    for index, row in df.iterrows():
-        player = row['PLAYER_NAME']
-        name_1 = df[df['ID'] == row['id1']]['PLAYER_NAME'].values[0]
-        group_1 = df[df['ID'] == row['id1']]['group'].values[0]
-        min_1 = df[df['ID'] == row['id1']]['MIN'].values[0]
-        name_2 = df[df['ID'] == row['id2']]['PLAYER_NAME'].values[0]
-        group_2 = df[df['ID'] == row['id3']]['group'].values[0]
-        min_2 = df[df['ID'] == row['id2']]['MIN'].values[0]
-        name_3 = df[df['ID'] == row['id3']]['PLAYER_NAME'].values[0]
-        group_3 = df[df['ID'] == row['id3']]['group'].values[0]
-        min_3 = df[df['ID'] == row['id3']]['MIN'].values[0]
-
-        # add nodes
-        graph.add_node(row['ID'], row['PLAYER_NAME'], row['group'], row['MIN'])  # add player himself
-        graph.add_node(row['id1'], name_1, group_1, min_1)  # add player neighbor 1
-        graph.add_node(row['id2'], name_2, group_2, min_2)  # add player neighbor 2
-        graph.add_node(row['id3'], name_3, group_3, min_3)  # add player neighbor 3
-
-        # add edges
-        graph.add_edge(row['ID'], row['id1'])
-        graph.add_edge(row['ID'], row['id2'])
-        graph.add_edge(row['ID'], row['id3'])
-
-    #graph.write_nodes_file("output_data/nodes.csv")
-    #graph.write_edges_file("output_data/edges.csv")
-
-    print('done')
+    #
+    #
+    # # example usage and building of Graph
+    # csv_path = "C:/Users/212761772/Box/MyBox/Georgia Tech/Fall 2021/CSE6242/Project/external/full_game_df.csv"
+    # grouping_factors = ["FGA", "FG3A", "FTA", "REB", "AST", "PTS"]  # ['PCT_FGA_2PT', 'PCT_FGA_3PT', 'PTS_PAINT', 'PTS_2ND_CHANCE','PTS_FB', 'OREB', 'DREB', 'STL', 'BLK', 'AST', 'TOV'] #["FGA", "FG3A", "FTA", "REB", "AST", "PTS"]
+    #
+    # cl = Classifier(csv_path, grouping_factors, write_csv=False, prints=True)
+    # clustered_df = cl.cluster()
+    #
+    # # initialize Graph object
+    # graph = Graph()
+    #
+    # df = clustered_df
+    #
+    # # iterate through all players, adding each's 3 nodes and edges
+    # for index, row in df.iterrows():
+    #     player = row['PLAYER_NAME']
+    #     name_1 = df[df['ID'] == row['id1']]['PLAYER_NAME'].values[0]
+    #     group_1 = df[df['ID'] == row['id1']]['group'].values[0]
+    #     min_1 = df[df['ID'] == row['id1']]['MIN'].values[0]
+    #     name_2 = df[df['ID'] == row['id2']]['PLAYER_NAME'].values[0]
+    #     group_2 = df[df['ID'] == row['id3']]['group'].values[0]
+    #     min_2 = df[df['ID'] == row['id2']]['MIN'].values[0]
+    #     name_3 = df[df['ID'] == row['id3']]['PLAYER_NAME'].values[0]
+    #     group_3 = df[df['ID'] == row['id3']]['group'].values[0]
+    #     min_3 = df[df['ID'] == row['id3']]['MIN'].values[0]
+    #
+    #     # add nodes
+    #     graph.add_node(row['ID'], row['PLAYER_NAME'], row['group'], row['MIN'])  # add player himself
+    #     graph.add_node(row['id1'], name_1, group_1, min_1)  # add player neighbor 1
+    #     graph.add_node(row['id2'], name_2, group_2, min_2)  # add player neighbor 2
+    #     graph.add_node(row['id3'], name_3, group_3, min_3)  # add player neighbor 3
+    #
+    #     # add edges
+    #     graph.add_edge(row['ID'], row['id1'])
+    #     graph.add_edge(row['ID'], row['id2'])
+    #     graph.add_edge(row['ID'], row['id3'])
+    #
+    # #graph.write_nodes_file("output_data/nodes.csv")
+    # #graph.write_edges_file("output_data/edges.csv")
+    #
+    # print('done')
 
