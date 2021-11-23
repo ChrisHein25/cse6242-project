@@ -2,6 +2,46 @@ from classifier import Classifier
 from build_player_graph import Graph
 
 if __name__=="__main__":
+    possible_stats = [
+        "FGM",
+        "FGA",  # field goal attempts
+        "FG3M",
+        "FG3A",  # 3 point attempts
+        "OREB",
+        "DREB",
+        "REB",
+        "AST",
+        "STL",
+        "BLK",
+        #"PF",  # fouls given
+        "PFD",  # personal fouls drawn
+        "PTS",
+        "PTS_2ND_CHANCE",
+        "PTS_FB",  # fast-break points
+        "PTS_PAINT"]  # points in the paint
+
+    exclusion_rules = {
+        "FGM": "PTS",
+        "FG3M": "PTS",
+        "OREB": "REB",
+        "DREB": "REB",
+        "PTS": ["PTS_2ND_CHANCE", "PTS_FB", "PTS_PAINT"]
+    }
+
+    inclusion_rules = {
+        "PTS_2ND_CHANCE": ["FGM", "FG3M"],  # both FGM and FG3M must be present to include pts_2nd_chance
+        "PTS_FB": ["FGM", "FG3M"],
+        "PTS_PAINT": ["FGM", "FG3M"]
+    }
+
+    # TODO: build out all the combinations making sure each combo adheres to rules
+
+    # TODO: run all the clustering combos
+
+    # TODO: manually down-select
+
+
+
     # example usage
     csv_path = "C:/Users/212761772/Box/MyBox/Georgia Tech/Fall 2021/CSE6242/Project/external/full_game_df.csv"
     grouping_factors = ["FGA", "FG3A", "FTA", "REB", "AST", "PTS"]  # ['PCT_FGA_2PT', 'PCT_FGA_3PT', 'PTS_PAINT', 'PTS_2ND_CHANCE','PTS_FB', 'OREB', 'DREB', 'STL', 'BLK', 'AST', 'TOV'] #["FGA", "FG3A", "FTA", "REB", "AST", "PTS"]

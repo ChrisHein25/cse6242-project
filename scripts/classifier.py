@@ -10,7 +10,7 @@ import os
 
 
 class Classifier:
-    def __init__(self, csv_path=None, grouping_factors=None, min_games_played=10, pt_drop_setpoint=10, n_neighbors=3, write_csv=True, show_plots=False, prints=False):
+    def __init__(self, csv_path=None, grouping_factors=None, norm_knn_by_min=True, min_games_played=10, pt_drop_setpoint=10, n_neighbors=3, write_csv=True, show_plots=False, prints=False):
         if isinstance(csv_path, type(None)) or isinstance(csv_path, type(None)):
             raise Exception('Please make sure csv_path and grouping_factors are specified.')
 
@@ -22,6 +22,7 @@ class Classifier:
         self.PT_drop_setpoint = pt_drop_setpoint  # default to dropping players with less than 10 min avg playing time
         self.min_games_played = min_games_played  # default to a minimum of X games played
         self.n_neighbors = n_neighbors  # number of neighbors for knn
+        self.norm_knn_by_min = norm_knn_by_min
         self.write_csv = write_csv
         self.show_plots = show_plots
         self.prints = prints
@@ -104,9 +105,11 @@ class Classifier:
         kl = KneeLocator(r, sse, curve="convex", direction="decreasing")
         k_opt = kl.elbow
 
-
         kmeans = KMeans(n_clusters=k_opt, **kmeans_kwargs)
         kmeans.fit(scaled_features)
+
+        # TODO: build out the option to NOT normalize by minutes
+        # if self.norm_knn_by_min: do some stuff
         # get nearest neighbors to use in Graph (+1 because it'll also match itself too)
         nbrs = NearestNeighbors(n_neighbors=self.n_neighbors+1, algorithm='auto').fit(scaled_features)
         distances, indices = nbrs.kneighbors(scaled_features)
