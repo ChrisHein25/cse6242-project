@@ -102,11 +102,24 @@ class Classifier:
             plt.show()
 
         # use optimum k from Elbow Method
-        kl = KneeLocator(r, sse, curve="convex", direction="decreasing")
-        k_opt = kl.elbow
+        detectedKnee = True
+        try:
+            kl = KneeLocator(r, sse, curve="convex", direction="decreasing")
+            k_opt = kl.elbow
 
-        kmeans = KMeans(n_clusters=k_opt, **kmeans_kwargs)
-        kmeans.fit(scaled_features)
+            kmeans = KMeans(n_clusters=k_opt, **kmeans_kwargs)
+            kmeans.fit(scaled_features)
+
+        except Exception as e:
+            print(e.args[0])
+            print('Error in kmeans fitting. Possibly did not converge. Returning 1 for grouping.')
+            k_opt = 1
+            sse = 9999999999
+            df = pd.DataFrame()  #empty df
+            if no_df:
+                return k_opt, sse
+            else:
+                return df, k_opt, sse
 
         # TODO: build out the option to NOT normalize by minutes
         # if self.norm_knn_by_min: do some stuff
