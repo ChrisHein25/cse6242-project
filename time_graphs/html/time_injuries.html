@@ -99,10 +99,35 @@ function movingAverage(mappedDataIn, day)
 
 	return day_moving_average
 }
+
+function countInjuries(injury_type)
+{
+	var injuries = {}
+	var list_of_injuries = []
+
+	for (let i = 0; i < injury_type.length; i++)
+	{
+		if (injury_type[i] in injuries)
+		{
+			injuries[injury_type[i]]++
+		}
+		else
+		{
+			injuries[injury_type[i]] = 1
+		}
+	}
+
+	for (const [key, value] of Object.entries(injuries)) 
+	{
+  		list_of_injuries.push([key, value])
+	}
+
+	return list_of_injuries
+}
 ////////////////////// end: helper functions /////////////////////////
 
 // import injury data
-d3.dsv(",", "injuries_open_refine.csv", function(d) 
+d3.dsv(",", "injuries.csv", function(d) 
 { return {
 	date : d["Date"],
 	team : d["Team"],
@@ -114,7 +139,7 @@ d3.dsv(",", "injuries_open_refine.csv", function(d)
 {
 
 // import game data
-d3.dsv(",", "gamedatatest.csv", function(d) 
+d3.dsv(",", "gamedatatest2.csv", function(d) 
 { return {
 	name : d["PLAYER_NAME"],
 	date : d["GAME_DATE"],
@@ -209,7 +234,7 @@ d3.select("#playerSelectButton").on("change", function(d)
 {
 	var selectedPlayerOption = playerSelect.property("value")
 	var selectedParameterOption = parameterSelect.property("value")
-	update(selectedPlayerOption, selectedParameterOption)
+	update_graph(selectedPlayerOption, selectedParameterOption)
 })
 
 // when the user selects a new paramter, update the chart
@@ -217,7 +242,7 @@ d3.select("#parameterSelectButton").on("change", function(d)
 {
 	var selectedPlayerOption = playerSelect.property("value")
 	var selectedParameterOption = parameterSelect.property("value")
-	update(selectedPlayerOption, selectedParameterOption)
+	update_graph(selectedPlayerOption, selectedParameterOption)
 })
 
 // initialize the graph with player data vs injuries
@@ -266,6 +291,8 @@ for (let i = 0; i < injury_nest.length; i++)
 	}
 }
 
+list_of_injuries = countInjuries(injury_type)
+
 var holder = []
 for (let i = 0; i < injury_date.length; i++)
 {
@@ -273,7 +300,6 @@ for (let i = 0; i < injury_date.length; i++)
 	{
 		if(injury_date[i] == moving_average_data[k][0])
 		{
-			//console.log(injury_date[i])
 			holder.push([injury_date[i], moving_average_data[k][1], injury_type[i]])
 		}
 	}
@@ -384,6 +410,253 @@ circles.selectAll("null")
 	   .on("mouseover", handleMouseOver)
 	   .on("mouseout", handleMouseOut);
 
+
+////////////////////////////////////////////// BODY CREATION ////////////////////////////////////////////////////
+        var margin = {top:100, right: 160, bottom: 100, left: 70},
+        width = 1200 - margin.right - margin.left,
+        height = 700 - margin.top - margin.bottom;
+
+        var svg_body = d3.select("body")
+        .append("svg")
+        .attr("id", "svg_body")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom);
+
+        svg_body.append("svg_body:image")
+        .attr('x', 0)
+        .attr('y', 0)
+        .attr('width', 500)
+        .attr('height', 700)
+        .attr("xlink:href", "LeBron.PNG")
+
+        // var list_of_injuries = [["right foot", 10],
+        //     ["right knee", 14],
+        //     ["right leg", 20],
+        //     ["back", 31],
+        //     ["right hand", 2],
+        //     ["right shoulder", 6],
+        //     ["right hip", 18],
+        //     ["right arm", 16],
+        //     ["left foot", 20],
+        //     ["left knee", 18],
+        //     ["left leg", 9],
+        //     ["left hand", 14],
+        //     ["left shoulder", 36],
+        //     ["left hip", 28],
+        //     ["left arm", 4],
+        //     ["chest", 21],
+        //     ["head", 31],
+        //     ["groin", 5],
+        //     ["other", 40],
+        //     ["neck", 10],
+        //     ["rest", 12],
+        //     ["activated from IL", 31],
+        //     ["placed on IL", 15],
+        //     ["returned to lineup", 10],
+        //     ["infection/illness/virus", 31],
+        //     ["N/A", 2]]
+
+        var non_body_index = []
+
+        var total_injuries = 0;
+        var idx = 0;
+
+        var index_domain = []
+        var colorRange = ["#1a96e3","#feb426","#d55533","#180d33","#07a876","#b6e280","#254f28","#885425","#3725e7","#0fb176","#d8b8d6","#78f0bb","#26637a","#3fbb38","#f7922d","#6d21ca",
+                "#422ab7","#0ec171","#52c7cd","#976689","#c587f3","#da386f","#e272e1","#a7536d","#8f56eb","#9f4391","#4f8ae3","#f75fd8","#762bb4","#43c80a","#7e58fe","#684fb2","#6d1bd8"]
+
+        for(idx=0;idx<list_of_injuries.length;idx++) {
+            total_injuries += list_of_injuries[idx][1];
+            index_domain.push(idx);
+        }
+
+        var colorScheme = d3.scaleOrdinal().domain(index_domain).range(colorRange);
+
+        var circles_body = svg_body.selectAll("circle")
+        .data(list_of_injuries)
+        .enter()
+        .append("circle");
+
+        circles_body.attr("cx", function(d, i) {
+            if(d[0].includes("right foot")) {
+                non_body_index.push(i);
+                return 300;
+            }
+            if(d[0].includes("left foot")) {
+                non_body_index.push(i);
+                return 170;
+            }
+            if(d[0].includes("right knee")) {
+                return 295;
+                non_body_index.push(i);
+            }
+            if(d[0].includes("left knee")) {
+                non_body_index.push(i);
+                return 190;
+            }
+            if(d[0].includes("right leg")) {
+                non_body_index.push(i);
+                return 295;
+            }
+            if(d[0].includes("left leg")) {
+                non_body_index.push(i);
+                return 185;
+            }
+            if(d[0].includes("right hip")) {
+                non_body_index.push(i);
+                return 290;
+            }
+            if(d[0].includes("left hip")) {
+                non_body_index.push(i);
+                return 220;
+            }
+            if(d[0].includes("right arm")) {
+                non_body_index.push(i);
+                return 350;
+            }
+            if(d[0].includes("left arm")) {
+                non_body_index.push(i);
+                return 150;
+            }
+            if(d[0].includes("right hand")) {
+                non_body_index.push(i);
+                return 360;
+            }
+            if(d[0].includes("left hand")) {
+                non_body_index.push(i);
+                return 150;
+            }
+            if(d[0].includes("right shoulder")) {
+                non_body_index.push(i);
+                return 330;
+            }
+            if(d[0].includes("left shoulder")) {
+                non_body_index.push(i);
+                return 170;
+            }
+            if(d[0].includes("back")) {
+                non_body_index.push(i);
+                return 252;
+            }
+            if(d[0].includes("chest")) {
+                non_body_index.push(i);
+                return 252;
+            }
+            if(d[0].includes("head")) {
+                non_body_index.push(i);
+                return 252;
+            }
+            if(d[0].includes("groin")) {
+                non_body_index.push(i);
+                return 252;
+            }
+            if(d[0].includes("neck")) {
+                non_body_index.push(i);
+                return 252;
+            }
+            
+            return -100
+        })
+       .attr("cy", function(d,i) {
+            if(d[0].includes("right foot")) {
+                return 650;
+            }
+            if(d[0].includes("left foot")) {
+                return 650;
+            }
+            if(d[0].includes("right knee")) {
+                return 500;
+            }
+            if(d[0].includes("left knee")) {
+                return 500;
+            }
+            if(d[0].includes("right leg")) {
+                return 575;
+            }
+            if(d[0].includes("left leg")) {
+                return 575;
+            }
+            if(d[0].includes("right hip")) {
+                return 340;
+            }
+            if(d[0].includes("left hip")) {
+                return 340;
+            }
+            if(d[0].includes("right arm")) {
+                return 270;
+            }
+            if(d[0].includes("left arm")) {
+                return 270;
+            }
+            if(d[0].includes("right hand")) {
+                return 390;
+            }
+            if(d[0].includes("left hand")) {
+                return 390;
+            }
+            if(d[0].includes("right shoulder")) {
+                return 160;
+            }
+            if(d[0].includes("left shoulder")) {
+                return 160;
+            }
+            if(d[0].includes("back")) {
+                return 260;
+            }
+            if(d[0].includes("chest")) {
+                return 190;
+            }
+            if(d[0].includes("head")) {
+                return 70;
+            }
+            if(d[0].includes("groin")) {
+                return 380;
+            }
+            if(d[0].includes("neck")) {
+                return 130;
+            }
+            return height/2;
+        })
+        .attr("r", function(d) {
+           
+            return d[1]/total_injuries*100*2.5;
+        })
+        .attr("fill", function(d,i) {
+           
+           return colorScheme(i);
+       })
+        
+
+        svg_body.append("g")
+        .attr("id","legend")
+        .attr("transform","translate(" + margin.left + "," + margin.top + ")");
+
+        var legend = d3.select("#legend");
+
+        for(let i=0;i<list_of_injuries.length;i++) {
+            legend.append("rect")
+            .attr("width",10)
+            .attr("height",10)
+            .attr("x",400)
+            .attr("y",100 + i*15)
+            .style("fill",colorScheme(i))
+            //console.log(colorScheme(i));
+
+            legend.append("text")
+            .attr("x", 415)
+            .attr("y",100 + i*15 + 10)
+            .style("color",colorScheme(i))
+            .text(list_of_injuries[i][0]);
+
+            legend.append("text")
+            .attr("x", 355)
+            .attr("y",100 + i*15 + 10)
+            .style("color",colorScheme(i))
+            .text((list_of_injuries[i][1]/total_injuries*100).toFixed(2) + "%");
+        }
+
+////////////////////////////////////////////// BODY CREATION ////////////////////////////////////////////////////
+
 // hover over
 function handleMouseOver(d, i) 
 {
@@ -412,7 +685,7 @@ function handleMouseOut(d, i)
 }
 
 // update graph based on selected player or parameter
-function update(selectPlayer, selectParameter)
+function update_graph(selectPlayer, selectParameter)
 {
 	var setName = selectPlayer
 	var setParameter = selectParameter
@@ -446,6 +719,8 @@ function update(selectPlayer, selectParameter)
 			}
 		}
 	}
+
+	list_of_injuries = countInjuries(injury_type)
 
 	// remove existing circles and lines
 	d3.select("#circles").remove();
@@ -574,6 +849,255 @@ function update(selectPlayer, selectParameter)
 		   .attr("id", function(d) {return d.z})
 		   .on("mouseover", handleMouseOver)
 		   .on("mouseout", handleMouseOut);
+
+	update_body(list_of_injuries)
+}
+
+// update body based on updated list of injuries
+function update_body(list_of_injuries)
+{
+
+	d3.select("#svg_body").remove();
+	d3.select("#legend").remove();
+
+        var svg_body = d3.select("body")
+        .append("svg")
+        .attr("id", "svg_body")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom);
+
+        svg_body.append("svg_body:image")
+        .attr('x', 0)
+        .attr('y', 0)
+        .attr('width', 500)
+        .attr('height', 700)
+        .attr("xlink:href", "LeBron.PNG")
+
+        // var list_of_injuries = [["right foot", 10],
+        //     ["right knee", 14],
+        //     ["right leg", 20],
+        //     ["back", 31],
+        //     ["right hand", 2],
+        //     ["right shoulder", 6],
+        //     ["right hip", 18],
+        //     ["right arm", 16],
+        //     ["left foot", 20],
+        //     ["left knee", 18],
+        //     ["left leg", 9],
+        //     ["left hand", 14],
+        //     ["left shoulder", 36],
+        //     ["left hip", 28],
+        //     ["left arm", 4],
+        //     ["chest", 21],
+        //     ["head", 31],
+        //     ["groin", 5],
+        //     ["other", 40],
+        //     ["neck", 10],
+        //     ["rest", 12],
+        //     ["activated from IL", 31],
+        //     ["placed on IL", 15],
+        //     ["returned to lineup", 10],
+        //     ["infection/illness/virus", 31],
+        //     ["N/A", 2]]
+
+        var non_body_index = []
+
+        var total_injuries = 0;
+        var idx = 0;
+
+        var index_domain = []
+        var colorRange = ["#1a96e3","#feb426","#d55533","#180d33","#07a876","#b6e280","#254f28","#885425","#3725e7","#0fb176","#d8b8d6","#78f0bb","#26637a","#3fbb38","#f7922d","#6d21ca",
+                "#422ab7","#0ec171","#52c7cd","#976689","#c587f3","#da386f","#e272e1","#a7536d","#8f56eb","#9f4391","#4f8ae3","#f75fd8","#762bb4","#43c80a","#7e58fe","#684fb2","#6d1bd8"]
+
+        for(idx=0;idx<list_of_injuries.length;idx++) {
+            total_injuries += list_of_injuries[idx][1];
+            index_domain.push(idx);
+        }
+
+        var colorScheme = d3.scaleOrdinal().domain(index_domain).range(colorRange);
+
+        var circles_body = svg_body.selectAll("circle")
+        .data(list_of_injuries)
+        .enter()
+        .append("circle");
+
+        circles_body.attr("cx", function(d, i) {
+            if(d[0].includes("right foot")) {
+                non_body_index.push(i);
+                return 300;
+            }
+            if(d[0].includes("left foot")) {
+                non_body_index.push(i);
+                return 170;
+            }
+            if(d[0].includes("right knee")) {
+                return 295;
+                non_body_index.push(i);
+            }
+            if(d[0].includes("left knee")) {
+                non_body_index.push(i);
+                return 190;
+            }
+            if(d[0].includes("right leg")) {
+                non_body_index.push(i);
+                return 295;
+            }
+            if(d[0].includes("left leg")) {
+                non_body_index.push(i);
+                return 185;
+            }
+            if(d[0].includes("right hip")) {
+                non_body_index.push(i);
+                return 290;
+            }
+            if(d[0].includes("left hip")) {
+                non_body_index.push(i);
+                return 220;
+            }
+            if(d[0].includes("right arm")) {
+                non_body_index.push(i);
+                return 350;
+            }
+            if(d[0].includes("left arm")) {
+                non_body_index.push(i);
+                return 150;
+            }
+            if(d[0].includes("right hand")) {
+                non_body_index.push(i);
+                return 360;
+            }
+            if(d[0].includes("left hand")) {
+                non_body_index.push(i);
+                return 150;
+            }
+            if(d[0].includes("right shoulder")) {
+                non_body_index.push(i);
+                return 330;
+            }
+            if(d[0].includes("left shoulder")) {
+                non_body_index.push(i);
+                return 170;
+            }
+            if(d[0].includes("back")) {
+                non_body_index.push(i);
+                return 252;
+            }
+            if(d[0].includes("chest")) {
+                non_body_index.push(i);
+                return 252;
+            }
+            if(d[0].includes("head")) {
+                non_body_index.push(i);
+                return 252;
+            }
+            if(d[0].includes("groin")) {
+                non_body_index.push(i);
+                return 252;
+            }
+            if(d[0].includes("neck")) {
+                non_body_index.push(i);
+                return 252;
+            }
+            
+            return -100
+        })
+       .attr("cy", function(d,i) {
+            if(d[0].includes("right foot")) {
+                return 650;
+            }
+            if(d[0].includes("left foot")) {
+                return 650;
+            }
+            if(d[0].includes("right knee")) {
+                return 500;
+            }
+            if(d[0].includes("left knee")) {
+                return 500;
+            }
+            if(d[0].includes("right leg")) {
+                return 575;
+            }
+            if(d[0].includes("left leg")) {
+                return 575;
+            }
+            if(d[0].includes("right hip")) {
+                return 340;
+            }
+            if(d[0].includes("left hip")) {
+                return 340;
+            }
+            if(d[0].includes("right arm")) {
+                return 270;
+            }
+            if(d[0].includes("left arm")) {
+                return 270;
+            }
+            if(d[0].includes("right hand")) {
+                return 390;
+            }
+            if(d[0].includes("left hand")) {
+                return 390;
+            }
+            if(d[0].includes("right shoulder")) {
+                return 160;
+            }
+            if(d[0].includes("left shoulder")) {
+                return 160;
+            }
+            if(d[0].includes("back")) {
+                return 260;
+            }
+            if(d[0].includes("chest")) {
+                return 190;
+            }
+            if(d[0].includes("head")) {
+                return 70;
+            }
+            if(d[0].includes("groin")) {
+                return 380;
+            }
+            if(d[0].includes("neck")) {
+                return 130;
+            }
+            return height/2;
+        })
+        .attr("r", function(d) {
+           
+            return d[1]/total_injuries*100*2.5;
+        })
+        .attr("fill", function(d,i) {
+           
+           return colorScheme(i);
+       })
+        
+
+        svg_body.append("g")
+        .attr("id","legend")
+        .attr("transform","translate(" + margin.left + "," + margin.top + ")");
+
+        var legend = d3.select("#legend");
+
+        for(let i=0;i<list_of_injuries.length;i++) {
+            legend.append("rect")
+            .attr("width",10)
+            .attr("height",10)
+            .attr("x",400)
+            .attr("y",100 + i*15)
+            .style("fill",colorScheme(i))
+            //console.log(colorScheme(i));
+
+            legend.append("text")
+            .attr("x", 415)
+            .attr("y",100 + i*15 + 10)
+            .style("color",colorScheme(i))
+            .text(list_of_injuries[i][0]);
+
+            legend.append("text")
+            .attr("x", 355)
+            .attr("y",100 + i*15 + 10)
+            .style("color",colorScheme(i))
+            .text((list_of_injuries[i][1]/total_injuries*100).toFixed(2) + "%");
+        }
 }
 
 }).catch(function(error) {
