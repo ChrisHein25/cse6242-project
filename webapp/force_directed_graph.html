@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script type="text/javascript" src="d3.v5.min.js"></script>
+<style>
+
+path.link {
+  fill: none;
+  stroke: #666;
+  stroke-width: 1.5px;
+}
+
+circle {
+  fill: #ccc;
+  stroke: #fff;
+  stroke: black;
+  stroke-width: 1.5px;
+}
+
+text {
+  fill: #000;
+  font: 10px sans-serif;
+  pointer-events: none;
+}
+
+</style>
+<head>
+<script type="text/javascript" src="d3.v5.min.js"></script>
+<title></title></head>
+<body>
+<script>
+
+Promise.all([
+    d3.csv("nodes.csv", function (d) {
+        return {
+            // format data attributes
+            id: parseInt(d["id"]),
+            name: String(d["name"]).trim(),
+            group: parseInt(d["group"]),
+            avg_min: parseFloat(d["avg_min"])
+        }
+
+    }),
+    d3.csv("edges.csv", function (d) {
+        return {
+            // format data attributes
+            source: parseInt(d["source"]),
+            target: parseInt(d["target"])
+        }
+    })
+
+]).then(function(data) {
+
+  nodes = data[0];
+  edges = data[1];
+
+
+
+var links = edges;
+var nodes_1=nodes
+var nodes = {};
+
+var number_grouping=[]
+
+
+
+    nodes_1.forEach(function(node) {
+      number_grouping.push(node.group)
+  });
+number_grouping=number_grouping.sort();
+var number_groups=d3.set(number_grouping).values();
+
+var splits=(width-100)/number_groups.length
+var distances=[]
+number_groups.forEach(function(elem){
+    distances.push(number_groups.indexOf(elem)*200+400)
+})
+
+
+
+  links.forEach(function(link) {
+      link.source = nodes[link.source] || (nodes[link.source] = {id: link.source});
+      link.target = nodes[link.target] || (nodes[link.target] = {id: link.target});
+  });
+  
+    links.forEach(function(link) {
+    var result = nodes_1.filter(function(node) {
+        return link.source.id === node.id;
+    });
+    link.source.player_name = (result[0] !== undefined) ? result[0].name : null;
+    link.source.group = (result[0] !== undefined) ? result[0].group : null;
+    link.source.avg_time = (result[0] !== undefined) ? result[0].avg_min : null;
+  });
+
+  links.forEach(function(link) {
+    var result1 = nodes_1.filter(function(node) {
+        return link.target.id === node.id;
+    });
+    link.target.player_name = (result1[0] !== undefined) ? result1[0].name : null;
+    link.target.group = (result1[0] !== undefined) ? result1[0].group : null;
+    link.target.avg_time = (result1[0] !== undefined) ? result1[0].avg_min : null;
+  });
+
+
+  links.forEach(function(link) {
+    var result1 = nodes_1.filter(function(node) {
+        return link.target.id === node.id;
+    });
+    link.target.player_name = (result1[0] !== undefined) ? result1[0].name : null;
+    link.target.group = (result1[0] !== undefined) ? result1[0].group : null;
+    link.target.avg_time = (result1[0] !== undefined) ? result1[0].avg_min : null;
+  });
+
+  links.forEach(function(link) {
+    if(link.source.group === link.target.group)
+                  {
+                    link.attraction= 100
+                  }
+                  else{
+                    link.attraction=-400
+                  }  
+  });
+
+  var width = 2500,
+      height =1500;
+/*
+var x = d3.scaleOrdinal()
+  .domain([0, 1, 2, 3, 4])
+  .range([400, 600, 800 ,1000,1200])
+*/
+var x = d3.scaleOrdinal()
+  .domain(number_groups)
+  .range(distances)
+
+
+var y = d3.scaleOrdinal()
+  .domain(number_groups)
+  .range(distances)
+//  .range([50, 200, 340, 440 ,540])
+
+  var minimum_Degree = d3.min(
+  d3.values(nodes), function(d)
+  {
+    return d.degree; 
+  }
+  );
+
+  var maximum_Degree =
+  d3.max(
+  d3.values(nodes), function(d)
+  { 
+  return d.degree; 
+  }
+  );
+
+  var minimum_avg_time = 
+  d3.min(
+  d3.values(nodes_1), function(d)
+  {
+    return d.avg_min; 
+  }
+  );
+
+  var maximum_avg_time =
+  d3.max(
+  d3.values(nodes_1), function(d)
+  { 
+  return d.avg_min; 
+  }
+  );
+/*
+  var nodescale_avg = d3.scaleSqrt()
+  .domain( [minimum_avg_time, maximum_avg_time] )
+  .range( [10, 20] );
+*/  
+
+  var nodescale_avg = d3.scaleLog()
+  .domain( [minimum_avg_time, maximum_avg_time] )
+  .range([10, 30]);
+
+
+  var force = d3.forceSimulation()
+      .nodes(d3.values(nodes))
+      .force("link", d3.forceLink(links).distance(100))
+      .force('center', d3.forceCenter(1200, height / 2))
+  //    .force("center", d3.forceCenter().x(width).y(height / 2))
+    //  .force("x", d3.forceX())
+    //  .force("y", d3.forceY())
+      .force("x", d3.forceX().strength(0.5).x( function(d){ return x(d.group) } ))
+  //    .force("x", d3.forceX().x( function(d){ return x(d.group) } ))
+ //     .force("y", d3.forceX().strength(0.5).y( function(d){ return y(d.group) } ))
+      .force("y", d3.forceY().strength(0.8).y( height/2 ))
+      .force("charge", d3.forceManyBody().strength(-150))
+  //    .force("collide", d3.forceCollide().strength(.1).radius(32).iterations(1))
+      .force("collide", d3.forceCollide().strength(0.1).radius((d) => nodescale_avg(d.avg_time) ).iterations(1))
+      .alphaTarget(1)
+      .on("tick", tick);
+
+      console.log(links)
+
+  var svg = d3.select("body").append("svg")
+      .attr("width", width)
+      .attr("height", height);
+
+  // add the links
+  var path = svg.append("g")
+      .selectAll("path")
+      .data(links)
+      .enter()
+      .append("path")
+      .attr("class", function(d) { return "link " + d.type; })
+      .style('opacity', 0);
+      //giving color and dashes to the links based on their value
+   //   .style("stroke-dasharray", function(d){ 
+   //       if(d.value == 1) 
+   //         {return "4,4"} 
+   //   })
+   //   .style("stroke",function(d){
+   //       if(d.value == 1)
+   //         {return "green"}
+   //       else
+   //         {return "grey"}
+   //   })
+
+
+
+
+
+
+  // define the nodes
+  var node = svg
+      .selectAll(".node")
+      .data(force.nodes())
+      .enter().append("g")
+      .attr("class", "node")
+      .on("dblclick",freenode)
+      .call(d3.drag()
+          .on("start", dragstarted)
+          .on("drag", dragged)
+          .on("end", dragended));
+
+  d3.selectAll('.node')
+    .each(function(d) {
+      d.degree = 0;
+    });
+    links.forEach(function(link){
+    link.source.degree =link.source.degree+1;
+    link.target.degree =link.target.degree+1;
+    });
+
+
+
+  
+  var colourscale_avg = d3.scaleSqrt()
+  .domain([minimum_avg_time, maximum_avg_time])
+  .range(["#deebf7","#9ecae1","#3182bd"])
+
+
+  var nodescale = d3.scaleSqrt()
+  .domain( [minimum_Degree, maximum_Degree] )
+  .range( [10, 20] );
+  
+  /*
+  var colourscale= d3.scaleSqrt()
+  .domain([minimum_Degree,maximum_Degree])
+  .range(["#deebf7","#9ecae1","#3182bd"])
+  */
+  var color = d3.scaleOrdinal(d3.schemeCategory20);
+  function freenode(d) {
+    d.fx = null;
+    d.fy = null;
+    d3.select(this)
+      .select("circle")
+      var filtered = path.filter(function(l){
+  return (d === l.source || d === l.target);
+})
+      var filtered1 = path.filter(function(l){
+  return (d.id !== l.source.id && d.id !== l.target.id);
+})
+    filtered.style("stroke-width", 2)
+    filtered1.style("display","block");
+
+labels.style("visibility", "hidden") 
+};    
+
+var color = d3.scaleOrdinal(d3.schemeCategory10)
+              .domain(number_groups)
+  // add the nodes
+  node.append("circle")
+      .attr("id", function(d){
+          return (d.id);})
+      .attr("r", function(d) {
+        return nodescale_avg(d.avg_time);
+      })
+      .style("fill", function(d){
+      return color(d.group);
+      })
+
+    node.on("mouseenter", (evt, d) => {
+      path.attr("display", "none")
+          .filter(l => l.id === d.id || l.id === d.id)
+          .attr("display", "block")
+          .style("opacity",1)
+
+    })
+
+node.on('click', function(d) {
+var filtered = path.filter(function(l){
+//  return (d === l.source || d === l.target);
+  return (d.id === l.source.id || d.id === l.target.id);
+})
+var filtered1 = path.filter(function(l){
+//  return (d === l.source || d === l.target);
+  return (d.id !== l.source.id && d.id !== l.target.id);
+})
+filtered.style("stroke-width", 5);
+filtered1.style("display","none");
+
+
+
+
+});
+
+
+
+  node.on('mouseover', function(d) {
+var filtered = path.filter(function(l){
+  return (d === l.source || d === l.target);
+})
+//select all the data associated with the link i.e. source and target data
+var selectedData = [];
+filtered.each(function(f){
+  selectedData.push(f.source);
+  selectedData.push(f.target);
+});
+//select all the circles for which we have collected the data above.
+
+//do transition with all selected DOMs
+
+  });
+  node.on('mouseleave', function(d) {
+var filtered = path.filter(function(l){
+  return (d === l.source || d === l.target)
+})
+filtered.style("stroke-width", 2)
+//select all the data associated with the link i.e. source and target data
+});
+  node.on('mouseleave',function(d){
+      path.style("opacity",0)
+  })
+
+  //adding labels to the right of the nodes and bolding them
+  
+  var labels=node.append("text")
+      .text(function(d){
+      return d.player_name;
+      })
+      .attr("x",6)
+      .attr("y",-11)
+      .style("font-weight","bold")
+      .style("font-size", "1.5em")
+      .style("visibility", "hidden");
+      console.log(force.nodes())
+
+  node.on("mouseover", function(d)
+ {
+    d3.select(this).select("text").style("visibility", "visible") 
+ })
+      
+      
+
+  // add the curvy lines
+  function tick() {
+      path.attr("d", function(d) {
+          var dx = d.target.x - d.source.x,
+              dy = d.target.y - d.source.y,
+              dr = 0
+          return "M" +
+              d.source.x + "," +
+              d.source.y + "A" +
+              dr + "," + dr + " 0 0,1 " +
+              d.target.x + "," +
+              d.target.y;
+      });
+
+      node.attr("transform", function(d) {
+          return "translate(" + d.x + "," + d.y + ")"; 
+      });
+  };
+
+  function dragstarted(d) {
+      if (!d3.event.active) force.alphaTarget(0.3).restart();
+      d.fx = d.x;
+      d.fy = d.y;
+  };
+
+
+  function dragged(d) {
+      d.fx = d3.event.x;
+      d.fy = d3.event.y;
+  };
+
+  function dragended(d) {
+      if (!d3.event.active) force.alphaTarget(0.5);
+      if (d.fixed == true) {
+          d.fx = d.x;
+          d.fy = d.y;
+
+      }
+    //  else {
+    //      d.fx = d.x;
+    //      d.fy = d.y;
+   //       }
+   /*   d3.select(this) 
+        .select("circle")
+        .style("fill", "blue");
+    
+*/
+  };
+
+//return a list of player_names whose average playtime is greater than 30
+   var data_to_be_sent = []
+  nodes_1.forEach(function(node) {
+    if(node.avg_min > 30){
+    data_to_be_sent.push(node.name)
+  }
+  });
+console.log(data_to_be_sent)
+
+}).catch(function(error) {
+  console.log(error);
+});
+
+</script>
+</body>
+</html>
