@@ -281,7 +281,9 @@ var y = d3.scaleOrdinal()
     filtered1.style("display","block");
 
   nodes_1.forEach(function(node) {
-    if(node.group === d.group && node.avg_min > 30 && data_to_be_sent_1.length <= 19){
+    //if(node.group === d.group && node.avg_min > 30 && data_to_be_sent_1.length <= 19)
+    if(node.group === d.group && data_to_be_sent_1.length <= 19)    
+    {
     data_to_be_sent_1.push(node.name)
   }
   });
