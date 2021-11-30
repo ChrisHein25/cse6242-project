@@ -264,6 +264,7 @@ var y = d3.scaleOrdinal()
   .domain([minimum_Degree,maximum_Degree])
   .range(["#deebf7","#9ecae1","#3182bd"])
   */
+  var data_to_be_sent_1=[]
   var color = d3.scaleOrdinal(d3.schemeCategory20);
   function freenode(d) {
     d.fx = null;
@@ -271,7 +272,7 @@ var y = d3.scaleOrdinal()
     d3.select(this)
       .select("circle")
       var filtered = path.filter(function(l){
-  return (d === l.source || d === l.target);
+  return (d === l.source.id || d === l.target.id);
 })
       var filtered1 = path.filter(function(l){
   return (d.id !== l.source.id && d.id !== l.target.id);
@@ -279,7 +280,13 @@ var y = d3.scaleOrdinal()
     filtered.style("stroke-width", 2)
     filtered1.style("display","block");
 
-labels.style("visibility", "hidden") 
+  nodes_1.forEach(function(node) {
+    if(node.group === d.group && node.avg_min > 30 && data_to_be_sent_1.length <= 19){
+    data_to_be_sent_1.push(node.name)
+  }
+  });
+
+console.log(data_to_be_sent_1)
 };    
 
 var color = d3.scaleOrdinal(d3.schemeCategory10)
@@ -315,7 +322,7 @@ var filtered1 = path.filter(function(l){
 filtered.style("stroke-width", 5);
 filtered1.style("display","none");
 
-
+data_to_be_sent_1=[]
 
 
 });
@@ -418,13 +425,7 @@ filtered.style("stroke-width", 2)
   };
 
 //return a list of player_names whose average playtime is greater than 30
-   var data_to_be_sent = []
-  nodes_1.forEach(function(node) {
-    if(node.avg_min > 30){
-    data_to_be_sent.push(node.name)
-  }
-  });
-console.log(data_to_be_sent)
+
 
 }).catch(function(error) {
   console.log(error);
