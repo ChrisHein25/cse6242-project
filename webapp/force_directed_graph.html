@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<script type="text/javascript" src="d3.v5.min.js"></script>
+<script type="text/javascript" src="../lib/d3.v5.min.js"></script>
 <style>
 
 path.link {
@@ -24,7 +24,7 @@ text {
 
 </style>
 <head>
-<script type="text/javascript" src="d3.v5.min.js"></script>
+<script type="text/javascript" src="../d3.v5.min.js"></script>
 <title></title></head>
 <body>
 <script>
@@ -119,6 +119,9 @@ number_groups.forEach(function(elem){
                     link.attraction=-400
                   }  
   });
+
+  // TODO: get user choice from the dropdown select menu ID (getElementByID)
+  // TODO: iterate through links and nodes variables and eliminate links/nodes that do not adhere to the user selection
 
   var width = 2500,
       height =1500;

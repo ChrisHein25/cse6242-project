@@ -29,6 +29,7 @@ if __name__=="__main__":
 
     # exclusion rules are reciprocal (if PTS in combo and FGM in combo do not consider that combo)
     exclusion_rules = {
+        "PFD": "PF",
         "FGM": "PTS",
         "FG3M": "PTS",
         "OREB": "REB",
@@ -40,10 +41,12 @@ if __name__=="__main__":
     inclusion_rules = {
         "PTS_2ND_CHANCE": ["FGM", "FG3M"],  # both FGM and FG3M must be present to include pts_2nd_chance
         "PTS_FB": ["FGM", "FG3M"],
-        "PTS_PAINT": ["FGM", "FG3M"]
+        "PTS_PAINT": ["PTS_2ND_CHANCE", "FGM", "FG3M"]
     }
 
-    min_num_stats_considered = 8
+    base_list = ["AST", "STL", "BLK", "PFD"]  # base list of stats that will always be included
+
+    min_num_stats_considered = 10  # important note: we don't think any combo less than 10 could accurate summarize a basketball player
     combos_to_check = []
 
     def check_exclusion_rules(combo, exclusion_rules):
@@ -88,27 +91,81 @@ if __name__=="__main__":
             #         return False
         return True
 
+    def check_base_list(combo, base_list):
+        for item in base_list:
+            if item not in combo:
+                return False
+        return True
+
     for i in range(min_num_stats_considered, len(possible_stats)):
         for combo in combinations(possible_stats, i):  # 2 for pairs, 3 for triplets, etc
-            if check_exclusion_rules(combo, exclusion_rules) and check_inclusion_rules(combo, inclusion_rules):
+            if check_exclusion_rules(combo, exclusion_rules) and check_inclusion_rules(combo, inclusion_rules) and check_base_list(combo, base_list):
                 combos_to_check.append(combo)
 
     # run the DOE for all combinations deemed okay to check by the rules
-    csv_path = "C:/Users/212761772/Box/MyBox/Georgia Tech/Fall 2021/CSE6242/Project/external/full_game_df.csv"
+    csv_path = "../../full_game_df.csv"
 
-    res_df = pd.DataFrame(columns=['combo', 'k', 'inertia'])
+    players = [
+        'Kyle Korver',
+        'Ray Allen',
+        'JJ Redick',
+        'Danny Green',
+
+        'Chris Paul',
+        'Steve Nash',
+        'Rajon Rondo',
+        'Deron Williams',
+        'Tony Parker',
+        'Ricky Rubio',
+        'Jason Kidd',
+
+        'Dwight Howard',
+        "Shaquille O'Neal",
+        'Tyson Chandler',
+        'DeAndre Jordan',
+        'Blake Griffin',
+        'Serge Ibaka',
+        'JaVale McGee',
+
+        'LeBron James',
+        'James Harden',
+        'Russell Westbrook',
+        'Luka Doncic',
+        'Dwyane Wade',
+        'Anthony Davis',
+        'Kobe Bryant',
+        'Kevin Durant',
+        'Damian Lillard',
+        'Kyrie Irving',
+        'Kawhi Leonard',
+        'Giannis Antetokounmpo',
+
+        'Dirk Nowitzki',
+        'Tim Duncan',
+        'Nikola Vucevic',
+        'Nikola Jokic']
+
+    cols = ['combo', 'k', 'inertia']
+    [cols.append(player) for player in players]
+    res_df = pd.DataFrame(columns=cols)
     for i, combo in enumerate(combos_to_check):
         print('Checking {}/{} combinations'.format(str(i+1), str(len(combos_to_check))))
         grouping_factors = list(combo)  # convert to list for function
         cl = Classifier(csv_path, grouping_factors, write_csv=False, prints=False)
-        k_opt, inertia = cl.cluster(no_df=True)
+        df, k_opt, inertia = cl.cluster()
         row = {'combo': grouping_factors, 'k': k_opt, 'inertia': inertia}
+        for player in players:
+            try:
+                row[player] = df[df['PLAYER_NAME'] == player]['group'].tolist()[0]
+            except:
+                print(player)
         res_df = res_df.append(row, ignore_index=True)
 
     end_time = time.time()
     print('Finished. Code took {} seconds.'.format(str(end_time-start_time)))
 
-    print('done')
+    res_df.to_csv('doe_results.csv', index_label='index')
+    print('Saved csv')
 
     # TODO: manually down-select
 
