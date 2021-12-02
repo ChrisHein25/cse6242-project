@@ -9,7 +9,6 @@
 <body>
 
 <div id="container"></div>
-<div id="playerSelectButton"></div>
 <div id="parameterSelectButton"></div>
 
 <script>
@@ -100,29 +99,21 @@ function movingAverage(mappedDataIn, day)
 	return day_moving_average
 }
 
-function countInjuries(injury_type)
+function countInjuries(injury_type, injury_dictionary)
 {
-	var injuries = {}
-	var list_of_injuries = []
-
 	for (let i = 0; i < injury_type.length; i++)
 	{
-		if (injury_type[i] in injuries)
+		if (injury_type[i] in injury_dictionary)
 		{
-			injuries[injury_type[i]]++
+			injury_dictionary[injury_type[i]]++
 		}
 		else
 		{
-			injuries[injury_type[i]] = 1
+			injury_dictionary[injury_type[i]] = 1
 		}
 	}
 
-	for (const [key, value] of Object.entries(injuries)) 
-	{
-  		list_of_injuries.push([key, value])
-	}
-
-	return list_of_injuries
+	return injury_dictionary
 }
 ////////////////////// end: helper functions /////////////////////////
 
@@ -139,7 +130,7 @@ d3.dsv(",", "injuries.csv", function(d)
 {
 
 // import game data
-d3.dsv(",", "gamedatatest2.csv", function(d) 
+d3.dsv(",", "full_game_df.csv", function(d) 
 { return {
 	name : d["PLAYER_NAME"],
 	date : d["GAME_DATE"],
@@ -148,6 +139,17 @@ d3.dsv(",", "gamedatatest2.csv", function(d)
 	PIE : d["PIE"]
 }
 }).then(function(gameData) 
+{
+
+// import node data
+d3.dsv(",", "nodes.csv", function(d) 
+{ return {
+	player_id_nodes : d["id"],
+	player_name_nodes : d["name"],
+	group_nodes : d["group"],
+	minutes_nodes: d["avg_min"],
+}
+}).then(function(nodesList) 
 {
 
 // create parameter drop down
@@ -162,7 +164,7 @@ parameterSelect.selectAll('myOptions')
  		       .data(parameters)
  		       .enter()
  		       .append('option')
- 		       .text(function (d) { return d; }) 		  		 // text showed in the menu
+ 		       .text(function (d) { return d; }) 		  // text showed in the menu
  		       .attr("value", function (d) { return d; }) // corresponding value returned by the button
 
 // create SVG
@@ -195,30 +197,30 @@ line_chart_title.append("text")
    				.attr("y", h/16)
    				.text("Injuries");
 
+// RANDOMLY SELECTED CLUSTER NUMBER
+var cluster_value = 2
+var return_players = 5
+
+// nest node data by group
+var node_data_nest = d3.nest()
+					   .key(function(d) {return d.group_nodes;}).sortKeys(d3.ascending)
+					   .sortValues(function(a, b) {return parseFloat(b.minutes_nodes) - parseFloat(a.minutes_nodes)})
+					   .entries(nodesList);
+
+
+// return all players in that cluster
+var list_of_players = []
+for (let i = 0; i < node_data_nest[cluster_value].values.length; i++)
+{
+	list_of_players.push(node_data_nest[cluster_value].values[i].player_name_nodes)
+}
+
+var selectedPlayers = list_of_players.slice(0, 5)
+
 // nest game data by player
 var game_data_nest = d3.nest()
 					   .key(function(d) {return d.name;}).sortKeys(d3.ascending)
 					   .entries(gameData);
-
-// get a list of all player names from game data
-var playerNames_games = [];
-
-for (let i = 0; i < game_data_nest.length; i++)
-{
-	playerNames_games.push(game_data_nest[i].key);
-}
-
-// create drop down button
-var playerSelect = d3.select("#playerSelectButton")
-  					 .append('select');
-
-// add the options to the button
-playerSelect.selectAll('myOptions')
- 		    .data(playerNames_games)
-  			.enter()
-			.append('option')
-  			.text(function (d) { return d; }) 		   // text showed in the menu
-  			.attr("value", function (d) { return d; }) // corresponding value returned by the button
 
 // nest injury data by player
 var injury_nest = d3.nest()
@@ -226,436 +228,20 @@ var injury_nest = d3.nest()
 					.entries(injuryList);
 
 // set the first name to be the start of the group
-var setName = playerNames_games[0]
 var setParameter = parameters[0]
 
-// when the user selects a new name, update the chart
-d3.select("#playerSelectButton").on("change", function(d)
-{
-	var selectedPlayerOption = playerSelect.property("value")
-	var selectedParameterOption = parameterSelect.property("value")
-	update_graph(selectedPlayerOption, selectedParameterOption)
-})
+var selectedParameterOption = parameterSelect.property("value")
+update_graph(selectedPlayers, selectedParameterOption)
 
 // when the user selects a new paramter, update the chart
 d3.select("#parameterSelectButton").on("change", function(d)
 {
-	var selectedPlayerOption = playerSelect.property("value")
 	var selectedParameterOption = parameterSelect.property("value")
-	update_graph(selectedPlayerOption, selectedParameterOption)
+	update_graph(selectedPlayers, selectedParameterOption)
 })
 
-// initialize the graph with player data vs injuries
-var game_date = []
-var game_info = []
-
-// populate the arrays
-for (let i = 0; i < game_data_nest.length; i++)
-{
-	if (game_data_nest[i].key == setName)
-	{
-		for (let k = 0; k < game_data_nest[i].values.length; k++)
-		{
-			game_date.push(game_data_nest[i].values[k].date)
-			game_info.push(parseFloat(game_data_nest[i].values[k][setParameter]))
-		}
-	}
-}
-
-var players_game_data_rearranged = game_date.map((d, i) => 
-							 	   {return {x: d, y: game_info[i]}})
-
-// calculate moving average
-var startDate = new Date(game_date[0])
-var endDate = new Date(game_date[game_date.length - 1])
-var date_array = getArrayDates(startDate, endDate)
-var mappedDataOut = mapData(date_array, game_date, game_info, day)
-var moving_average_data = movingAverage(mappedDataOut, day)
-
-var moving_average_data_rearranged = moving_average_data.map((d) =>
-					  				 {return {x: d[0], y: d[1]}})
-
-var injury_date = []
-var injury_type = []
-
-// populate the arrays
-for (let i = 0; i < injury_nest.length; i++)
-{
-	if (injury_nest[i].key == setName)
-	{
-		for (let k = 0; k < injury_nest[i].values.length; k++)
-		{
-			injury_date.push(injury_nest[i].values[k].date)
-			injury_type.push(injury_nest[i].values[k].body_injury)
-		}
-	}
-}
-
-list_of_injuries = countInjuries(injury_type)
-
-var holder = []
-for (let i = 0; i < injury_date.length; i++)
-{
-	for (let k = 0; k < moving_average_data.length; k++)
-	{
-		if(injury_date[i] == moving_average_data[k][0])
-		{
-			holder.push([injury_date[i], moving_average_data[k][1], injury_type[i]])
-		}
-	}
-}
-
-
-var holder_rearranged = holder.map((d) => 
-							 {return {x: d[0], y: d[1], z: d[2]}})
-
-var injury_data_rearranged = injury_date.map((d, i) => 
-							 {return {x: d, y: injury_type[i]}})
-
-// axes
-var xScale = d3.scaleTime()
-			   .domain([new Date(game_date[0]), new Date(game_date[game_date.length - 1])])
-			   .range([pad, w - 2*pad]);
-
-var yScale = d3.scaleLinear()
-			   .domain([d3.min([0, d3.min(game_info)]), d3.max(game_info)])
-			   .range([h/2 - 2*pad, 0]);
-
-var x = d3.axisBottom()
-			  .scale(xScale)
-			  .ticks(10);
-
-var y = d3.axisLeft()
-			  .scale(yScale)
-			  .ticks(10);
-			  
-// add the x axis
-var xAxis = svg.append("g")
-   			   .attr("id", "x-axis-lines")
-   			   .attr("class", "axis")
-   			   .attr("transform", "translate(0," + (h/2 - pad) + ")")
-   			   .call(x)
-
-// add the text label for the x axis
-xAxis.append("text")
-   	 .attr("id", "x-axis label")
-     .style("fill", "black")
-     .attr("x", w/2 - pad/2)
-     .attr("y", pad*4/5)
-     .text("Date");
-
-// add the y axis
-var yAxis = svg.append("g")
-   			   .attr("id", "y-axis-lines")
-   			   .attr("class", "axis")
-   			   .attr("transform", "translate(" + (pad) + "," + (pad) + ")")
-   			   .call(y);
-
-// add the text label for Y axis
-yAxis.append("text")
-   	 .attr("id", "y-axis label")
-   	 .style("fill", "black")
-   	 .attr("x", (-h/2 + 2*pad)/2)
-   	 .attr("y", -pad*4/5)
-   	 .attr("transform", "rotate(-90)")
-   	 .text(setParameter);
-
-// // append the path
-// lines.append("path")
-//    	 .datum(players_game_data_rearranged)
-//      .attr("fill", "none")
-//      .attr("stroke", "steelblue")
-//      .attr("stroke-width", 1.5)
-//      .attr("transform", "translate(" + (0) + "," + (pad) + ")")
-//      .attr("d", d3.line().x(function(d) {return xScale(new Date(d.x))})
-//    					     .y(function(d) {return yScale(d.y)}));
-
-lines.append("path")
-   	 .datum(moving_average_data_rearranged)
-     .attr("fill", "none")
-     .attr("stroke", "gold")
-     .attr("stroke-width", 1.5)
-     .attr("transform", "translate(" + (0) + "," + (pad) + ")")
-     .attr("d", d3.line().x(function(d) {return xScale(new Date(d.x))})
-   					     .y(function(d) {return yScale(d.y)}));
-
-// circles.selectAll("null")
-// 	   .data(injury_data_rearranged, function(d) { return d; })
-// 	   .enter()
-// 	   .append("circle")
-// 	   .attr("fill", "red")
-// 	   .attr("cx", function(d) {return xScale(new Date(d.x))})
-// 	   .attr("cy", 50)
-// 	   //.attr("cy", function(d) {return yScale(d.y)})
-// 	   .attr("class", "circle")
-// 	   .attr("r", 2)
-// 	   .attr("transform", "translate(" + (0) + "," + (pad) + ")")
-// 	   .attr("id", function(d, i) {return injury_type[i]})
-// 	   .on("mouseover", handleMouseOver)
-// 	   .on("mouseout", handleMouseOut);
-
-
-circles.selectAll("null")
-	   .data(holder_rearranged, function(d) { return d; })
-	   .enter()
-	   .append("circle")
-	   .attr("fill", "red")
-	   .attr("cx", function(d) {return xScale(new Date(d.x))})
-	   .attr("cy", function(d) {return yScale(d.y)})
-	   //.attr("cy", function(d) {return yScale(d.y)})
-	   .attr("class", "circle")
-	   .attr("r", radius)
-	   .attr("transform", "translate(" + (0) + "," + (pad) + ")")
-	   .attr("id", function(d) {return d.z})
-	   .on("mouseover", handleMouseOver)
-	   .on("mouseout", handleMouseOut);
-
-
-////////////////////////////////////////////// BODY CREATION ////////////////////////////////////////////////////
-        var margin = {top:100, right: 160, bottom: 100, left: 70},
-        width = 1200 - margin.right - margin.left,
-        height = 700 - margin.top - margin.bottom;
-
-        var svg_body = d3.select("body")
-        .append("svg")
-        .attr("id", "svg_body")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom);
-
-        svg_body.append("svg_body:image")
-        .attr('x', 0)
-        .attr('y', 0)
-        .attr('width', 500)
-        .attr('height', 700)
-        .attr("xlink:href", "LeBron.PNG")
-
-        // var list_of_injuries = [["right foot", 10],
-        //     ["right knee", 14],
-        //     ["right leg", 20],
-        //     ["back", 31],
-        //     ["right hand", 2],
-        //     ["right shoulder", 6],
-        //     ["right hip", 18],
-        //     ["right arm", 16],
-        //     ["left foot", 20],
-        //     ["left knee", 18],
-        //     ["left leg", 9],
-        //     ["left hand", 14],
-        //     ["left shoulder", 36],
-        //     ["left hip", 28],
-        //     ["left arm", 4],
-        //     ["chest", 21],
-        //     ["head", 31],
-        //     ["groin", 5],
-        //     ["other", 40],
-        //     ["neck", 10],
-        //     ["rest", 12],
-        //     ["activated from IL", 31],
-        //     ["placed on IL", 15],
-        //     ["returned to lineup", 10],
-        //     ["infection/illness/virus", 31],
-        //     ["N/A", 2]]
-
-        var non_body_index = []
-
-        var total_injuries = 0;
-        var idx = 0;
-
-        var index_domain = []
-        var colorRange = ["#1a96e3","#feb426","#d55533","#180d33","#07a876","#b6e280","#254f28","#885425","#3725e7","#0fb176","#d8b8d6","#78f0bb","#26637a","#3fbb38","#f7922d","#6d21ca",
-                "#422ab7","#0ec171","#52c7cd","#976689","#c587f3","#da386f","#e272e1","#a7536d","#8f56eb","#9f4391","#4f8ae3","#f75fd8","#762bb4","#43c80a","#7e58fe","#684fb2","#6d1bd8"]
-
-        for(idx=0;idx<list_of_injuries.length;idx++) {
-            total_injuries += list_of_injuries[idx][1];
-            index_domain.push(idx);
-        }
-
-        var colorScheme = d3.scaleOrdinal().domain(index_domain).range(colorRange);
-
-        var circles_body = svg_body.selectAll("circle")
-        .data(list_of_injuries)
-        .enter()
-        .append("circle");
-
-        circles_body.attr("cx", function(d, i) {
-            if(d[0].includes("right foot")) {
-                non_body_index.push(i);
-                return 300;
-            }
-            if(d[0].includes("left foot")) {
-                non_body_index.push(i);
-                return 170;
-            }
-            if(d[0].includes("right knee")) {
-                return 295;
-                non_body_index.push(i);
-            }
-            if(d[0].includes("left knee")) {
-                non_body_index.push(i);
-                return 190;
-            }
-            if(d[0].includes("right leg")) {
-                non_body_index.push(i);
-                return 295;
-            }
-            if(d[0].includes("left leg")) {
-                non_body_index.push(i);
-                return 185;
-            }
-            if(d[0].includes("right hip")) {
-                non_body_index.push(i);
-                return 290;
-            }
-            if(d[0].includes("left hip")) {
-                non_body_index.push(i);
-                return 220;
-            }
-            if(d[0].includes("right arm")) {
-                non_body_index.push(i);
-                return 350;
-            }
-            if(d[0].includes("left arm")) {
-                non_body_index.push(i);
-                return 150;
-            }
-            if(d[0].includes("right hand")) {
-                non_body_index.push(i);
-                return 360;
-            }
-            if(d[0].includes("left hand")) {
-                non_body_index.push(i);
-                return 150;
-            }
-            if(d[0].includes("right shoulder")) {
-                non_body_index.push(i);
-                return 330;
-            }
-            if(d[0].includes("left shoulder")) {
-                non_body_index.push(i);
-                return 170;
-            }
-            if(d[0].includes("back")) {
-                non_body_index.push(i);
-                return 252;
-            }
-            if(d[0].includes("chest")) {
-                non_body_index.push(i);
-                return 252;
-            }
-            if(d[0].includes("head")) {
-                non_body_index.push(i);
-                return 252;
-            }
-            if(d[0].includes("groin")) {
-                non_body_index.push(i);
-                return 252;
-            }
-            if(d[0].includes("neck")) {
-                non_body_index.push(i);
-                return 252;
-            }
-            
-            return -100
-        })
-       .attr("cy", function(d,i) {
-            if(d[0].includes("right foot")) {
-                return 650;
-            }
-            if(d[0].includes("left foot")) {
-                return 650;
-            }
-            if(d[0].includes("right knee")) {
-                return 500;
-            }
-            if(d[0].includes("left knee")) {
-                return 500;
-            }
-            if(d[0].includes("right leg")) {
-                return 575;
-            }
-            if(d[0].includes("left leg")) {
-                return 575;
-            }
-            if(d[0].includes("right hip")) {
-                return 340;
-            }
-            if(d[0].includes("left hip")) {
-                return 340;
-            }
-            if(d[0].includes("right arm")) {
-                return 270;
-            }
-            if(d[0].includes("left arm")) {
-                return 270;
-            }
-            if(d[0].includes("right hand")) {
-                return 390;
-            }
-            if(d[0].includes("left hand")) {
-                return 390;
-            }
-            if(d[0].includes("right shoulder")) {
-                return 160;
-            }
-            if(d[0].includes("left shoulder")) {
-                return 160;
-            }
-            if(d[0].includes("back")) {
-                return 260;
-            }
-            if(d[0].includes("chest")) {
-                return 190;
-            }
-            if(d[0].includes("head")) {
-                return 70;
-            }
-            if(d[0].includes("groin")) {
-                return 380;
-            }
-            if(d[0].includes("neck")) {
-                return 130;
-            }
-            return height/2;
-        })
-        .attr("r", function(d) {
-           
-            return d[1]/total_injuries*100*2.5;
-        })
-        .attr("fill", function(d,i) {
-           
-           return colorScheme(i);
-       })
-        
-
-        svg_body.append("g")
-        .attr("id","legend")
-        .attr("transform","translate(" + margin.left + "," + margin.top + ")");
-
-        var legend = d3.select("#legend");
-
-        for(let i=0;i<list_of_injuries.length;i++) {
-            legend.append("rect")
-            .attr("width",10)
-            .attr("height",10)
-            .attr("x",400)
-            .attr("y",100 + i*15)
-            .style("fill",colorScheme(i))
-            //console.log(colorScheme(i));
-
-            legend.append("text")
-            .attr("x", 415)
-            .attr("y",100 + i*15 + 10)
-            .style("color",colorScheme(i))
-            .text(list_of_injuries[i][0]);
-
-            legend.append("text")
-            .attr("x", 355)
-            .attr("y",100 + i*15 + 10)
-            .style("color",colorScheme(i))
-            .text((list_of_injuries[i][1]/total_injuries*100).toFixed(2) + "%");
-        }
-
-////////////////////////////////////////////// BODY CREATION ////////////////////////////////////////////////////
+var list_of_injuries = update_injuries(list_of_players)
+update_body(list_of_injuries)
 
 // hover over
 function handleMouseOver(d, i) 
@@ -687,175 +273,261 @@ function handleMouseOut(d, i)
 // update graph based on selected player or parameter
 function update_graph(selectPlayer, selectParameter)
 {
-	var setName = selectPlayer
-	var setParameter = selectParameter
-
-	var game_date = []
-	var game_info = []
-	var injury_date = []
-	var injury_type = []
-
-	// populate the arrays
-	for (let i = 0; i < game_data_nest.length; i++)
-	{
-		if (game_data_nest[i].key == setName)
-		{
-			for (let k = 0; k < game_data_nest[i].values.length; k++)
-			{
-				game_date.push(game_data_nest[i].values[k].date)
-				game_info.push(parseFloat(game_data_nest[i].values[k][setParameter]))
-			}
-		}
-	}
-
-	for (let i = 0; i < injury_nest.length; i++)
-	{
-		if (injury_nest[i].key == setName)
-		{
-			for (let k = 0; k < injury_nest[i].values.length; k++)
-			{
-				injury_date.push(injury_nest[i].values[k].date)
-				injury_type.push(injury_nest[i].values[k].body_injury)
-			}
-		}
-	}
-
-	list_of_injuries = countInjuries(injury_type)
-
-	// remove existing circles and lines
-	d3.select("#circles").remove();
-	d3.select("#lines").remove();
 	d3.select("#x-axis-lines").remove();
 	d3.select("#y-axis-lines").remove();
 
+	// remove existing circles and lines
+	for (let i = 0; i < selectPlayer.length; i++)
+	{
+		d3.select("#circles").remove();
+		d3.select("#lines").remove();
+	}
+
+	colors = ["red", "orange", "green", "blue", "purple"]
+
+	// find min max limits for x and y axes
+	var min_x = new Date('2021-12-01')
+	var max_x = new Date('2000-01-01')
+	var min_y = 0
+	var max_y = 0
+
+	for (let i = 0; i < selectPlayer.length; i++)
+	{
+		var setName = selectPlayer[i]
+		var setParameter = selectParameter
+
+		var game_date = []
+		var game_info = []
+
+		// populate the arrays
+		for (let i = 0; i < game_data_nest.length; i++)
+		{
+			if (game_data_nest[i].key == setName)
+			{
+				for (let k = 0; k < game_data_nest[i].values.length; k++)
+				{
+					game_date.push(game_data_nest[i].values[k].date)
+					game_info.push(parseFloat(game_data_nest[i].values[k][setParameter]))
+				}
+			}
+		}
+
+		min_x = min_x < new Date(game_date[0]) ? min_x : new Date(game_date[0])
+		max_x = max_x > new Date(game_date[game_date.length - 1]) ? max_x : new Date(game_date[game_date.length - 1])
+		min_y = min_y < d3.min([0, d3.min(game_info)]) ? min_y : d3.min([0, d3.min(game_info)])
+		max_y = max_y > d3.max(game_info) ? max_y : d3.max(game_info)
+	}
+
 	// axes
 	var xScale = d3.scaleTime()
-				   .domain([new Date(game_date[0]), new Date(game_date[game_date.length - 1])])
-				   .range([pad, w - 2*pad]);
+				    .domain([min_x, max_x])
+					.range([pad, w - 2*pad]);
 
 	var yScale = d3.scaleLinear()
-				   .domain([d3.min([0, d3.min(game_info)]), d3.max(game_info)])
-				   .range([h/2 - 2*pad, 0]);
+					.domain([min_y, max_y])
+					.range([h/2 - 2*pad, 0]);
 
 	var x = d3.axisBottom()
-				  .scale(xScale)
-				  .ticks(10);
+					.scale(xScale)
+					.ticks(10);
 
 	var y = d3.axisLeft()
-				  .scale(yScale)
-				  .ticks(10);
-				  
+			  .scale(yScale)
+			  .ticks(10);
+					  
 	// add the x axis
 	var xAxis = svg.append("g")
-	   			   .attr("id", "x-axis-lines")
-	   			   .attr("class", "axis")
-	   			   .attr("transform", "translate(0," + (h/2 - pad) + ")")
-	   			   .call(x)
+		   		   .attr("id", "x-axis-lines")
+		   		   .attr("class", "axis")
+		   		   .attr("transform", "translate(0," + (h/2 - pad) + ")")
+		   		   .call(x)
 
 	// add the text label for the x axis
 	xAxis.append("text")
-	   	 .attr("id", "x-axis label")
-	     .style("fill", "black")
-	     .attr("x", w/2 - pad/2)
-	     .attr("y", pad*4/5)
-	     .text("Date");
+		 .attr("id", "x-axis label")
+		 .style("fill", "black")
+		 .attr("x", w/2 - pad/2)
+		 .attr("y", pad*4/5)
+		 .text("Date");
 
 	// add the y axis
 	var yAxis = svg.append("g")
-	   			   .attr("id", "y-axis-lines")
-	   			   .attr("class", "axis")
-	   			   .attr("transform", "translate(" + (pad) + "," + (pad) + ")")
-	   			   .call(y);
+		   		   .attr("id", "y-axis-lines")
+		   		   .attr("class", "axis")
+		   		   .attr("transform", "translate(" + (pad) + "," + (pad) + ")")
+		   		   .call(y);
 
 	// add the text label for Y axis
 	yAxis.append("text")
-	   	 .attr("id", "y-axis label")
-	   	 .style("fill", "black")
-	   	 .attr("x", (-h/2 + 2*pad)/2)
-	   	 .attr("y", -pad*4/5)
-	   	 .attr("transform", "rotate(-90)")
-	   	 .text(setParameter);
-
-	// create new circle and line groups
-	var lines = svg.append("g")
-			   	   .attr("id", "lines")
-
-	var circles = svg.append("g")
-			   	 	 .attr("id", "circles")
+		 .attr("id", "y-axis label")
+		 .style("fill", "black")
+		 .attr("x", (-h/2 + 2*pad)/2)
+		 .attr("y", -pad*4/5)
+		 .attr("transform", "rotate(-90)")
+		 .text(setParameter);
 
 
-
-	var players_game_data_rearranged = game_date.map((d, i) => 
-								 	   {return {x: d, y: game_info[i]}})
-	// calculate moving average
-	var startDate = new Date(game_date[0])
-	var endDate = new Date(game_date[game_date.length - 1])
-	var date_array = getArrayDates(startDate, endDate)
-	var mappedDataOut = mapData(date_array, game_date, game_info, day)
-	var moving_average_data = movingAverage(mappedDataOut, day)
-
-	var moving_average_data_rearranged = moving_average_data.map((d) =>
-					  				 	 {return {x: d[0], y: d[1]}})
-
-	var injury_data_rearranged = injury_date.map((d, i) => 
-								 {return {x: d, y: injury_type[i]}})
-
-	var holder = []
-	for (let i = 0; i < injury_date.length; i++)
+	for (let i = 0; i < selectPlayer.length; i++)
 	{
-		for (let k = 0; k < moving_average_data.length; k++)
+		var setName = selectPlayer[i]
+		var setParameter = selectParameter
+
+		var game_date = []
+		var game_info = []
+		var injury_date = []
+		var injury_type = []
+
+		// populate the arrays
+		for (let i = 0; i < game_data_nest.length; i++)
 		{
-			if(injury_date[i] == moving_average_data[k][0])
+			if (game_data_nest[i].key == setName)
 			{
-				//console.log(injury_date[i])
-				holder.push([injury_date[i], moving_average_data[k][1], injury_type[i]])
+				for (let k = 0; k < game_data_nest[i].values.length; k++)
+				{
+					game_date.push(game_data_nest[i].values[k].date)
+					game_info.push(parseFloat(game_data_nest[i].values[k][setParameter]))
+				}
 			}
 		}
+
+		for (let i = 0; i < injury_nest.length; i++)
+		{
+			if (injury_nest[i].key == setName)
+			{
+				for (let k = 0; k < injury_nest[i].values.length; k++)
+				{
+					injury_date.push(injury_nest[i].values[k].date)
+					injury_type.push(injury_nest[i].values[k].body_injury)
+				}
+			}
+		}
+
+		// create new circle and line groups
+		var lines = svg.append("g")
+				   	   .attr("id", "lines")
+
+		var circles = svg.append("g")
+				   	 	 .attr("id", "circles")
+
+		var players_game_data_rearranged = game_date.map((d, i) => 
+									 	   {return {x: d, y: game_info[i]}})
+
+		// calculate moving average
+		var startDate = new Date(game_date[0])
+		var endDate = new Date(game_date[game_date.length - 1])
+		var date_array = getArrayDates(startDate, endDate)
+		var mappedDataOut = mapData(date_array, game_date, game_info, day)
+		var moving_average_data = movingAverage(mappedDataOut, day)
+
+		var moving_average_data_rearranged = moving_average_data.map((d) =>
+						  				 	 {return {x: d[0], y: d[1]}})
+
+		var injury_data_rearranged = injury_date.map((d, i) => 
+									 {return {x: d, y: injury_type[i]}})
+
+		var holder = []
+		for (let i = 0; i < injury_date.length; i++)
+		{
+			for (let k = 0; k < moving_average_data.length; k++)
+			{
+				if(injury_date[i] == moving_average_data[k][0])
+				{
+					//console.log(injury_date[i])
+					holder.push([injury_date[i], moving_average_data[k][1], injury_type[i]])
+				}
+			}
+		}
+
+		var holder_rearranged = holder.map((d) => 
+									 {return {x: d[0], y: d[1], z: d[2]}})
+
+		lines.append("path")
+	   	 	 .datum(moving_average_data_rearranged)
+	   	 	 .attr("fill", "none")
+	   	 	 .attr("stroke", colors[i])
+	   	 	 .attr("stroke-width", 1.5)
+	   	 	 .attr("transform", "translate(" + (0) + "," + (pad) + ")")
+	   	 	 .attr("d", d3.line().x(function(d) {return xScale(new Date(d.x))})
+	   					     	 .y(function(d) {return yScale(d.y)}));
+
+		circles.selectAll("null")
+			   .data(holder_rearranged, function(d) { return d; })
+			   .enter()
+			   .append("circle")
+			   .attr("fill", "black")
+			   .attr("cx", function(d) {return xScale(new Date(d.x))})
+			   .attr("cy", function(d) {return yScale(d.y)})
+			   //.attr("cy", function(d) {return yScale(d.y)})
+			   .attr("class", "circle")
+			   .attr("r", radius)
+			   .attr("transform", "translate(" + (0) + "," + (pad) + ")")
+			   .attr("id", function(d) {return d.z})
+			   .on("mouseover", handleMouseOver)
+			   .on("mouseout", handleMouseOut);
 	}
+}
 
+// update list of injuries based on cluster selected
+function update_injuries(selectPlayer)
+{
+    var injury_dictionary = {}
+    var list_of_injuries = []
+    console.log(selectPlayer)
 
-	var holder_rearranged = holder.map((d) => 
-								 {return {x: d[0], y: d[1], z: d[2]}})
+    for (let i = 0; i < selectPlayer.length; i++)
+    {
+        var setName = selectPlayer[i]
 
-	// lines.append("path")
-	//    	 .datum(players_game_data_rearranged)
-	//      .attr("fill", "none")
-	//      .attr("stroke", "steelblue")
-	//      .attr("stroke-width", 1.5)
-	//      .attr("transform", "translate(" + (0) + "," + (pad) + ")")
-	//      .attr("d", d3.line().x(function(d) {return xScale(new Date(d.x))})
-	//    					     .y(function(d) {return yScale(d.y)}));
+        var game_date = []
+        var game_info = []
+        var injury_date = []
+        var injury_type = []
 
-	lines.append("path")
-   	 	 .datum(moving_average_data_rearranged)
-   	 	 .attr("fill", "none")
-   	 	 .attr("stroke", "gold")
-   	 	 .attr("stroke-width", 1.5)
-   	 	 .attr("transform", "translate(" + (0) + "," + (pad) + ")")
-   	 	 .attr("d", d3.line().x(function(d) {return xScale(new Date(d.x))})
-   					     	 .y(function(d) {return yScale(d.y)}));
+        // populate the arrays
+        for (let i = 0; i < game_data_nest.length; i++)
+        {
+            if (game_data_nest[i].key == setName)
+            {
+                for (let k = 0; k < game_data_nest[i].values.length; k++)
+                {
+                    game_date.push(game_data_nest[i].values[k].date)
+                    game_info.push(parseFloat(game_data_nest[i].values[k][setParameter]))
+                }
+            }
+        }
 
-	circles.selectAll("null")
-		   .data(holder_rearranged, function(d) { return d; })
-		   .enter()
-		   .append("circle")
-		   .attr("fill", "red")
-		   .attr("cx", function(d) {return xScale(new Date(d.x))})
-		   .attr("cy", function(d) {return yScale(d.y)})
-		   //.attr("cy", function(d) {return yScale(d.y)})
-		   .attr("class", "circle")
-		   .attr("r", radius)
-		   .attr("transform", "translate(" + (0) + "," + (pad) + ")")
-		   .attr("id", function(d) {return d.z})
-		   .on("mouseover", handleMouseOver)
-		   .on("mouseout", handleMouseOut);
+        for (let i = 0; i < injury_nest.length; i++)
+        {
+            if (injury_nest[i].key == setName)
+            {
+                for (let k = 0; k < injury_nest[i].values.length; k++)
+                {
+                    injury_date.push(injury_nest[i].values[k].date)
+                    injury_type.push(injury_nest[i].values[k].body_injury)
+                }
+            }
+        }
 
-	update_body(list_of_injuries)
+        injury_dictionary = countInjuries(injury_type, injury_dictionary)
+    }
+
+    for (const [key, value] of Object.entries(injury_dictionary)) 
+    {
+         list_of_injuries.push([key, value])
+    }
+
+    console.log(list_of_injuries)
+
+    return list_of_injuries
 }
 
 // update body based on updated list of injuries
 function update_body(list_of_injuries)
 {
+
+var margin = {top:100, right: 160, bottom: 100, left: 70},
+              width = 1200 - margin.right - margin.left,
+              height = 700 - margin.top - margin.bottom;
 
 	d3.select("#svg_body").remove();
 	d3.select("#legend").remove();
@@ -1099,6 +771,10 @@ function update_body(list_of_injuries)
             .text((list_of_injuries[i][1]/total_injuries*100).toFixed(2) + "%");
         }
 }
+
+}).catch(function(error) {
+  console.log(error);
+});
 
 }).catch(function(error) {
   console.log(error);
