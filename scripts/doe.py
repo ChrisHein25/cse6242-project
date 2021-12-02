@@ -46,7 +46,9 @@ if __name__=="__main__":
 
     base_list = ["AST", "STL", "BLK", "PFD"]  # base list of stats that will always be included
 
-    min_num_stats_considered = 10  # important note: we don't think any combo less than 10 could accurate summarize a basketball player
+    req_optionals = [(["PTS"], ["PTS_2ND_CHANCE", "PTS_FB", "PTS_PAINT"])]
+
+    min_num_stats_considered = 8  # important note: we don't think any combo less than 10 could accurate summarize a basketball player
     combos_to_check = []
 
     def check_exclusion_rules(combo, exclusion_rules):
@@ -97,9 +99,38 @@ if __name__=="__main__":
                 return False
         return True
 
+    def check_req_optionals(combo, req_optionals):
+
+        for tup in req_optionals:
+            first = tup[0]
+            second = tup[1]
+            for val in first:
+                if val not in combo:
+                    none_in_first = True
+                else:
+                    none_in_first = False
+            for val in second:
+                if val not in combo:
+                    none_in_second = True
+                else:
+                    none_in_second = False
+            if none_in_first and none_in_second:
+                return False
+            for val in first:
+                if val in combo:
+                    for val2 in second:
+                        if val2 in combo:
+                            return False
+            for val in second:
+                if val in combo:
+                    for val1 in first:
+                        if val1 in combo:
+                            return False
+        return True
+
     for i in range(min_num_stats_considered, len(possible_stats)):
         for combo in combinations(possible_stats, i):  # 2 for pairs, 3 for triplets, etc
-            if check_exclusion_rules(combo, exclusion_rules) and check_inclusion_rules(combo, inclusion_rules) and check_base_list(combo, base_list):
+            if check_exclusion_rules(combo, exclusion_rules) and check_inclusion_rules(combo, inclusion_rules) and check_base_list(combo, base_list) and check_req_optionals(combo, req_optionals):
                 combos_to_check.append(combo)
 
     # run the DOE for all combinations deemed okay to check by the rules
@@ -145,7 +176,7 @@ if __name__=="__main__":
         'Nikola Vucevic',
         'Nikola Jokic']
 
-    cols = ['combo', 'k', 'inertia']
+    cols = ['num_stats', 'combo', 'k', 'inertia']
     [cols.append(player) for player in players]
     res_df = pd.DataFrame(columns=cols)
     for i, combo in enumerate(combos_to_check):
@@ -153,7 +184,7 @@ if __name__=="__main__":
         grouping_factors = list(combo)  # convert to list for function
         cl = Classifier(csv_path, grouping_factors, write_csv=False, prints=False)
         df, k_opt, inertia = cl.cluster()
-        row = {'combo': grouping_factors, 'k': k_opt, 'inertia': inertia}
+        row = {'num_stats': len(grouping_factors), 'combo': grouping_factors, 'k': k_opt, 'inertia': inertia}
         for player in players:
             try:
                 row[player] = df[df['PLAYER_NAME'] == player]['group'].tolist()[0]

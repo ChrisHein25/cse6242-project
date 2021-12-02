@@ -211,7 +211,7 @@ if __name__ == "__main__":
         graph.add_edge(row['ID'], row['id2'])
         graph.add_edge(row['ID'], row['id3'])
 
-        #todo: add player position info grab
+        #todo: add player metadata grab
 
     graph.write_nodes_file("output_data/nodes.csv")
     graph.write_edges_file("output_data/edges.csv")
