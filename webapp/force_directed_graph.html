@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<script type="text/javascript" src="../lib/d3.v5.min.js"></script>
+<script type="text/javascript" src="d3.v5.min.js"></script>
 <style>
 
 path.link {
@@ -18,15 +18,18 @@ circle {
 
 text {
   fill: #000;
-  font: 10px sans-serif;
+  font: 100px sans-serif;
   pointer-events: none;
 }
 
+
+
 </style>
 <head>
-<script type="text/javascript" src="../d3.v5.min.js"></script>
+<script type="text/javascript" src="d3.v5.min.js"></script>
 <title></title></head>
 <body>
+
 <script>
 
 Promise.all([
@@ -120,9 +123,6 @@ number_groups.forEach(function(elem){
                   }  
   });
 
-  // TODO: get user choice from the dropdown select menu ID (getElementByID)
-  // TODO: iterate through links and nodes variables and eliminate links/nodes that do not adhere to the user selection
-
   var width = 2500,
       height =1500;
 /*
@@ -212,17 +212,7 @@ var y = d3.scaleOrdinal()
       .append("path")
       .attr("class", function(d) { return "link " + d.type; })
       .style('opacity', 0);
-      //giving color and dashes to the links based on their value
-   //   .style("stroke-dasharray", function(d){ 
-   //       if(d.value == 1) 
-   //         {return "4,4"} 
-   //   })
-   //   .style("stroke",function(d){
-   //       if(d.value == 1)
-   //         {return "green"}
-   //       else
-   //         {return "grey"}
-   //   })
+
 
 
 
@@ -262,11 +252,7 @@ var y = d3.scaleOrdinal()
   .domain( [minimum_Degree, maximum_Degree] )
   .range( [10, 20] );
   
-  /*
-  var colourscale= d3.scaleSqrt()
-  .domain([minimum_Degree,maximum_Degree])
-  .range(["#deebf7","#9ecae1","#3182bd"])
-  */
+
   var data_to_be_sent_1=[]
   var color = d3.scaleOrdinal(d3.schemeCategory20);
   function freenode(d) {
@@ -275,7 +261,7 @@ var y = d3.scaleOrdinal()
     d3.select(this)
       .select("circle")
       var filtered = path.filter(function(l){
-  return (d === l.source.id || d === l.target.id);
+  return (d.id === l.source.id || d.id === l.target.id);
 })
       var filtered1 = path.filter(function(l){
   return (d.id !== l.source.id && d.id !== l.target.id);
@@ -285,12 +271,13 @@ var y = d3.scaleOrdinal()
 
   nodes_1.forEach(function(node) {
     //if(node.group === d.group && node.avg_min > 30 && data_to_be_sent_1.length <= 19)
-    if(node.group === d.group && data_to_be_sent_1.length <= 19)    
+    if(node.group === d.group && data_to_be_sent_1.length <= 0)    
     {
-    data_to_be_sent_1.push(node.name)
-  }
+    data_to_be_sent_1.push(node.group)
+    }
   });
-
+ //   d3.select(this).select("text").style("visibility", "visible") 
+node.select("text").style("visibility", "hidden")
 console.log(data_to_be_sent_1)
 };    
 
@@ -317,11 +304,10 @@ var color = d3.scaleOrdinal(d3.schemeCategory10)
 
 node.on('click', function(d) {
 var filtered = path.filter(function(l){
-//  return (d === l.source || d === l.target);
   return (d.id === l.source.id || d.id === l.target.id);
 })
 var filtered1 = path.filter(function(l){
-//  return (d === l.source || d === l.target);
+
   return (d.id !== l.source.id && d.id !== l.target.id);
 })
 filtered.style("stroke-width", 5);
@@ -338,15 +324,12 @@ data_to_be_sent_1=[]
 var filtered = path.filter(function(l){
   return (d === l.source || d === l.target);
 })
-//select all the data associated with the link i.e. source and target data
 var selectedData = [];
 filtered.each(function(f){
   selectedData.push(f.source);
   selectedData.push(f.target);
 });
-//select all the circles for which we have collected the data above.
 
-//do transition with all selected DOMs
 
   });
   node.on('mouseleave', function(d) {
@@ -354,13 +337,12 @@ var filtered = path.filter(function(l){
   return (d === l.source || d === l.target)
 })
 filtered.style("stroke-width", 2)
-//select all the data associated with the link i.e. source and target data
+
 });
   node.on('mouseleave',function(d){
       path.style("opacity",0)
   })
 
-  //adding labels to the right of the nodes and bolding them
   
   var labels=node.append("text")
       .text(function(d){
@@ -370,7 +352,8 @@ filtered.style("stroke-width", 2)
       .attr("y",-11)
       .style("font-weight","bold")
       .style("font-size", "1.5em")
-      .style("visibility", "hidden");
+      .style("visibility", "hidden")
+      .style("text-shadow", "0 5px 0 #fff, 1px 0 0 #000, 0 -1px 0 #fff, -1px 0 0 #fff")
       console.log(force.nodes())
 
   node.on("mouseover", function(d)
@@ -380,7 +363,7 @@ filtered.style("stroke-width", 2)
       
       
 
-  // add the curvy lines
+  // add the lines
   function tick() {
       path.attr("d", function(d) {
           var dx = d.target.x - d.source.x,
@@ -418,18 +401,9 @@ filtered.style("stroke-width", 2)
           d.fy = d.y;
 
       }
-    //  else {
-    //      d.fx = d.x;
-    //      d.fy = d.y;
-   //       }
-   /*   d3.select(this) 
-        .select("circle")
-        .style("fill", "blue");
-    
-*/
+
   };
 
-//return a list of player_names whose average playtime is greater than 30
 
 
 }).catch(function(error) {
