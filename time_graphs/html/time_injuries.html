@@ -35,8 +35,8 @@
 <script>
 
 // define dimensions and margins for the graph
-var w = 1000;
-var h = 1000;
+var w = 1300;
+var h = 1700;
 var pad = 50;
 var day = 30;
 var radius = 3;
@@ -216,7 +216,7 @@ var number_groups=d3.set(number_grouping).values();
 var splits=(width-100)/number_groups.length
 var distances=[]
 number_groups.forEach(function(elem){
-   distances.push(number_groups.indexOf(elem)*200+370)
+   distances.push(number_groups.indexOf(elem)*200+500)
 })
 
 
@@ -264,7 +264,7 @@ number_groups.forEach(function(elem){
                   }  
   });
 
-  var width = w,
+  var width = 1850,
       height =500;
     // var width = 1000,
     //   height = 500;
@@ -326,7 +326,7 @@ var y = d3.scaleOrdinal()
 
   var force = d3.forceSimulation()
       .nodes(d3.values(nodes))
-      .force("link", d3.forceLink(links).distance(100))
+      .force("link", d3.forceLink(links).distance(10))
       .force('center', d3.forceCenter(width /2, height / 2))
   //    .force("center", d3.forceCenter().x(width).y(height / 2))
     //  .force("x", d3.forceX())
@@ -468,7 +468,7 @@ var color = d3.scaleOrdinal(d3.schemeCategory10)
       .attr("id", function(d){
           return (d.id);})
       .attr("r", function(d) {
-        return nodescale_avg(d.avg_time)/1.5;
+        return nodescale_avg(d.avg_time)/3;
       })
       .style("fill", function(d){
       return color(d.group);
@@ -606,6 +606,8 @@ var svg = d3.select("body")
 			.append("svg")
 			.attr("width", w)
 			.attr("height", h/2)
+			.attr("x", 0)
+			.attr("y", 1000)
 			.attr("id", "svg");
 
 // create SVG groups
@@ -967,9 +969,9 @@ function update_injuries(selectPlayer)
 function update_body(list_of_injuries)
 {
 
-var margin = {top:100, right: 160, bottom: 100, left: 70},
-              width = 700 - margin.right - margin.left,
-              height = 1000 - margin.top - margin.bottom;
+var margin = {top:100, right: 20, bottom: 100, left: 70},
+              width = 650 - margin.right - margin.left,
+              height = 800 - margin.top - margin.bottom;
 
 	d3.select("#svg_body").remove();
 	d3.select("#legend").remove();
@@ -979,8 +981,8 @@ var margin = {top:100, right: 160, bottom: 100, left: 70},
         .attr("id", "svg_body")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
-        .attr('x', 1300)
-        .attr('y', 0);
+        .attr('x', 1500)
+        .attr('y', 1000);
 
         svg_body.append("svg_body:image")
         .attr('x', 0)
