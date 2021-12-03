@@ -4,6 +4,27 @@
   <meta charset="utf-8">
   <script type="text/javascript" src="../lib/d3.v5.min.js"></script>
   <script type="text/javascript" src="../lib/d3-dsv.min.js"></script>
+  <style>
+
+	path.link {
+	  fill: none;
+	  stroke: #666;
+	  stroke-width: 1.5px;
+	}
+
+	circle {
+	  /*fill: #ccc;*/
+	  stroke: #fff;
+	  stroke: black;
+	  stroke-width: 1.5px;
+	}
+
+/*	text {
+	  fill: #000;
+	  font: 100px sans-serif;
+	  pointer-events: none;
+	}*/
+</style>
 </head>
 
 <body>
@@ -14,8 +35,8 @@
 <script>
 
 // define dimensions and margins for the graph
-var w = 1500;
-var h = 1500;
+var w = 1000;
+var h = 1000;
 var pad = 50;
 var day = 30;
 var radius = 3;
@@ -151,6 +172,419 @@ d3.dsv(",", "nodes.csv", function(d)
 }
 }).then(function(nodesList) 
 {
+
+////// FD //////
+Promise.all([
+    d3.csv("nodes.csv", function (d) {
+        return {
+            // format data attributes
+            id: parseInt(d["id"]),
+            name: String(d["name"]).trim(),
+            group: parseInt(d["group"]),
+            avg_min: parseFloat(d["avg_min"])
+        }
+
+    }),
+    d3.csv("edges.csv", function (d) {
+        return {
+            // format data attributes
+            source: parseInt(d["source"]),
+            target: parseInt(d["target"])
+        }
+    })
+
+]).then(function(data) {
+  nodes = data[0];
+  edges = data[1];
+
+
+
+var links = edges;
+var nodes_1=nodes
+var nodes = {};
+
+var number_grouping=[]
+
+
+
+    nodes_1.forEach(function(node) {
+      number_grouping.push(node.group)
+  });
+number_grouping=number_grouping.sort();
+var number_groups=d3.set(number_grouping).values();
+
+var splits=(width-100)/number_groups.length
+var distances=[]
+number_groups.forEach(function(elem){
+   distances.push(number_groups.indexOf(elem)*200+370)
+})
+
+
+
+  links.forEach(function(link) {
+      link.source = nodes[link.source] || (nodes[link.source] = {id: link.source});
+      link.target = nodes[link.target] || (nodes[link.target] = {id: link.target});
+  });
+  
+    links.forEach(function(link) {
+    var result = nodes_1.filter(function(node) {
+        return link.source.id === node.id;
+    });
+    link.source.player_name = (result[0] !== undefined) ? result[0].name : null;
+    link.source.group = (result[0] !== undefined) ? result[0].group : null;
+    link.source.avg_time = (result[0] !== undefined) ? result[0].avg_min : null;
+  });
+
+  links.forEach(function(link) {
+    var result1 = nodes_1.filter(function(node) {
+        return link.target.id === node.id;
+    });
+    link.target.player_name = (result1[0] !== undefined) ? result1[0].name : null;
+    link.target.group = (result1[0] !== undefined) ? result1[0].group : null;
+    link.target.avg_time = (result1[0] !== undefined) ? result1[0].avg_min : null;
+  });
+
+
+  links.forEach(function(link) {
+    var result1 = nodes_1.filter(function(node) {
+        return link.target.id === node.id;
+    });
+    link.target.player_name = (result1[0] !== undefined) ? result1[0].name : null;
+    link.target.group = (result1[0] !== undefined) ? result1[0].group : null;
+    link.target.avg_time = (result1[0] !== undefined) ? result1[0].avg_min : null;
+  });
+
+  links.forEach(function(link) {
+    if(link.source.group === link.target.group)
+                  {
+                    link.attraction= 100
+                  }
+                  else{
+                    link.attraction=-400
+                  }  
+  });
+
+  var width = w,
+      height =500;
+    // var width = 1000,
+    //   height = 500;
+/*
+var x = d3.scaleOrdinal()
+  .domain([0, 1, 2, 3, 4])
+  .range([400, 600, 800 ,1000,1200])
+*/
+var x = d3.scaleOrdinal()
+  .domain(number_groups)
+  .range(distances)
+
+
+var y = d3.scaleOrdinal()
+  .domain(number_groups)
+  .range(distances)
+//  .range([50, 200, 340, 440 ,540])
+
+  var minimum_Degree = d3.min(
+  d3.values(nodes), function(d)
+  {
+    return d.degree; 
+  }
+  );
+
+  var maximum_Degree =
+  d3.max(
+  d3.values(nodes), function(d)
+  { 
+  return d.degree; 
+  }
+  );
+
+  var minimum_avg_time = 
+  d3.min(
+  d3.values(nodes_1), function(d)
+  {
+    return d.avg_min; 
+  }
+  );
+
+  var maximum_avg_time =
+  d3.max(
+  d3.values(nodes_1), function(d)
+  { 
+  return d.avg_min; 
+  }
+  );
+/*
+  var nodescale_avg = d3.scaleSqrt()
+  .domain( [minimum_avg_time, maximum_avg_time] )
+  .range( [10, 20] );
+*/  
+
+  var nodescale_avg = d3.scaleLog()
+  .domain( [minimum_avg_time, maximum_avg_time] )
+  .range([10, 30]);
+
+
+  var force = d3.forceSimulation()
+      .nodes(d3.values(nodes))
+      .force("link", d3.forceLink(links).distance(100))
+      .force('center', d3.forceCenter(width /2, height / 2))
+  //    .force("center", d3.forceCenter().x(width).y(height / 2))
+    //  .force("x", d3.forceX())
+    //  .force("y", d3.forceY())
+      .force("x", d3.forceX().strength(0.5*2).x( function(d){ return x(d.group) } ))
+  //    .force("x", d3.forceX().x( function(d){ return x(d.group) } ))
+ //     .force("y", d3.forceX().strength(0.5).y( function(d){ return y(d.group) } ))
+      .force("y", d3.forceY().strength(0.8*1.5).y( height/2 ))
+      .force("charge", d3.forceManyBody().strength(-150))
+  //    .force("collide", d3.forceCollide().strength(.1).radius(32).iterations(1))
+      .force("collide", d3.forceCollide().strength(0.1).radius((d) => nodescale_avg(d.avg_time) ).iterations(1))
+      .alphaTarget(1)
+      .on("tick", tick);
+
+ //     console.log(links)
+
+  var svg = d3.select("body").append("svg")
+      .attr("width", width)
+      .attr("height", height);
+
+  // add the links
+  var path = svg.append("g")
+      .selectAll("path")
+      .data(links)
+      .enter()
+      .append("path")
+      .attr("class", function(d) { return "link " + d.type; })
+      .style('opacity', 0);
+
+
+  // define the nodes
+  var node = svg
+      .selectAll(".node")
+      .data(force.nodes())
+      .enter().append("g")
+      .attr("class", "node")
+      .on("dblclick",freenode)
+      .call(d3.drag()
+          .on("start", dragstarted)
+          .on("drag", dragged)
+          .on("end", dragended));
+
+  d3.selectAll('.node')
+    .each(function(d) {
+      d.degree = 0;
+    });
+    links.forEach(function(link){
+    link.source.degree =link.source.degree+1;
+    link.target.degree =link.target.degree+1;
+    });
+
+
+
+  
+  var colourscale_avg = d3.scaleSqrt()
+  .domain([minimum_avg_time, maximum_avg_time])
+  .range(["#deebf7","#9ecae1","#3182bd"])
+
+
+  var nodescale = d3.scaleSqrt()
+  .domain( [minimum_Degree, maximum_Degree] )
+  .range( [10, 20] );
+  
+
+  var data_to_be_sent_1=[]
+  var color = d3.scaleOrdinal(d3.schemeCategory20);
+  function freenode(d) {
+    d.fx = null;
+    d.fy = null;
+    d3.select(this)
+      .select("circle")
+      var filtered = path.filter(function(l){
+  return (d.id === l.source.id || d.id === l.target.id);
+})
+      var filtered1 = path.filter(function(l){
+  return (d.id !== l.source.id && d.id !== l.target.id);
+})
+    filtered.style("stroke-width", 2)
+    filtered1.style("display","block");
+
+  nodes_1.forEach(function(node) {
+    //if(node.group === d.group && node.avg_min > 30 && data_to_be_sent_1.length <= 19)
+    if(node.group === d.group && data_to_be_sent_1.length <= 0)    
+    {
+    data_to_be_sent_1.push(node.group)
+    }
+  });
+ //   d3.select(this).select("text").style("visibility", "visible") 
+node.select("text").style("visibility", "hidden")
+console.log(data_to_be_sent_1)
+
+
+
+//////////// update graph ////////////
+var list_of_players = []
+cluster_value = data_to_be_sent_1[0]
+for (let i = 0; i < node_data_nest[cluster_value].values.length; i++)
+{
+	list_of_players.push(node_data_nest[cluster_value].values[i].player_name_nodes)
+}
+
+var selectedPlayers = list_of_players.slice(0, 5)
+
+// nest game data by player
+var game_data_nest = d3.nest()
+					   .key(function(d) {return d.name;}).sortKeys(d3.ascending)
+					   .entries(gameData);
+
+// nest injury data by player
+var injury_nest = d3.nest()
+				    .key(function(d) {return d.name;}).sortKeys(d3.ascending)
+					.entries(injuryList);
+
+// set the first name to be the start of the group
+var setParameter = parameters[0]
+
+var selectedParameterOption = parameterSelect.property("value")
+update_graph(selectedPlayers, selectedParameterOption)
+
+// when the user selects a new paramter, update the chart
+d3.select("#parameterSelectButton").on("change", function(d)
+{
+	var selectedParameterOption = parameterSelect.property("value")
+	update_graph(selectedPlayers, selectedParameterOption)
+})
+
+var list_of_injuries = update_injuries(list_of_players)
+update_body(list_of_injuries)
+//////////// update graph ////////////
+
+data_to_be_sent_1 = []
+
+};    
+
+var color = d3.scaleOrdinal(d3.schemeCategory10)
+              .domain(number_groups)
+  // add the nodes
+  node.append("circle")
+      .attr("id", function(d){
+          return (d.id);})
+      .attr("r", function(d) {
+        return nodescale_avg(d.avg_time)/1.5;
+      })
+      .style("fill", function(d){
+      return color(d.group);
+      })
+
+    node.on("mouseenter", (evt, d) => {
+      path.attr("display", "none")
+          .filter(l => l.id === d.id || l.id === d.id)
+          .attr("display", "block")
+          .style("opacity",1)
+
+    })
+
+node.on('click', function(d) {
+var filtered = path.filter(function(l){
+  return (d.id === l.source.id || d.id === l.target.id);
+})
+var filtered1 = path.filter(function(l){
+
+  return (d.id !== l.source.id && d.id !== l.target.id);
+})
+filtered.style("stroke-width", 5);
+filtered1.style("display","none");
+
+// data_to_be_sent_1=[]
+
+
+});
+
+
+
+  node.on('mouseover', function(d) {
+var filtered = path.filter(function(l){
+  return (d === l.source || d === l.target);
+})
+var selectedData = [];
+filtered.each(function(f){
+  selectedData.push(f.source);
+  selectedData.push(f.target);
+});
+
+
+  });
+  node.on('mouseleave', function(d) {
+var filtered = path.filter(function(l){
+  return (d === l.source || d === l.target)
+})
+filtered.style("stroke-width", 2)
+
+});
+  node.on('mouseleave',function(d){
+      path.style("opacity",0)
+  })
+
+  
+  var labels=node.append("text")
+      .text(function(d){
+      return d.player_name;
+      })
+      .attr("x",6)
+      .attr("y",-11)
+      .style("font-weight","bold")
+ //     .style("font-size", "1.5em")
+     .style("font-size", "1em")
+      .style("visibility", "hidden")
+//      .style("text-shadow", "0 5px 0 #fff, 1px 0 0 #000, 0 -1px 0 #fff, -1px 0 0 #fff")
+     // console.log(force.nodes())
+
+  node.on("mouseover", function(d)
+ {
+    d3.select(this).select("text").style("visibility", "visible") 
+ })
+      
+      
+
+  // add the lines
+  function tick() {
+      path.attr("d", function(d) {
+          var dx = d.target.x - d.source.x,
+              dy = d.target.y - d.source.y,
+              dr = 0
+          return "M" +
+              d.source.x + "," +
+              d.source.y + "A" +
+              dr + "," + dr + " 0 0,1 " +
+              d.target.x + "," +
+              d.target.y;
+      });
+
+      node.attr("transform", function(d) {
+          return "translate(" + d.x + "," + d.y + ")"; 
+      });
+  };
+
+  function dragstarted(d) {
+      if (!d3.event.active) force.alphaTarget(0.3).restart();
+      d.fx = d.x;
+      d.fy = d.y;
+  };
+
+
+  function dragged(d) {
+      d.fx = d3.event.x;
+      d.fy = d3.event.y;
+  };
+
+  function dragended(d) {
+      if (!d3.event.active) force.alphaTarget(0.5);
+      if (d.fixed == true) {
+          d.fx = d.x;
+          d.fy = d.y;
+
+      }
+
+  };
+////// FD //////
 
 // create parameter drop down
 var parameters = ["MIN", "PTS", "PIE"];
@@ -480,7 +914,7 @@ function update_injuries(selectPlayer)
 {
     var injury_dictionary = {}
     var list_of_injuries = []
-    console.log(selectPlayer)
+   // console.log(selectPlayer)
 
     for (let i = 0; i < selectPlayer.length; i++)
     {
@@ -524,7 +958,7 @@ function update_injuries(selectPlayer)
          list_of_injuries.push([key, value])
     }
 
-    console.log(list_of_injuries)
+   // console.log(list_of_injuries)
 
     return list_of_injuries
 }
@@ -534,8 +968,8 @@ function update_body(list_of_injuries)
 {
 
 var margin = {top:100, right: 160, bottom: 100, left: 70},
-              width = 1200 - margin.right - margin.left,
-              height = 700 - margin.top - margin.bottom;
+              width = 700 - margin.right - margin.left,
+              height = 1000 - margin.top - margin.bottom;
 
 	d3.select("#svg_body").remove();
 	d3.select("#legend").remove();
@@ -544,7 +978,9 @@ var margin = {top:100, right: 160, bottom: 100, left: 70},
         .append("svg")
         .attr("id", "svg_body")
         .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom);
+        .attr("height", height + margin.top + margin.bottom)
+        .attr('x', 1300)
+        .attr('y', 0);
 
         svg_body.append("svg_body:image")
         .attr('x', 0)
@@ -553,48 +989,16 @@ var margin = {top:100, right: 160, bottom: 100, left: 70},
         .attr('height', 700)
         .attr("xlink:href", "LeBron.PNG")
 
-        // var list_of_injuries = [["right foot", 10],
-        //     ["right knee", 14],
-        //     ["right leg", 20],
-        //     ["back", 31],
-        //     ["right hand", 2],
-        //     ["right shoulder", 6],
-        //     ["right hip", 18],
-        //     ["right arm", 16],
-        //     ["left foot", 20],
-        //     ["left knee", 18],
-        //     ["left leg", 9],
-        //     ["left hand", 14],
-        //     ["left shoulder", 36],
-        //     ["left hip", 28],
-        //     ["left arm", 4],
-        //     ["chest", 21],
-        //     ["head", 31],
-        //     ["groin", 5],
-        //     ["other", 40],
-        //     ["neck", 10],
-        //     ["rest", 12],
-        //     ["activated from IL", 31],
-        //     ["placed on IL", 15],
-        //     ["returned to lineup", 10],
-        //     ["infection/illness/virus", 31],
-        //     ["N/A", 2]]
-
         var non_body_index = []
-
+ 
         var total_injuries = 0;
         var idx = 0;
-
-        var index_domain = []
-        var colorRange = ["#1a96e3","#feb426","#d55533","#180d33","#07a876","#b6e280","#254f28","#885425","#3725e7","#0fb176","#d8b8d6","#78f0bb","#26637a","#3fbb38","#f7922d","#6d21ca",
-                "#422ab7","#0ec171","#52c7cd","#976689","#c587f3","#da386f","#e272e1","#a7536d","#8f56eb","#9f4391","#4f8ae3","#f75fd8","#762bb4","#43c80a","#7e58fe","#684fb2","#6d1bd8"]
-
+ 
+        var colorvar = d3.scaleSequential().domain([0,list_of_injuries.length]).interpolator(d3.interpolateRainbow);
+        
         for(idx=0;idx<list_of_injuries.length;idx++) {
             total_injuries += list_of_injuries[idx][1];
-            index_domain.push(idx);
         }
-
-        var colorScheme = d3.scaleOrdinal().domain(index_domain).range(colorRange);
 
         var circles_body = svg_body.selectAll("circle")
         .data(list_of_injuries)
@@ -678,7 +1082,7 @@ var margin = {top:100, right: 160, bottom: 100, left: 70},
                 non_body_index.push(i);
                 return 252;
             }
-            
+
             return -100
         })
        .attr("cy", function(d,i) {
@@ -802,15 +1206,15 @@ var margin = {top:100, right: 160, bottom: 100, left: 70},
             return 0;
         })
         .attr("fill", function(d,i) {
-           
+
            return colorvar(i);
        })  
        .attr("fill-opacity", .4)
        .attr("id", function(d) {
-           console.log("circle_" + d[0].replace(/ /g, ""));
+         //  console.log("circle_" + d[0].replace(/ /g, ""));
            return "circle_" + d[0].replace(/ /g, "");
        })
-        
+
 
         svg_body.append("g")
         .attr("id","legend")
@@ -838,6 +1242,10 @@ var margin = {top:100, right: 160, bottom: 100, left: 70},
             .text((list_of_injuries[i][1]/total_injuries*100).toFixed(2) + "%");
         }
 }
+
+}).catch(function(error) {
+  console.log(error);
+});
 
 }).catch(function(error) {
   console.log(error);
