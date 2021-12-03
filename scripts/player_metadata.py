@@ -24,6 +24,8 @@ for ind, player in enumerate(player_dict):
     else:
         df = pd.concat([df, row], ignore_index=True)
 
+df.to_csv('player_metadata.csv', ignore_index=True)
+
 
 #player_stats = cumestatsplayer.CumeStatsPlayer(player_id='1234')
 
