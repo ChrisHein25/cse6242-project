@@ -260,6 +260,10 @@ function handleMouseOver(d, i)
 				   .attr("font-family", "arial")
 				   .attr("fill", "black")
 				   .attr("id", "injury_type_text");
+
+    injury_type_text = injury_type_text.replace(/ /g, "")
+    var selection = d3.select("#circle_" + injury_type_text)
+    selection.attr("fill-opacity",1);
 }
 
 // hover away
@@ -268,6 +272,10 @@ function handleMouseOut(d, i)
 	d3.select(this).attr("r", 2);
 	d3.select("#injury_type_svg").remove()
 	d3.select("#injury_type_text").remove()
+    var injury_type_text = d3.select(this).attr("id");
+    injury_type_text = injury_type_text.replace(/ /g, "")
+    var selection = d3.select("#circle_" + injury_type_text)
+    selection.attr("fill-opacity",0.4);
 }
 
 // update graph based on selected player or parameter
@@ -594,59 +602,59 @@ var margin = {top:100, right: 160, bottom: 100, left: 70},
         .append("circle");
 
         circles_body.attr("cx", function(d, i) {
-            if(d[0].includes("right foot")) {
+            if(d[0].includes("left foot")) {
                 non_body_index.push(i);
                 return 300;
             }
-            if(d[0].includes("left foot")) {
+            if(d[0].includes("right foot")) {
                 non_body_index.push(i);
                 return 170;
             }
-            if(d[0].includes("right knee")) {
+            if(d[0].includes("left knee")) {
                 return 295;
                 non_body_index.push(i);
             }
-            if(d[0].includes("left knee")) {
+            if(d[0].includes("right knee")) {
                 non_body_index.push(i);
                 return 190;
             }
-            if(d[0].includes("right leg")) {
+            if(d[0].includes("left leg")) {
                 non_body_index.push(i);
                 return 295;
             }
-            if(d[0].includes("left leg")) {
+            if(d[0].includes("right leg")) {
                 non_body_index.push(i);
                 return 185;
             }
-            if(d[0].includes("right hip")) {
+            if(d[0].includes("left hip")) {
                 non_body_index.push(i);
                 return 290;
             }
-            if(d[0].includes("left hip")) {
+            if(d[0].includes("right hip")) {
                 non_body_index.push(i);
                 return 220;
             }
-            if(d[0].includes("right arm")) {
+            if(d[0].includes("left arm")) {
                 non_body_index.push(i);
                 return 350;
             }
-            if(d[0].includes("left arm")) {
+            if(d[0].includes("right arm")) {
                 non_body_index.push(i);
                 return 150;
-            }
-            if(d[0].includes("right hand")) {
-                non_body_index.push(i);
-                return 360;
             }
             if(d[0].includes("left hand")) {
                 non_body_index.push(i);
+                return 360;
+            }
+            if(d[0].includes("right hand")) {
+                non_body_index.push(i);
                 return 150;
             }
-            if(d[0].includes("right shoulder")) {
+            if(d[0].includes("left shoulder")) {
                 non_body_index.push(i);
                 return 330;
             }
-            if(d[0].includes("left shoulder")) {
+            if(d[0].includes("right shoulder")) {
                 non_body_index.push(i);
                 return 170;
             }
@@ -734,12 +742,73 @@ var margin = {top:100, right: 160, bottom: 100, left: 70},
             return height/2;
         })
         .attr("r", function(d) {
-           
-            return d[1]/total_injuries*100*2.5;
+            if(d[0].includes("right foot")) {
+                return d[1]/total_injuries*100
+            }
+            if(d[0].includes("left foot")) {
+                return d[1]/total_injuries*100
+            }
+            if(d[0].includes("right knee")) {
+                return d[1]/total_injuries*100
+            }
+            if(d[0].includes("left knee")) {
+                return d[1]/total_injuries*100
+            }
+            if(d[0].includes("right leg")) {
+                return d[1]/total_injuries*100
+            }
+            if(d[0].includes("left leg")) {
+                return d[1]/total_injuries*100
+            }
+            if(d[0].includes("right hip")) {
+                return d[1]/total_injuries*100
+            }
+            if(d[0].includes("left hip")) {
+                return d[1]/total_injuries*100
+            }
+            if(d[0].includes("right arm")) {
+                return d[1]/total_injuries*100
+            }
+            if(d[0].includes("left arm")) {
+                return d[1]/total_injuries*100
+            }
+            if(d[0].includes("right hand")) {
+                return d[1]/total_injuries*100
+            }
+            if(d[0].includes("left hand")) {
+                return d[1]/total_injuries*100
+            }
+            if(d[0].includes("right shoulder")) {
+                return d[1]/total_injuries*100
+            }
+            if(d[0].includes("left shoulder")) {
+                return d[1]/total_injuries*100
+            }
+            if(d[0].includes("back")) {
+                return d[1]/total_injuries*100
+            }
+            if(d[0].includes("chest")) {
+                return d[1]/total_injuries*100
+            }
+            if(d[0].includes("head")) {
+                return d[1]/total_injuries*100
+            }
+            if(d[0].includes("groin")) {
+                return d[1]/total_injuries*100
+            }
+            if(d[0].includes("neck")) {
+                return d[1]/total_injuries*100
+            }
+            return 0;
         })
         .attr("fill", function(d,i) {
            
-           return colorScheme(i);
+           return colorvar(i);
+       })  
+       .attr("fill-opacity", .4)
+       .attr("id", function(d) {
+           console.log("circle_" + d[0].replace(/ /g, ""));
+           return "circle_" + d[0].replace(/ /g, "");
        })
         
 
@@ -755,19 +824,17 @@ var margin = {top:100, right: 160, bottom: 100, left: 70},
             .attr("height",10)
             .attr("x",400)
             .attr("y",100 + i*15)
-            .style("fill",colorScheme(i))
+            .style("fill",colorvar(i))
             //console.log(colorScheme(i));
 
             legend.append("text")
             .attr("x", 415)
             .attr("y",100 + i*15 + 10)
-            .style("color",colorScheme(i))
             .text(list_of_injuries[i][0]);
 
             legend.append("text")
-            .attr("x", 355)
+            .attr("x", 350)
             .attr("y",100 + i*15 + 10)
-            .style("color",colorScheme(i))
             .text((list_of_injuries[i][1]/total_injuries*100).toFixed(2) + "%");
         }
 }
