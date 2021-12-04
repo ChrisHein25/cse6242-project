@@ -345,7 +345,8 @@ var y = d3.scaleOrdinal()
 
   var svg = d3.select("body").append("svg")
       .attr("width", width)
-      .attr("height", height);
+      .attr("height", height)
+      .attr("transform","translate(-350,-75) scale(0.7)");
 
   // add the links
   var path = svg.append("g")
@@ -608,7 +609,8 @@ var svg = d3.select("body")
 			.attr("height", h/2)
 			.attr("x", 0)
 			.attr("y", 1000)
-			.attr("id", "svg");
+			.attr("id", "svg")
+            .attr("transform","translate(-125,-300) scale(0.8)");
 
 // create SVG groups
 var lines = svg.append("g")
@@ -708,7 +710,7 @@ function handleMouseOver(d, i)
 // hover away
 function handleMouseOut(d, i) 
 {
-	d3.select(this).attr("r", 2);
+	d3.select(this).attr("r", 3);
 	d3.select("#injury_type_svg").remove()
 	d3.select("#injury_type_text").remove()
     var injury_type_text = d3.select(this).attr("id");
@@ -987,7 +989,8 @@ var margin = {top:100, right: 20, bottom: 100, left: 70},
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .attr('x', 1500)
-        .attr('y', 1000);
+        .attr('y', 1000)
+        .attr("transform","translate(900,-1350) scale(0.8)");
 
         svg_body.append("svg_body:image")
         .attr('x', 0)
