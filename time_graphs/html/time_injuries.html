@@ -700,6 +700,9 @@ function handleMouseOver(d, i)
     injury_type_text = injury_type_text.replace(/ /g, "")
     var selection = d3.select("#circle_" + injury_type_text)
     selection.attr("fill-opacity",1);
+    var r_chng = selection.attr("r") * 2.5;
+    selection.attr("r",r_chng)
+    
 }
 
 // hover away
@@ -712,6 +715,8 @@ function handleMouseOut(d, i)
     injury_type_text = injury_type_text.replace(/ /g, "")
     var selection = d3.select("#circle_" + injury_type_text)
     selection.attr("fill-opacity",0.4);
+    var r_chng = selection.attr("r") / 2.5;
+    selection.attr("r",r_chng)
 }
 
 // update graph based on selected player or parameter
