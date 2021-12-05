@@ -36,9 +36,9 @@
 
 // define dimensions and margins for the graph
 var w = 1300;
-var h = 1700;
+var h = 1500;
 var pad = 50;
-var day = 30;
+var day = 10;
 var radius = 3;
 
 ////////////////////// begin: helper functions ///////////////////////
@@ -380,9 +380,9 @@ var y = d3.scaleOrdinal()
     });
 
 
+ 
 
-  
-  var colourscale_avg = d3.scaleSqrt()
+   var colourscale_avg = d3.scaleSqrt()
   .domain([minimum_avg_time, maximum_avg_time])
   .range(["#deebf7","#9ecae1","#3182bd"])
 
@@ -415,9 +415,10 @@ var y = d3.scaleOrdinal()
     data_to_be_sent_1.push(node.group)
     }
   });
- //   d3.select(this).select("text").style("visibility", "visible") 
+
+
 node.select("text").style("visibility", "hidden")
-console.log(data_to_be_sent_1)
+//console.log(data_to_be_sent_1)
 
 
 
@@ -430,7 +431,7 @@ for (let i = 0; i < node_data_nest[cluster_value].values.length; i++)
 }
 
 var selectedPlayers = list_of_players.slice(0, 5)
-
+ 
 // nest game data by player
 var game_data_nest = d3.nest()
 					   .key(function(d) {return d.name;}).sortKeys(d3.ascending)
@@ -440,6 +441,9 @@ var game_data_nest = d3.nest()
 var injury_nest = d3.nest()
 				    .key(function(d) {return d.name;}).sortKeys(d3.ascending)
 					.entries(injuryList);
+
+var list_of_injuries = update_injuries(list_of_players)
+update_body(list_of_injuries)
 
 // set the first name to be the start of the group
 var setParameter = parameters[0]
@@ -453,9 +457,6 @@ d3.select("#parameterSelectButton").on("change", function(d)
 	var selectedParameterOption = parameterSelect.property("value")
 	update_graph(selectedPlayers, selectedParameterOption)
 })
-
-var list_of_injuries = update_injuries(list_of_players)
-update_body(list_of_injuries)
 //////////// update graph ////////////
 
 data_to_be_sent_1 = []
@@ -610,7 +611,7 @@ var svg = d3.select("body")
 			.attr("x", 0)
 			.attr("y", 1000)
 			.attr("id", "svg")
-            .attr("transform","translate(-125,-300) scale(0.8)");
+            .attr("transform","translate(-125,-250) scale(0.8)");
 
 // create SVG groups
 var lines = svg.append("g")
@@ -629,14 +630,14 @@ var legend = svg.append("g")
 		     	.attr("id", "legend");
 
 // add the title
-line_chart_title.append("text")
-   				.attr("id", "title")
-   				.attr("x", w/2 - 2*pad)
-   				.attr("y", h/16)
-   				.text("Injuries");
+// line_chart_title.append("text")
+//    				.attr("id", "title")
+//    				.attr("x", w/2 - 2*pad)
+//    				.attr("y", h/16)
+//    				.text("Injuries");
 
 // RANDOMLY SELECTED CLUSTER NUMBER
-var cluster_value = 2
+var cluster_value = 0
 var return_players = 5
 
 // nest node data by group
@@ -655,6 +656,7 @@ for (let i = 0; i < node_data_nest[cluster_value].values.length; i++)
 
 var selectedPlayers = list_of_players.slice(0, 5)
 
+
 // nest game data by player
 var game_data_nest = d3.nest()
 					   .key(function(d) {return d.name;}).sortKeys(d3.ascending)
@@ -664,6 +666,9 @@ var game_data_nest = d3.nest()
 var injury_nest = d3.nest()
 				    .key(function(d) {return d.name;}).sortKeys(d3.ascending)
 					.entries(injuryList);
+
+var list_of_injuries = update_injuries(list_of_players)
+update_body(list_of_injuries)
 
 // set the first name to be the start of the group
 var setParameter = parameters[0]
@@ -678,8 +683,7 @@ d3.select("#parameterSelectButton").on("change", function(d)
 	update_graph(selectedPlayers, selectedParameterOption)
 })
 
-var list_of_injuries = update_injuries(list_of_players)
-update_body(list_of_injuries)
+
 
 // hover over
 function handleMouseOver(d, i) 
@@ -725,72 +729,39 @@ function handleMouseOut(d, i)
 function update_graph(selectPlayer, selectParameter)
 {
 	d3.select("#x-axis-lines").remove();
-	d3.select("#y-axis-lines").remove();
+	d3.select("#svg_summary").remove();
+
 
 	// remove existing circles and lines
 	for (let i = 0; i < selectPlayer.length; i++)
 	{
 		d3.select("#circles").remove();
 		d3.select("#lines").remove();
+		d3.select("#y-axis-lines-" + i).remove();
 	}
 
 	colors = ["red", "orange", "green", "blue", "purple"]
 
 	// find min max limits for x and y axes
-	var min_x = new Date('2021-12-01')
-	var max_x = new Date('2000-01-01')
+	var min_x = new Date('2010-01-01')
+	var max_x = new Date('2020-01-01')
 	var min_y = 0
 	var max_y = 0
-
-	for (let i = 0; i < selectPlayer.length; i++)
-	{
-		var setName = selectPlayer[i]
-		var setParameter = selectParameter
-
-		var game_date = []
-		var game_info = []
-
-		// populate the arrays
-		for (let i = 0; i < game_data_nest.length; i++)
-		{
-			if (game_data_nest[i].key == setName)
-			{
-				for (let k = 0; k < game_data_nest[i].values.length; k++)
-				{
-					game_date.push(game_data_nest[i].values[k].date)
-					game_info.push(parseFloat(game_data_nest[i].values[k][setParameter]))
-				}
-			}
-		}
-
-		min_x = min_x < new Date(game_date[0]) ? min_x : new Date(game_date[0])
-		max_x = max_x > new Date(game_date[game_date.length - 1]) ? max_x : new Date(game_date[game_date.length - 1])
-		min_y = min_y < d3.min([0, d3.min(game_info)]) ? min_y : d3.min([0, d3.min(game_info)])
-		max_y = max_y > d3.max(game_info) ? max_y : d3.max(game_info)
-	}
 
 	// axes
 	var xScale = d3.scaleTime()
 				    .domain([min_x, max_x])
 					.range([pad, w - 2*pad]);
 
-	var yScale = d3.scaleLinear()
-					.domain([min_y, max_y])
-					.range([h/2 - 2*pad, 0]);
-
 	var x = d3.axisBottom()
 					.scale(xScale)
 					.ticks(10);
 
-	var y = d3.axisLeft()
-			  .scale(yScale)
-			  .ticks(10);
-					  
 	// add the x axis
 	var xAxis = svg.append("g")
 		   		   .attr("id", "x-axis-lines")
 		   		   .attr("class", "axis")
-		   		   .attr("transform", "translate(0," + (h/2 - pad) + ")")
+		   		   .attr("transform", "translate(0," + (h/2 - pad - 150) + ")")
 		   		   .call(x)
 
 	// add the text label for the x axis
@@ -800,23 +771,6 @@ function update_graph(selectPlayer, selectParameter)
 		 .attr("x", w/2 - pad/2)
 		 .attr("y", pad*4/5)
 		 .text("Date");
-
-	// add the y axis
-	var yAxis = svg.append("g")
-		   		   .attr("id", "y-axis-lines")
-		   		   .attr("class", "axis")
-		   		   .attr("transform", "translate(" + (pad) + "," + (pad) + ")")
-		   		   .call(y);
-
-	// add the text label for Y axis
-	yAxis.append("text")
-		 .attr("id", "y-axis label")
-		 .style("fill", "black")
-		 .attr("x", (-h/2 + 2*pad)/2)
-		 .attr("y", -pad*4/5)
-		 .attr("transform", "rotate(-90)")
-		 .text(setParameter);
-
 
 	for (let i = 0; i < selectPlayer.length; i++)
 	{
@@ -892,6 +846,35 @@ function update_graph(selectPlayer, selectParameter)
 		var holder_rearranged = holder.map((d) => 
 									 {return {x: d[0], y: d[1], z: d[2]}})
 
+
+		min_y = d3.min(game_info)
+		max_y = d3.max(game_info)
+
+	    // add the y axis
+		var yScale = d3.scaleLinear()
+					.domain([min_y, max_y])
+					//.range([h/2 - 2*pad, 0]);
+					.range([(h/2 - 2*pad)/7, 0]);
+		
+		var y = d3.axisLeft()
+				  .scale(yScale)
+				  .ticks(5);
+
+		var yAxis = svg.append("g")
+			   		   .attr("id", "y-axis-lines-" + i)
+			   		   .attr("class", "axis")
+			   		   .attr("transform", "translate(" + (pad) + "," + (i*114.25) + ")")
+			   		   .call(y);
+
+		// add the text label for Y axis
+		yAxis.append("text")
+			 .attr("id", "y-axis label")
+			 .style("fill", "black")
+			 .attr("x", -40)
+			 .attr("y", -pad*4/5)
+			 .attr("transform", "rotate(-90)")
+			 .text(setParameter);
+
 		lines.append("path")
 	   	 	 .datum(moving_average_data_rearranged)
 	   	 	 .attr("fill", "none")
@@ -899,7 +882,8 @@ function update_graph(selectPlayer, selectParameter)
 	   	 	 .attr("stroke-width", 1.5)
 	   	 	 .attr("transform", "translate(" + (0) + "," + (pad) + ")")
 	   	 	 .attr("d", d3.line().x(function(d) {return xScale(new Date(d.x))})
-	   					     	 .y(function(d) {return yScale(d.y)}));
+	   					     	 .y(function(d) {return yScale(d.y)}))
+	   	 	 .attr("transform", "translate(" + (pad) + "," + (i*114.25) + ")")
 
 		circles.selectAll("null")
 			   .data(holder_rearranged, function(d) { return d; })
@@ -913,9 +897,134 @@ function update_graph(selectPlayer, selectParameter)
 			   .attr("r", radius)
 			   .attr("transform", "translate(" + (0) + "," + (pad) + ")")
 			   .attr("id", function(d) {return d.z})
+			   .attr("transform", "translate(" + (pad) + "," + (i*114.25) + ")")
 			   .on("mouseover", handleMouseOver)
-			   .on("mouseout", handleMouseOut);
+			   .on("mouseout", handleMouseOut)
+
 	}
+
+
+	var svg_summary = d3.select("body")
+				.append("svg")
+				.attr("width", 400)
+				.attr("height", 300)
+				.attr("x", 0)
+				.attr("y", 500)
+				.attr("id", "svg_summary")
+				.attr("transform","translate(500, -1175)")
+
+
+	var summary = svg_summary.append("g")
+				  			  .attr("id", "summary");
+
+	summary.append("text")
+					   .attr("x", 10)
+					   .attr("y", 10)
+					   .attr("font-size", "14px")
+					   .attr("font-family", "arial")
+					   .attr("fill", "black")
+					   .attr("id", "summary_text")
+					   .text("The top five players by average play time are")
+
+	summary.append("text")
+					   .attr("x", 50)
+					   .attr("y", 40)
+					   .attr("font-size", "14px")
+					   .attr("font-family", "arial")
+					   .attr("fill", colors[0])
+					   .attr("id", "summary_text")
+					   .text(selectPlayer[0])
+
+		summary.append("text")
+					   .attr("x", 50)
+					   .attr("y", 60)
+					   .attr("font-size", "14px")
+					   .attr("font-family", "arial")
+					   .attr("fill", colors[1])
+					   .attr("id", "summary_text")
+					   .text(selectPlayer[1])
+	summary.append("text")
+					   .attr("x", 50)
+					   .attr("y", 80)
+					   .attr("font-size", "14px")
+					   .attr("font-family", "arial")
+					   .attr("fill", colors[2])
+					   .attr("id", "summary_text")
+					   .text(selectPlayer[2])
+
+		summary.append("text")
+					   .attr("x", 50)
+					   .attr("y", 100)
+					   .attr("font-size", "14px")
+					   .attr("font-family", "arial")
+					   .attr("fill", colors[3])
+					   .attr("id", "summary_text")
+					   .text(selectPlayer[3])
+
+		summary.append("text")
+					   .attr("x", 50)
+					   .attr("y", 120)
+					   .attr("font-size", "14px")
+					   .attr("font-family", "arial")
+					   .attr("fill", colors[4])
+					   .attr("id", "summary_text")
+					   .text(selectPlayer[4])
+
+
+		summary.append("text")
+					   .attr("x", 10)
+					   .attr("y", 150)
+					   .attr("font-size", "14px")
+					   .attr("font-family", "arial")
+					   .attr("fill", "black")
+					   .attr("id", "summary_text")
+					   .text("Double-click another cluster to view its data")
+
+		summary.append("text")
+					   .attr("x", 10)
+					   .attr("y", 170)
+					   .attr("font-size", "14px")
+					   .attr("font-family", "arial")
+					   .attr("fill", "black")
+					   .attr("id", "summary_text")
+					   .text("or select a different parameter to see how injuries")
+
+		summary.append("text")
+					   .attr("x", 10)
+					   .attr("y", 190)
+					   .attr("font-size", "14px")
+					   .attr("font-family", "arial")
+					   .attr("fill", "black")
+					   .attr("id", "summary_text")
+					   .text("affect performance for the top five players.")
+
+
+
+
+
+// var summary = svg_summary.append("g")
+// 				  			  .attr("id", "summary");
+
+// 	var summary_text = ["The top five players by average play time are - " + selectPlayer[0] + ", -" + selectPlayer[1] + ", -" + selectPlayer[2] + ", -" + selectPlayer[3] + ", -" + selectPlayer[4] + "."]
+// 	console.log(summary_text)
+
+// 	summary.append("text")
+// 					   .attr("x", 10)
+// 					   .attr("y", 10)
+// 					   .attr("font-size", "12.5px")
+// 					   .attr("font-family", "arial")
+// 					   .attr("fill", "black")
+// 					   .attr("id", "summary_text")
+// 					   .data(summary_text).enter()
+// 					   .text(function(d) {
+// 					    return d.split("-")[0]
+// 					   })
+// 					   .append("tspan")
+//   					   .style("fill", "red")
+//   					   .text(function(d) {
+//                            return d.split("-")[1] 
+//                        })
+
 }
 
 // update list of injuries based on cluster selected
@@ -964,11 +1073,26 @@ function update_injuries(selectPlayer)
 
     for (const [key, value] of Object.entries(injury_dictionary)) 
     {
-         list_of_injuries.push([key, value])
+         list_of_injuries.push([value, key])
     }
 
-   // console.log(list_of_injuries)
+	// console.log(list_of_injuries)
+	// list_of_injuries.sort(function (a, b) {
+	//     return b[0] < a[0];
+	// });
 
+	list_of_injuries.sort(sortFunction);
+
+	function sortFunction(a, b) {
+	    if (a[0] === b[0]) {
+	        return 0;
+	    }
+	    else {
+	        return (a[0] > b[0]) ? -1 : 1;
+	    }
+	}
+
+	console.log(list_of_injuries)
     return list_of_injuries
 }
 
@@ -976,7 +1100,7 @@ function update_injuries(selectPlayer)
 function update_body(list_of_injuries)
 {
 
-var margin = {top:100, right: 20, bottom: 100, left: 70},
+var margin = {top:100, right: 0, bottom: 100, left: 0},
               width = 650 - margin.right - margin.left,
               height = 800 - margin.top - margin.bottom;
 
@@ -988,9 +1112,9 @@ var margin = {top:100, right: 20, bottom: 100, left: 70},
         .attr("id", "svg_body")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
-        .attr('x', 1500)
+        .attr('x', 1600)
         .attr('y', 1000)
-        .attr("transform","translate(900,-1350) scale(0.8)");
+        .attr("transform","translate(1000,-1350) scale(0.8)");
 
         svg_body.append("svg_body:image")
         .attr('x', 0)
@@ -1007,7 +1131,7 @@ var margin = {top:100, right: 20, bottom: 100, left: 70},
         var colorvar = d3.scaleSequential().domain([0,list_of_injuries.length]).interpolator(d3.interpolateRainbow);
         
         for(idx=0;idx<list_of_injuries.length;idx++) {
-            total_injuries += list_of_injuries[idx][1];
+            total_injuries += list_of_injuries[idx][0];
         }
 
         var circles_body = svg_body.selectAll("circle")
@@ -1016,79 +1140,79 @@ var margin = {top:100, right: 20, bottom: 100, left: 70},
         .append("circle");
 
         circles_body.attr("cx", function(d, i) {
-            if(d[0].includes("left foot")) {
+            if(d[1].includes("left foot")) {
                 non_body_index.push(i);
                 return 300;
             }
-            if(d[0].includes("right foot")) {
+            if(d[1].includes("right foot")) {
                 non_body_index.push(i);
                 return 170;
             }
-            if(d[0].includes("left knee")) {
+            if(d[1].includes("left knee")) {
                 return 295;
                 non_body_index.push(i);
             }
-            if(d[0].includes("right knee")) {
+            if(d[1].includes("right knee")) {
                 non_body_index.push(i);
                 return 190;
             }
-            if(d[0].includes("left leg")) {
+            if(d[1].includes("left leg")) {
                 non_body_index.push(i);
                 return 295;
             }
-            if(d[0].includes("right leg")) {
+            if(d[1].includes("right leg")) {
                 non_body_index.push(i);
                 return 185;
             }
-            if(d[0].includes("left hip")) {
+            if(d[1].includes("left hip")) {
                 non_body_index.push(i);
                 return 290;
             }
-            if(d[0].includes("right hip")) {
+            if(d[1].includes("right hip")) {
                 non_body_index.push(i);
                 return 220;
             }
-            if(d[0].includes("left arm")) {
+            if(d[1].includes("left arm")) {
                 non_body_index.push(i);
                 return 350;
             }
-            if(d[0].includes("right arm")) {
+            if(d[1].includes("right arm")) {
                 non_body_index.push(i);
                 return 150;
             }
-            if(d[0].includes("left hand")) {
+            if(d[1].includes("left hand")) {
                 non_body_index.push(i);
                 return 360;
             }
-            if(d[0].includes("right hand")) {
+            if(d[1].includes("right hand")) {
                 non_body_index.push(i);
                 return 150;
             }
-            if(d[0].includes("left shoulder")) {
+            if(d[1].includes("left shoulder")) {
                 non_body_index.push(i);
                 return 330;
             }
-            if(d[0].includes("right shoulder")) {
+            if(d[1].includes("right shoulder")) {
                 non_body_index.push(i);
                 return 170;
             }
-            if(d[0].includes("back")) {
+            if(d[1].includes("back")) {
                 non_body_index.push(i);
                 return 252;
             }
-            if(d[0].includes("chest")) {
+            if(d[1].includes("chest")) {
                 non_body_index.push(i);
                 return 252;
             }
-            if(d[0].includes("head")) {
+            if(d[1].includes("head")) {
                 non_body_index.push(i);
                 return 252;
             }
-            if(d[0].includes("groin")) {
+            if(d[1].includes("groin")) {
                 non_body_index.push(i);
                 return 252;
             }
-            if(d[0].includes("neck")) {
+            if(d[1].includes("neck")) {
                 non_body_index.push(i);
                 return 252;
             }
@@ -1096,122 +1220,122 @@ var margin = {top:100, right: 20, bottom: 100, left: 70},
             return -100
         })
        .attr("cy", function(d,i) {
-            if(d[0].includes("right foot")) {
+            if(d[1].includes("right foot")) {
                 return 650;
             }
-            if(d[0].includes("left foot")) {
+            if(d[1].includes("left foot")) {
                 return 650;
             }
-            if(d[0].includes("right knee")) {
+            if(d[1].includes("right knee")) {
                 return 500;
             }
-            if(d[0].includes("left knee")) {
+            if(d[1].includes("left knee")) {
                 return 500;
             }
-            if(d[0].includes("right leg")) {
+            if(d[1].includes("right leg")) {
                 return 575;
             }
-            if(d[0].includes("left leg")) {
+            if(d[1].includes("left leg")) {
                 return 575;
             }
-            if(d[0].includes("right hip")) {
+            if(d[1].includes("right hip")) {
                 return 340;
             }
-            if(d[0].includes("left hip")) {
+            if(d[1].includes("left hip")) {
                 return 340;
             }
-            if(d[0].includes("right arm")) {
+            if(d[1].includes("right arm")) {
                 return 270;
             }
-            if(d[0].includes("left arm")) {
+            if(d[1].includes("left arm")) {
                 return 270;
             }
-            if(d[0].includes("right hand")) {
+            if(d[1].includes("right hand")) {
                 return 390;
             }
-            if(d[0].includes("left hand")) {
+            if(d[1].includes("left hand")) {
                 return 390;
             }
-            if(d[0].includes("right shoulder")) {
+            if(d[1].includes("right shoulder")) {
                 return 160;
             }
-            if(d[0].includes("left shoulder")) {
+            if(d[1].includes("left shoulder")) {
                 return 160;
             }
-            if(d[0].includes("back")) {
+            if(d[1].includes("back")) {
                 return 260;
             }
-            if(d[0].includes("chest")) {
+            if(d[1].includes("chest")) {
                 return 190;
             }
-            if(d[0].includes("head")) {
+            if(d[1].includes("head")) {
                 return 70;
             }
-            if(d[0].includes("groin")) {
+            if(d[1].includes("groin")) {
                 return 380;
             }
-            if(d[0].includes("neck")) {
+            if(d[1].includes("neck")) {
                 return 130;
             }
             return height/2;
         })
         .attr("r", function(d) {
-            if(d[0].includes("right foot")) {
-                return d[1]/total_injuries*100
+            if(d[1].includes("right foot")) {
+                return d[0]/total_injuries*100
             }
-            if(d[0].includes("left foot")) {
-                return d[1]/total_injuries*100
+            if(d[1].includes("left foot")) {
+                return d[0]/total_injuries*100
             }
-            if(d[0].includes("right knee")) {
-                return d[1]/total_injuries*100
+            if(d[1].includes("right knee")) {
+                return d[0]/total_injuries*100
             }
-            if(d[0].includes("left knee")) {
-                return d[1]/total_injuries*100
+            if(d[1].includes("left knee")) {
+                return d[0]/total_injuries*100
             }
-            if(d[0].includes("right leg")) {
-                return d[1]/total_injuries*100
+            if(d[1].includes("right leg")) {
+                return d[0]/total_injuries*100
             }
-            if(d[0].includes("left leg")) {
-                return d[1]/total_injuries*100
+            if(d[1].includes("left leg")) {
+                return d[0]/total_injuries*100
             }
-            if(d[0].includes("right hip")) {
-                return d[1]/total_injuries*100
+            if(d[1].includes("right hip")) {
+                return d[0]/total_injuries*100
             }
-            if(d[0].includes("left hip")) {
-                return d[1]/total_injuries*100
+            if(d[1].includes("left hip")) {
+                return d[0]/total_injuries*100
             }
-            if(d[0].includes("right arm")) {
-                return d[1]/total_injuries*100
+            if(d[1].includes("right arm")) {
+                return d[0]/total_injuries*100
             }
-            if(d[0].includes("left arm")) {
-                return d[1]/total_injuries*100
+            if(d[1].includes("left arm")) {
+                return d[0]/total_injuries*100
             }
-            if(d[0].includes("right hand")) {
-                return d[1]/total_injuries*100
+            if(d[1].includes("right hand")) {
+                return d[0]/total_injuries*100
             }
-            if(d[0].includes("left hand")) {
-                return d[1]/total_injuries*100
+            if(d[1].includes("left hand")) {
+                return d[0]/total_injuries*100
             }
-            if(d[0].includes("right shoulder")) {
-                return d[1]/total_injuries*100
+            if(d[1].includes("right shoulder")) {
+                return d[0]/total_injuries*100
             }
-            if(d[0].includes("left shoulder")) {
-                return d[1]/total_injuries*100
+            if(d[1].includes("left shoulder")) {
+                return d[0]/total_injuries*100
             }
-            if(d[0].includes("back")) {
-                return d[1]/total_injuries*100
+            if(d[1].includes("back")) {
+                return d[0]/total_injuries*100
             }
-            if(d[0].includes("chest")) {
-                return d[1]/total_injuries*100
+            if(d[1].includes("chest")) {
+                return d[0]/total_injuries*100
             }
-            if(d[0].includes("head")) {
-                return d[1]/total_injuries*100
+            if(d[1].includes("head")) {
+                return d[0]/total_injuries*100
             }
-            if(d[0].includes("groin")) {
-                return d[1]/total_injuries*100
+            if(d[1].includes("groin")) {
+                return d[0]/total_injuries*100
             }
-            if(d[0].includes("neck")) {
-                return d[1]/total_injuries*100
+            if(d[1].includes("neck")) {
+                return d[0]/total_injuries*100
             }
             return 0;
         })
@@ -1222,13 +1346,13 @@ var margin = {top:100, right: 20, bottom: 100, left: 70},
        .attr("fill-opacity", .4)
        .attr("id", function(d) {
          //  console.log("circle_" + d[0].replace(/ /g, ""));
-           return "circle_" + d[0].replace(/ /g, "");
+           return "circle_" + d[1].replace(/ /g, "");
        })
 
 
         svg_body.append("g")
         .attr("id","legend")
-        .attr("transform","translate(" + margin.left + "," + margin.top + ")");
+        .attr("transform","translate(" + margin.left + 70 + "," + margin.top + ")");
 
         var legend = d3.select("#legend");
 
@@ -1244,12 +1368,12 @@ var margin = {top:100, right: 20, bottom: 100, left: 70},
             legend.append("text")
             .attr("x", 415)
             .attr("y",100 + i*15 + 10)
-            .text(list_of_injuries[i][0]);
+            .text(list_of_injuries[i][1]);
 
             legend.append("text")
             .attr("x", 350)
             .attr("y",100 + i*15 + 10)
-            .text((list_of_injuries[i][1]/total_injuries*100).toFixed(2) + "%");
+            .text((list_of_injuries[i][0]/total_injuries*100).toFixed(2) + "%");
         }
 }
 
