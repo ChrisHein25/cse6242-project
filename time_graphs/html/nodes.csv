@@ -1,0 +1,907 @@
+id,name,group,avg_min,position,height,weight,country,seasons_played,team_name,team_city,start_year,end_year,draft_round,all_star_appearances
+255,Grant Hill,2,27.83951882845188,Forward,6-8,225.0,USA,18,Pistons,Detroit,1994,2012,1,6.0
+202412,Manny Harris,2,17.133387096774193,Guard,6-5,185.0,USA,5,Cavaliers,Cleveland,2010,2016,Undrafted,0.0
+201970,Sam Young,2,15.917688172043011,Forward-Guard,6-6,225.0,USA,5,Grizzlies,Memphis,2009,2012,2,0.0
+201604,Chris Douglas-Roberts,2,21.320711610486892,Guard,6-7,210.0,USA,7,nan,nan,2008,2014,2,0.0
+406,Shaquille O'Neal,5,22.043464419475654,Center,7-1,325.0,USA,19,Lakers,Los Angeles,1992,2010,1,12.0
+2405,Amar'e Stoudemire,5,27.68348705501618,Forward-Center,6-10,245.0,USA,15,Knicks,New York,2002,2015,1,6.0
+1627826,Ivica Zubac,5,14.696690476190474,Center,7-0,240.0,Croatia,5,Clippers,LA,2016,2021,2,nan
+101115,Andrew Bynum,5,29.775626016260162,Center,7-0,285.0,USA,8,Lakers,Los Angeles,2005,2013,1,1.0
+436,Juwan Howard,0,14.932858585858586,Forward,6-9,250.0,USA,20,Wizards,Washington,1994,2012,1,1.0
+203948,Johnny O'Bryant III,0,11.458673469387755,Forward,6-9,257.0,USA,5,nan,nan,2014,2017,2,0.0
+2694,Josh Powell,1,10.62156779661017,Forward,6-9,240.0,USA,8,Lakers,Los Angeles,2005,2013,Undrafted,0.0
+2239,Trenton Hassell,1,21.274262820512824,Forward-Guard,6-5,227.0,USA,10,Timberwolves,Minnesota,2001,2009,2,0.0
+467,Jason Kidd,3,31.532108362779738,Guard,6-4,210.0,USA,19,Nets,New Jersey,1994,2012,1,9.0
+203143,Pablo Prigioni,3,16.953172242874846,Guard,6-3,185.0,Argentina,5,Knicks,New York,2012,2015,Undrafted,0.0
+2224,Jamaal Tinsley,3,16.348164414414413,Guard,6-3,188.0,USA,11,nan,nan,2001,2013,1,0.0
+1628366,Lonzo Ball,3,32.349444444444444,Guard,6-6,190.0,USA,4,Bulls,Chicago,2017,2021,1,nan
+686,Antonio McDyess,0,20.023888888888887,Forward-Center,6-9,245.0,USA,16,Pistons,Detroit,1995,2010,1,1.0
+2853,Earl Barron,0,14.60640804597701,Forward-Center,7-0,250.0,USA,9,Heat,Miami,2005,2014,Undrafted,0.0
+101130,Johan Petro,0,12.811124794745485,Center,7-0,247.0,France,9,Thunder,Oklahoma City,2005,2012,1,0.0
+2617,Udonis Haslem,0,18.572815261044177,Forward,6-8,235.0,USA,18,Heat,Miami,2003,2021,Undrafted,nan
+689,Theo Ratliff,0,14.858954802259886,Center,6-10,235.0,USA,17,76ers,Philadelphia,1995,2010,1,0.0
+201202,Joel Anthony,0,13.743823773898587,Center,6-9,245.0,Canada,11,Heat,Miami,2007,2016,Undrafted,0.0
+202327,Ekpe Udoh,0,14.830008703220193,Center-Forward,6-10,245.0,USA,8,Jazz,Utah,2010,2018,1,0.0
+201934,Hasheem Thabeet,0,10.507683109118085,Center,7-3,263.0,Tanzania,5,Grizzlies,Memphis,2009,2013,1,0.0
+703,Kurt Thomas,0,15.992344236760125,Forward,6-9,240.0,USA,18,nan,nan,1995,2012,1,0.0
+1903,Kenny Thomas,0,12.04551282051282,Center-Forward,6-7,245.0,USA,12,nan,nan,1999,2009,1,0.0
+1499,Tony Battie,0,10.069312499999999,Center,6-11,240.0,USA,15,Celtics,Boston,1997,2011,1,0.0
+201187,Dominic McGuire,0,13.377012089810018,Forward,6-9,235.0,USA,7,nan,nan,2007,2012,2,0.0
+708,Kevin Garnett,0,26.493791973791975,Forward,6-11,240.0,USA,22,Timberwolves,Minnesota,1995,2015,1,14.0
+2561,David West,5,26.539176860346583,Forward,6-9,250.0,USA,16,Warriors,Golden State,2003,2017,1,2.0
+201175,Glen Davis,0,22.415978260869565,Forward-Center,6-9,289.0,USA,8,Celtics,Boston,2007,2014,2,0.0
+2760,Anderson Varejao,0,24.961714437367306,Forward,6-11,260.0,Brazil,14,nan,nan,2004,2020,2,0.0
+711,Jerry Stackhouse,4,14.834008620689655,Forward,6-6,218.0,USA,19,Pistons,Detroit,1995,2012,1,2.0
+203917,Nik Stauskas,1,19.88471144278607,Guard,6-6,205.0,Canada,6,Cavaliers,Cleveland,2014,2018,1,0.0
+2399,Mike Dunleavy,1,25.711975308641975,Guard-Forward,6-9,230.0,USA,16,Warriors,Golden State,2002,2016,1,0.0
+101110,Martell Webster,1,24.79638425925926,Forward-Guard,6-7,230.0,USA,11,Trail Blazers,Portland,2005,2014,1,0.0
+714,Michael Finley,1,15.414021739130433,Guard-Forward,6-7,225.0,USA,16,Mavericks,Dallas,1995,2009,1,2.0
+101214,Jawad Williams,1,14.165416666666667,Forward,6-9,225.0,USA,3,nan,nan,2008,2010,Undrafted,0.0
+203503,Tony Snell,1,21.80257164404223,Guard,6-6,213.0,USA,8,Trail Blazers,Portland,2013,2021,1,nan
+203117,Doron Lamb,1,12.725883333333334,Guard,6-4,200.0,USA,2,Magic,Orlando,2012,2013,2,0.0
+739,Rasheed Wallace,1,20.764216666666666,Forward-Center,6-11,230.0,USA,16,nan,nan,1995,2012,1,4.0
+1628371,Jonathan Isaac,2,24.81955882352941,Forward,6-10,230.0,USA,3,Magic,Orlando,2017,2021,1,nan
+1629016,Omari Spellman,2,17.49003623188406,Forward,6-8,245.0,USA,3,Timberwolves,Minnesota,2018,2019,1,0.0
+203120,Justin Hamilton,2,17.35589970501475,Center,7-0,255.0,USA,4,Nets,Brooklyn,2013,2016,2,0.0
+947,Allen Iverson,2,30.868690476190473,Guard,6-0,165.0,USA,15,76ers,Philadelphia,1996,2009,1,9.0
+201945,Gerald Henderson,2,25.914357053682895,Guard,6-5,215.0,USA,9,Hornets,Charlotte,2009,2016,1,0.0
+202809,Cory Higgins,2,10.33871212121212,Guard,6-5,180.0,USA,2,nan,nan,2011,2012,Undrafted,0.0
+200750,Brandon Roy,2,32.908072463768114,Guard,6-6,211.0,USA,6,Trail Blazers,Portland,2006,2012,1,2.0
+948,Marcus Camby,0,25.20688372093023,Center-Forward,6-11,240.0,USA,18,Nuggets,Denver,1996,2012,1,0.0
+203961,Eric Moreland,0,10.771544715447154,Forward-Center,6-10,238.0,USA,5,Raptors,Toronto,2014,2018,Undrafted,0.0
+202332,Cole Aldrich,0,10.002820512820513,Center,6-11,253.0,USA,9,Knicks,New York,2010,2017,1,0.0
+2740,Andris Biedrins,0,17.365934343434343,Center,7-0,250.0,Latvia,10,nan,nan,2004,2013,1,0.0
+951,Ray Allen,4,31.41072625698324,Guard,6-5,205.0,USA,18,Bucks,Milwaukee,1996,2013,1,10.0
+1628379,Luke Kennard,4,21.403975308641975,Guard,6-5,206.0,USA,4,Clippers,LA,2017,2021,1,nan
+201158,Marco Belinelli,4,24.078950022925266,Guard,6-5,220.0,Italy,14,Spurs,San Antonio,2007,2019,1,0.0
+1628422,Damyean Dotson,4,21.17834757834758,Guard,6-5,210.0,USA,5,Cavaliers,Cleveland,2017,2020,2,0.0
+956,Erick Dampier,0,18.00194214876033,Center,6-11,265.0,USA,17,Warriors,Golden State,1996,2011,1,0.0
+2217,Brendan Haywood,0,21.451490610328637,Center,7-0,263.0,USA,13,Wizards,Washington,2001,2014,1,0.0
+202687,Bismack Biyombo,0,20.30114922813036,Center,6-8,255.0,Democratic Republic of the Congo,11,Hornets,Charlotte,2011,2020,1,0.0
+2570,Kendrick Perkins,0,22.80703926282051,Center,6-10,270.0,USA,14,Celtics,Boston,2003,2017,1,0.0
+959,Steve Nash,3,32.004528857479386,Guard,6-3,178.0,Canada,19,Suns,Phoenix,1996,2013,1,7.0
+202349,Greivis Vasquez,3,23.737344139650872,Guard,6-6,217.0,Venezuela,7,nan,nan,2010,2016,1,0.0
+101114,Deron Williams,6,33.726897627965045,Guard,6-3,200.0,USA,13,Jazz,Utah,2005,2016,1,3.0
+200826,J.J. Barea,6,21.031147286821707,Guard,5-10,180.0,Puerto Rico,15,Mavericks,Dallas,2006,2019,Undrafted,0.0
+965,Derek Fisher,3,23.562609970674487,Guard,6-1,210.0,USA,18,Lakers,Los Angeles,1996,2013,1,0.0
+2550,Kirk Hinrich,3,27.32697798025816,Guard,6-4,190.0,USA,14,Bulls,Chicago,2003,2015,1,0.0
+1627758,Ron Baker,1,14.517621527777777,Guard,6-4,220.0,USA,3,nan,nan,2016,2018,Undrafted,0.0
+1515,Anthony Parker,1,27.769252873563214,Guard,6-6,210.0,USA,10,Raptors,Toronto,1997,2011,1,0.0
+977,Kobe Bryant,6,35.44298994974874,Forward-Guard,6-6,212.0,USA,20,Lakers,Los Angeles,1996,2015,1,15.0
+202681,Kyrie Irving,6,33.78399209486166,Guard,6-2,195.0,Australia,10,Nets,Brooklyn,2011,2021,1,nan
+202689,Kemba Walker,6,34.05992837465565,Guard,6-0,184.0,USA,10,Knicks,New York,2011,2021,1,nan
+101150,Lou Williams,6,26.903552631578947,Guard,6-2,175.0,USA,16,Hawks,Atlanta,2005,2021,2,nan
+978,Peja Stojakovic,4,27.1893085106383,Forward,6-10,229.0,Serbia,14,Kings,Sacramento,1998,2010,1,3.0
+201961,Wayne Ellington,4,21.259109553478712,Guard,6-4,207.0,USA,12,Lakers,Los Angeles,2009,2021,1,nan
+203459,Allen Crabbe,4,24.632696793002914,Guard-Forward,6-5,212.0,USA,7,nan,nan,2013,2019,2,0.0
+201627,Anthony Morrow,4,21.65819556451613,Guard,6-5,210.0,USA,10,Thunder,Oklahoma City,2008,2016,Undrafted,0.0
+979,Jermaine O'Neal,0,22.4960626911315,Center-Forward,6-11,255.0,USA,18,Pacers,Indiana,1996,2013,1,5.0
+201579,Roy Hibbert,0,25.97978885135135,Center,7-2,270.0,USA,10,Pacers,Indiana,2008,2016,1,2.0
+202389,Timofey Mozgov,5,18.006865342163355,Center,7-1,275.0,Russia,10,Magic,Orlando,2010,2018,Undrafted,0.0
+1628386,Jarrett Allen,5,23.27029605263158,Center,6-10,243.0,USA,4,Cavaliers,Cleveland,2017,2021,1,nan
+980,Zydrunas Ilgauskas,0,18.237135802469137,Center,7-3,260.0,Lithuania,14,Cavaliers,Cleveland,1997,2010,1,2.0
+202730,Lavoy Allen,0,17.79499140893471,Forward-Center,6-9,260.0,USA,7,Pacers,Indiana,2011,2016,2,0.0
+200777,Joel Freeland,0,11.985755555555555,Center-Forward,6-10,225.0,United Kingdom,3,Trail Blazers,Portland,2012,2014,1,0.0
+201591,DJ White,0,15.118435114503816,Forward,6-9,250.0,USA,6,Bobcats,Charlotte,2008,2013,1,0.0
+1088,Chucky Atkins,3,16.094916666666666,Guard,5-11,185.0,USA,12,Pistons,Detroit,1999,2009,Undrafted,0.0
+2039,Keyon Dooling,3,18.66800900900901,Guard,6-3,195.0,USA,14,Clippers,Los Angeles,2000,2012,1,0.0
+2768,Chris Duhon,3,21.55018355359765,Guard,6-1,190.0,USA,10,Bulls,Chicago,2004,2012,2,0.0
+1112,Ben Wallace,0,22.669315315315313,Forward-Center,6-9,240.0,USA,17,Pistons,Detroit,1996,2011,Undrafted,4.0
+2407,Jared Jeffries,0,18.44038120567376,Forward,6-11,240.0,USA,12,Knicks,New York,2002,2012,1,0.0
+1495,Tim Duncan,5,28.859780256930357,Center-Forward,6-11,250.0,US Virgin Islands,20,Spurs,San Antonio,1997,2015,1,15.0
+2200,Pau Gasol,5,31.43434839044652,Center-Forward,7-0,250.0,Spain,19,Bucks,Milwaukee,2001,2018,1,6.0
+1628976,Wendell Carter Jr.,0,25.222727272727273,Center-Forward,6-10,270.0,USA,3,Magic,Orlando,2018,2021,1,nan
+1497,Chauncey Billups,4,29.777289644012946,Guard,6-3,210.0,USA,17,Pistons,Detroit,1997,2013,1,5.0
+201571,D.J. Augustin,3,23.802579473206176,Guard,5-11,183.0,USA,13,Rockets,Houston,2008,2021,1,nan
+2240,Gilbert Arenas,6,26.68547619047619,Guard,6-4,215.0,USA,12,Wizards,Washington,2001,2011,2,3.0
+203144,Alexey Shved,6,17.971565934065932,Guard,6-6,187.0,Russia,3,Timberwolves,Minnesota,2012,2014,Undrafted,0.0
+2408,Melvin Ely,0,12.303906249999999,Center-Forward,6-10,260.0,USA,9,Bobcats,Charlotte,2002,2013,1,0.0
+1501,Tim Thomas,4,15.845277777777776,Forward,6-10,240.0,USA,14,Bucks,Milwaukee,1997,2009,1,0.0
+202718,Chandler Parsons,4,30.32807662835249,Forward,6-9,230.0,USA,9,nan,nan,2011,2019,2,0.0
+2202,Jason Richardson,4,30.73272327044025,Guard,6-6,225.0,USA,14,Warriors,Golden State,2001,2014,1,0.0
+1626181,Norman Powell,4,16.837742782152233,Guard,6-3,215.0,USA,6,Trail Blazers,Portland,2015,2021,2,nan
+1503,Tracy McGrady,3,20.744188311688312,Guard-Forward,6-8,225.0,USA,17,Rockets,Houston,1997,2012,1,7.0
+202323,Evan Turner,2,27.240755587949465,Guard-Forward,6-6,220.0,USA,11,Timberwolves,Minnesota,2010,2019,1,0.0
+2564,Boris Diaw,3,25.512097130242825,Center-Forward,6-8,250.0,France,15,Spurs,San Antonio,2003,2016,1,0.0
+203107,Tomas Satoransky,3,21.54965873015873,Guard,6-7,210.0,Czech Republic,5,Pelicans,New Orleans,2016,2021,2,nan
+1626203,Treveon Graham,1,15.630426666666667,Guard-Forward,6-5,219.0,USA,5,Hawks,Atlanta,2016,2019,Undrafted,0.0
+2294,Charlie Bell,1,19.7985,Guard,6-3,200.0,USA,8,Bucks,Milwaukee,2001,2010,Undrafted,0.0
+1533,Anthony Johnson,3,13.09758064516129,Guard,6-3,195.0,USA,14,Pacers,Indiana,1997,2009,2,0.0
+203521,Matthew Dellavedova,3,21.327548758865248,Guard,6-3,200.0,Australia,9,Cavaliers,Cleveland,2013,2020,Undrafted,0.0
+1627853,Ryan Arcidiacono,3,21.575444444444443,Guard,6-3,195.0,USA,5,Bulls,Chicago,2017,2020,Undrafted,0.0
+203148,Brian Roberts,3,16.582680467091297,Guard,6-1,173.0,USA,6,Hornets,Charlotte,2012,2016,Undrafted,0.0
+1536,Stephen Jackson,2,30.606208010335916,Guard-Forward,6-8,220.0,USA,14,nan,nan,2000,2013,2,0.0
+204020,Tyler Johnson,4,26.756864197530863,Guard,6-3,186.0,USA,8,Nets,Brooklyn,2014,2020,Undrafted,0.0
+203079,Dion Waiters,4,28.463104013104015,Guard,6-3,210.0,USA,9,Lakers,Los Angeles,2012,2019,1,0.0
+203114,Khris Middleton,4,31.714886446886446,Forward,6-7,222.0,USA,9,Bucks,Milwaukee,2012,2021,2,nan
+1563,Kevin Ollie,3,10.528533333333332,Guard,6-2,195.0,USA,14,76ers,Philadelphia,1997,2009,Undrafted,0.0
+203902,Semaj Christon,3,15.197526041666666,Guard,6-3,190.0,USA,2,Thunder,Oklahoma City,2016,2016,2,0.0
+2306,Carlos Arroyo,1,20.36246323529412,Guard,6-2,200.0,Puerto Rico,10,Magic,Orlando,2001,2010,Undrafted,0.0
+2624,Quinton Ross,1,10.402291666666667,Forward-Guard,6-6,193.0,USA,7,nan,nan,2004,2010,Undrafted,0.0
+1630,Mikki Moore,0,17.448833333333333,Forward-Center,7-0,225.0,USA,14,Pistons,Detroit,1998,2011,Undrafted,0.0
+203135,Robert Sacre,0,14.52726631393298,Center,7-0,270.0,Canada,5,Lakers,Los Angeles,2012,2015,2,0.0
+2555,Nick Collison,0,17.566330188679245,Forward-Center,6-10,255.0,USA,15,Thunder,Oklahoma City,2003,2017,1,0.0
+1710,Mike Bibby,1,25.3056783919598,Guard,6-2,195.0,USA,15,Kings,Sacramento,1998,2011,1,0.0
+200789,Daniel Gibson,1,23.412052545155994,Guard,6-2,200.0,USA,8,Cavaliers,Cleveland,2006,2012,2,0.0
+2581,Steve Blake,3,22.545181885671862,Guard,6-3,172.0,USA,14,Trail Blazers,Portland,2003,2015,2,0.0
+1712,Antawn Jamison,2,29.060134502923972,Forward,6-9,235.0,USA,16,nan,nan,1998,2013,1,2.0
+101141,Ersan Ilyasova,2,24.83689069423929,Forward,6-9,235.0,Turkey,14,Jazz,Utah,2006,2020,2,0.0
+202700,Donatas Motiejunas,2,18.18660026560425,Forward-Center,7-0,220.0,Lithuania,7,Spurs,San Antonio,2012,2018,1,0.0
+203932,Aaron Gordon,2,27.858128054740956,Forward,6-8,235.0,USA,7,Nuggets,Denver,2014,2021,1,nan
+1713,Vince Carter,4,23.033629682313894,Guard-Forward,6-6,220.0,USA,23,Hawks,Atlanta,1998,2019,1,7.0
+203918,Rodney Hood,4,27.208453125,Guard-Forward,6-8,208.0,USA,7,Bucks,Milwaukee,2014,2021,1,nan
+1626196,Josh Richardson,4,30.695791505791505,Guard,6-5,200.0,USA,6,Celtics,Boston,2015,2021,2,nan
+202083,Wesley Matthews,4,32.5808864265928,Guard,6-4,220.0,USA,13,Lakers,Los Angeles,2009,2020,Undrafted,0.0
+1715,Jason Williams,3,18.33051987767584,Guard,6-1,180.0,USA,12,nan,nan,1998,2010,1,0.0
+2229,Mike James,3,15.561549295774647,Guard,6-2,188.0,USA,12,Heat,Miami,2001,2013,Undrafted,0.0
+1747,Rafer Alston,3,27.31673076923077,Guard,6-2,175.0,USA,11,Rockets,Houston,1999,2009,2,0.0
+1629059,Elie Okobo,3,18.079056603773587,Forward-Guard,6-3,190.0,France,3,Suns,Phoenix,2018,2019,2,0.0
+1716,Larry Hughes,3,22.742561728395064,Guard,6-5,185.0,USA,13,nan,nan,1998,2011,1,0.0
+201986,Nando De Colo,3,11.887913165266106,Guard,6-5,195.0,France,3,Spurs,San Antonio,2012,2013,2,0.0
+201228,C.J. Watson,3,20.05858843537415,Guard,6-2,175.0,USA,11,Warriors,Golden State,2007,2016,Undrafted,0.0
+1626170,Jerian Grant,3,18.015775335775334,Guard,6-4,198.0,USA,6,Wizards,Washington,2015,2019,1,0.0
+1717,Dirk Nowitzki,2,30.25755017131669,Forward,7-0,245.0,Germany,22,Mavericks,Dallas,1998,2018,1,14.0
+200745,Andrea Bargnani,2,30.003516260162602,Center-Forward,7-0,245.0,Italy,10,nan,nan,2006,2015,1,0.0
+2546,Carmelo Anthony,2,35.56237055016181,Forward,6-7,238.0,USA,18,Lakers,Los Angeles,2003,2021,1,nan
+1718,Paul Pierce,6,28.969682389937105,Forward,6-7,235.0,USA,20,Celtics,Boston,1998,2016,1,10.0
+202330,Gordon Hayward,6,30.61250424448217,Forward,6-7,225.0,USA,11,Hornets,Charlotte,2010,2021,1,nan
+201568,Danilo Gallinari,4,31.92759935897436,Forward,6-10,236.0,Italy,12,Hawks,Atlanta,2008,2021,1,nan
+1729,Ricky Davis,1,13.856296296296296,Guard,6-7,195.0,USA,12,nan,nan,1998,2009,1,0.0
+101155,Ryan Gomes,1,25.14974153297683,Forward,6-7,245.0,USA,8,nan,nan,2005,2013,2,0.0
+2422,John Salmons,1,29.063939393939396,Forward,6-6,210.0,USA,13,nan,nan,2002,2014,1,0.0
+1733,Al Harrington,4,24.70772727272727,Forward,6-9,245.0,USA,16,Pacers,Indiana,1998,2013,1,0.0
+203967,Dario Saric,4,26.9229375,Forward-Center,6-10,225.0,Croatia,5,Suns,Phoenix,2016,2021,1,nan
+203087,Jeremy Lamb,4,20.46979310344828,Guard-Forward,6-5,180.0,USA,9,Pacers,Indiana,2012,2021,1,nan
+1628374,Lauri Markkanen,4,30.85123611111111,Forward-Center,6-11,240.0,Finland,4,Cavaliers,Cleveland,2017,2021,1,nan
+1737,Nazr Mohammed,0,11.860241347905282,Center,6-10,250.0,USA,19,Bobcats,Charlotte,1998,2015,1,0.0
+201582,Alexis Ajinca,0,14.20428117048346,Center,7-2,248.0,France,8,Pelicans,New Orleans,2008,2017,1,0.0
+2731,Emeka Okafor,0,27.430619883040936,Center,6-10,255.0,USA,11,Bobcats,Charlotte,2004,2017,1,0.0
+201585,Kosta Koufos,0,16.794591194968554,Center,7-0,245.0,USA,12,Kings,Sacramento,2008,2018,1,0.0
+1740,Rashard Lewis,1,24.576850490196076,Forward,6-10,235.0,USA,16,SuperSonics,Seattle,1998,2013,2,2.0
+201611,Henry Walker,1,18.421184210526317,Forward,6-6,235.0,USA,5,Knicks,New York,2008,2014,2,0.0
+203138,Hollis Thompson,1,24.240371069182387,Forward,6-8,206.0,USA,5,nan,nan,2013,2016,Undrafted,0.0
+2047,Quentin Richardson,1,21.604652014652014,Forward,6-6,228.0,USA,14,Clippers,Los Angeles,2000,2012,1,0.0
+1802,Brad Miller,2,19.814989384288747,Center-Forward,7-0,261.0,USA,15,Kings,Sacramento,1998,2011,Undrafted,2.0
+203112,Quincy Acy,2,16.03767361111111,Forward,6-7,240.0,USA,7,nan,nan,2012,2018,2,0.0
+2431,David Andersen,2,12.265291262135923,Unknown,nan,nan,Australia,20,nan,nan,2009,2017,2,0.0
+1853,Anthony Carter,3,13.796531531531532,Guard,6-1,190.0,USA,14,nan,nan,1999,2011,Undrafted,0.0
+203485,Lorenzo Brown,3,11.493576051779936,Guard,6-5,189.0,USA,5,nan,nan,2013,2018,2,0.0
+2248,Earl Watson,3,21.037485172004743,Guard,6-1,199.0,USA,13,Thunder,Oklahoma City,2001,2013,2,0.0
+1863,Earl Boykins,3,15.934122137404579,Guard,5-5,133.0,USA,14,Nuggets,Denver,1998,2011,Undrafted,0.0
+2757,Beno Udrih,3,22.906280991735535,Guard,6-3,205.0,Slovenia,14,Kings,Sacramento,2004,2016,1,0.0
+2557,Luke Ridnour,3,25.147548523206748,Guard,6-2,175.0,USA,12,SuperSonics,Seattle,2003,2014,1,0.0
+101127,Jarrett Jack,3,27.438897058823528,Guard,6-3,200.0,USA,14,Knicks,New York,2005,2017,1,0.0
+1882,Elton Brand,0,25.296513687600644,Forward,6-9,254.0,USA,18,Clippers,Los Angeles,1999,2015,1,2.0
+202379,Jeremy Evans,0,10.506453333333333,Forward,6-9,200.0,USA,7,Jazz,Utah,2010,2017,2,0.0
+203476,Gorgui Dieng,0,22.701304508499632,Center,6-10,248.0,Senegal,8,Hawks,Atlanta,2013,2021,1,nan
+101161,Amir Johnson,0,22.43242382901319,Center-Forward,6-9,240.0,USA,15,76ers,Philadelphia,2005,2018,2,0.0
+1884,Baron Davis,6,29.405331262939956,Guard,6-3,212.0,USA,14,Hornets,Charlotte,1999,2011,1,2.0
+201144,Mike Conley,6,33.376886840757805,Guard,6-1,175.0,USA,14,Jazz,Utah,2007,2021,1,nan
+201952,Jeff Teague,6,27.720839193624002,Guard,6-3,195.0,USA,13,Bucks,Milwaukee,2009,2020,1,1.0
+201950,Jrue Holiday,6,33.09047875064004,Guard,6-3,205.0,USA,12,Bucks,Milwaukee,2009,2021,1,nan
+1885,Lamar Odom,0,26.575399774774773,Forward,6-10,230.0,USA,15,Lakers,Los Angeles,1999,2013,1,0.0
+203210,JaMychal Green,0,22.152341137123745,Forward-Center,6-8,227.0,USA,7,Nuggets,Denver,2014,2021,Undrafted,nan
+202720,Jon Leuer,0,15.768342175066312,Forward,6-10,228.0,USA,9,Pistons,Detroit,2011,2018,2,0.0
+201150,Spencer Hawes,0,23.043812189054727,Forward-Center,7-1,245.0,USA,11,76ers,Philadelphia,2007,2016,1,0.0
+1886,Jonathan Bender,1,11.697933333333333,Forward,7-0,230.0,USA,9,Pacers,Indiana,1999,2009,1,0.0
+1628380,Zach Collins,0,16.79151515151515,Forward-Center,6-11,250.0,USA,3,Spurs,San Antonio,2017,2021,1,nan
+1628467,Maxi Kleber,0,18.938951048951047,Forward,6-10,240.0,Germany,4,Mavericks,Dallas,2017,2021,Undrafted,nan
+2246,Mehmet Okur,0,26.903495145631066,Center,6-11,260.0,Turkey,10,nan,nan,2002,2011,2,1.0
+1888,Richard Hamilton,2,27.01101489757914,Guard,6-7,193.0,USA,15,Pistons,Detroit,1999,2012,1,3.0
+203895,Jordan McRae,4,10.608158914728682,Guard,6-5,179.0,USA,5,Pistons,Detroit,2015,2019,2,0.0
+2732,Ben Gordon,4,22.79712909441233,Guard,6-3,205.0,USA,12,Bulls,Chicago,2004,2014,1,0.0
+1889,Andre Miller,3,24.111152263374485,Guard,6-3,200.0,USA,18,Nuggets,Denver,1999,2015,1,0.0
+202386,Ben Uzoh,3,13.453833333333334,Guard,6-3,205.0,USA,3,Nets,New Jersey,2010,2011,Undrafted,0.0
+202397,Ish Smith,3,19.46756338899196,Guard,6-0,175.0,USA,11,Hornets,Charlotte,2010,2021,Undrafted,nan
+1627819,Isaiah Taylor,3,17.16917840375587,Guard,6-3,170.0,USA,3,Hawks,Atlanta,2016,2017,nan,0.0
+1890,Shawn Marion,2,28.884383012820514,Guard-Forward,6-7,228.0,USA,16,Suns,Phoenix,1999,2014,1,4.0
+2735,Josh Childress,2,14.237704402515723,Forward-Guard,6-8,210.0,USA,9,nan,nan,2004,2013,1,0.0
+1626155,Sam Dekker,2,15.48285,Forward,6-8,219.0,USA,4,nan,nan,2015,2021,1,nan
+1627783,Pascal Siakam,2,23.546033950617286,Forward,6-8,230.0,Cameroon,5,Raptors,Toronto,2016,2021,1,nan
+1891,Jason Terry,4,24.36786808976464,Guard,6-2,185.0,USA,19,Mavericks,Dallas,1999,2017,1,0.0
+200751,Randy Foye,4,24.329151785714284,Guard,6-4,218.0,USA,12,Timberwolves,Minnesota,2006,2016,1,0.0
+204038,Langston Galloway,4,22.413358061325418,Guard,6-1,200.0,USA,8,Suns,Phoenix,2014,2020,Undrafted,0.0
+202690,Jimmer Fredette,4,13.37063888888889,Guard,6-2,195.0,USA,7,Kings,Sacramento,2011,2018,1,0.0
+1894,Corey Maggette,6,24.727750896057348,Forward,6-6,225.0,USA,15,Clippers,Los Angeles,1999,2012,1,0.0
+203462,Archie Goodwin,6,14.518969696969698,Guard,6-5,205.0,USA,5,Suns,Phoenix,2013,2016,1,0.0
+203498,Shabazz Muhammad,6,17.197093862815887,Guard-Forward,6-6,221.0,USA,6,Timberwolves,Minnesota,2013,2017,1,0.0
+201155,Rodney Stuckey,6,27.752642671854733,Guard,6-5,205.0,USA,10,nan,nan,2007,2016,1,0.0
+1897,Metta World Peace,3,26.880198105081828,Forward,6-7,260.0,USA,18,Lakers,Los Angeles,1999,2016,1,1.0
+202697,Iman Shumpert,3,25.141479400749066,Guard,6-5,212.0,USA,10,nan,nan,2011,2020,1,0.0
+1626169,Stanley Johnson,3,21.55132042253521,Forward-Guard,6-6,242.0,USA,7,Raptors,Toronto,2015,2020,1,0.0
+1899,James Posey,1,20.401243386243383,Forward,6-8,217.0,USA,13,Nuggets,Denver,1999,2010,1,0.0
+201229,Anthony Tolliver,1,20.186998444790046,Forward,6-8,240.0,USA,14,76ers,Philadelphia,2008,2020,Undrafted,0.0
+1902,Jeff Foster,0,16.092128514056224,Forward-Center,6-11,250.0,USA,13,Pacers,Indiana,1999,2011,1,0.0
+203128,Furkan Aldemir,0,13.182764227642277,Forward-Center,6-10,240.0,Turkey,2,76ers,Philadelphia,2014,2014,2,0.0
+201189,Aaron Gray,0,12.543174999999998,Center,7-0,270.0,USA,7,Bulls,Chicago,2007,2013,2,0.0
+201600,Omer Asik,0,19.5695966029724,Center,7-0,255.0,Turkey,9,Pelicans,New Orleans,2010,2017,2,0.0
+201181,Chris Richard,0,12.426666666666668,Forward,6-9,256.0,USA,3,Timberwolves,Minnesota,2007,2009,2,0.0
+1904,Devean George,4,16.904185185185185,Forward,6-8,235.0,USA,12,Lakers,Los Angeles,1999,2009,1,0.0
+2772,Trevor Ariza,4,34.20676919408679,Forward,6-8,215.0,USA,17,Lakers,Los Angeles,2004,2021,2,nan
+1628969,Mikal Bridges,4,29.477012195121947,Forward,6-6,209.0,USA,3,Suns,Phoenix,2018,2021,1,nan
+203200,Justin Holiday,4,22.714934272300468,Forward-Guard,6-6,180.0,USA,8,Pacers,Indiana,2012,2021,Undrafted,nan
+1905,Andrei Kirilenko,2,27.761127450980393,Forward,6-9,235.0,Russia,13,nan,nan,2001,2014,1,1.0
+2222,Gerald Wallace,2,32.034848066298345,Forward,6-7,220.0,USA,15,Bobcats,Charlotte,2001,2014,1,1.0
+1626178,Rondae Hollis-Jefferson,2,23.638425925925926,Forward,6-6,217.0,USA,7,Trail Blazers,Portland,2015,2020,1,0.0
+203561,Brandon Davies,2,12.793247863247863,Forward,6-10,240.0,USA,2,nan,nan,2013,2014,Undrafted,0.0
+1938,Manu Ginobili,6,23.5278209556707,Guard,6-6,205.0,Argentina,16,Spurs,San Antonio,2002,2017,2,2.0
+200768,Kyle Lowry,6,33.22683211678832,Guard,6-0,196.0,USA,15,Heat,Miami,2006,2021,1,nan
+1952,Raja Bell,1,28.46246913580247,Guard,6-5,210.0,U.S. Virgin Islands,13,Suns,Phoenix,2000,2011,Undrafted,0.0
+202347,Quincy Pondexter,1,15.575414312617703,Forward,6-7,230.0,USA,8,Spurs,San Antonio,2010,2018,1,0.0
+2030,Kenyon Martin,0,25.490757575757577,Forward,6-9,225.0,USA,15,nan,nan,2000,2014,1,1.0
+202970,Gustavo Ayon,0,16.72671641791045,Unknown,nan,nan,Mexico,3,nan,nan,2011,2016,Undrafted,0.0
+2034,Mike Miller,1,18.3845122985581,Guard-Forward,6-8,218.0,USA,18,Grizzlies,Memphis,2000,2016,1,0.0
+1626192,Pat Connaughton,1,14.85388888888889,Guard,6-5,209.0,USA,6,Bucks,Milwaukee,2015,2021,2,nan
+203585,Rodney McGruder,1,23.54840534979424,Guard,6-4,205.0,USA,5,Pistons,Detroit,2016,2021,Undrafted,nan
+2037,Jamal Crawford,4,26.83820512820513,Guard,6-5,200.0,USA,21,Nets,Brooklyn,2000,2019,1,0.0
+201569,Eric Gordon,4,32.857260606060606,Guard,6-3,215.0,USA,13,Rockets,Houston,2008,2021,1,nan
+2038,Joel Przybilla,0,16.27232371794872,Center,7-1,245.0,USA,14,Trail Blazers,Portland,2000,2012,1,0.0
+2048,Jamaal Magloire,0,10.12155303030303,Center,6-11,265.0,Canada,13,Hornets,New Orleans,2000,2011,1,1.0
+1627812,Yogi Ferrell,4,22.839924623115575,Guard,6-0,178.0,USA,6,Clippers,LA,2016,2020,Undrafted,0.0
+201985,AJ Price,4,15.054955300127714,Guard,6-2,195.0,USA,6,nan,nan,2009,2014,2,0.0
+2041,Etan Thomas,0,11.18925925925926,Center,6-10,260.0,USA,10,Wizards,Washington,2001,2010,1,0.0
+2045,Hedo Turkoglu,1,24.334575471698113,Forward,6-10,220.0,Turkey,15,Magic,Orlando,2000,2014,1,0.0
+201587,Nicolas Batum,4,33.090519922254614,Guard-Forward,6-8,230.0,France,13,Clippers,LA,2008,2021,1,nan
+200749,Shelden Williams,0,16.28030214424951,Center-Forward,6-9,250.0,USA,7,Hawks,Atlanta,2006,2011,1,0.0
+201972,Jon Brockman,0,10.4657,Forward,6-7,255.0,USA,4,Bucks,Milwaukee,2009,2011,2,0.0
+2050,Morris Peterson,4,19.909733333333335,Guard,6-7,220.0,USA,11,nan,nan,2000,2010,1,0.0
+1627863,Danuel House Jr.,4,21.938359788359787,Forward-Guard,6-6,220.0,USA,5,Rockets,Houston,2016,2021,Undrafted,nan
+203463,Ben McLemore,4,23.707273550724636,Guard,6-3,195.0,USA,8,Trail Blazers,Portland,2013,2021,1,nan
+2484,Devin Brown,4,21.19983333333333,Guard,6-5,210.0,USA,9,Hornets,New Orleans,2002,2009,Undrafted,0.0
+2052,DeShawn Stevenson,1,17.11661865569273,Forward-Guard,6-5,218.0,USA,14,Wizards,Washington,2000,2012,1,0.0
+2586,Keith Bogans,1,18.603673469387754,Guard-Forward,6-5,215.0,USA,11,Magic,Orlando,2003,2013,2,0.0
+203121,Darius Miller,1,20.390416666666667,Forward,6-6,225.0,USA,6,nan,nan,2012,2020,2,0.0
+204014,Damjan Rudez,1,11.22082191780822,Forward,6-10,228.0,Croatia,4,Pacers,Indiana,2014,2016,Undrafted,0.0
+2059,Eduardo Najera,1,13.40691919191919,Forward,6-8,235.0,Mexico,13,Nuggets,Denver,2000,2011,2,0.0
+202698,Chris Singleton,1,17.599132882882884,Forward,6-9,228.0,USA,3,Wizards,Washington,2011,2013,1,0.0
+2137,Ime Udoka,1,12.070187265917603,Guard-Forward,6-5,220.0,USA,8,nan,nan,2003,2010,Undrafted,0.0
+203123,Kostas Papanikolaou,1,15.789057971014492,Forward,6-8,235.0,Greece,2,nan,nan,2014,2015,2,0.0
+2067,Eddie House,4,17.70274193548387,Guard,6-1,190.0,USA,12,Heat,Miami,2000,2010,2,0.0
+203493,Reggie Bullock,4,19.254975308641974,Guard-Forward,6-6,205.0,USA,8,Mavericks,Dallas,2013,2021,1,nan
+2072,Michael Redd,4,17.677320675105484,Guard,6-6,215.0,USA,13,Bucks,Milwaukee,2000,2011,2,1.0
+203095,Evan Fournier,4,27.971896425966445,Guard-Forward,6-6,205.0,France,9,Knicks,New York,2012,2021,1,nan
+200782,P.J. Tucker,1,29.45631268436578,Forward,6-5,245.0,USA,10,Heat,Miami,2006,2021,2,nan
+203524,Solomon Hill,1,22.66449180327869,Forward,6-6,226.0,USA,8,Hawks,Atlanta,2013,2021,1,nan
+2198,Kwame Brown,0,19.51896551724138,Center,6-11,290.0,USA,13,Wizards,Washington,2001,2012,1,0.0
+201623,Semih Erden,0,13.441521739130435,Center,7-0,240.0,Turkey,3,Celtics,Boston,2010,2011,2,0.0
+2199,Tyson Chandler,0,27.367936241610735,Center,7-0,235.0,USA,20,Rockets,Houston,2001,2019,1,1.0
+202684,Tristan Thompson,0,27.853940476190477,Center-Forward,6-9,254.0,Canada,10,Kings,Sacramento,2011,2021,1,nan
+202399,Jeff Adrien,0,14.045479302832245,Unknown,nan,nan,USA,6,nan,nan,2010,2014,Undrafted,0.0
+1628418,Thomas Bryant,5,18.030210727969347,Center-Forward,6-10,248.0,USA,4,Wizards,Washington,2017,2021,2,nan
+1627736,Malik Beasley,4,15.950680894308942,Guard,6-4,187.0,USA,5,Timberwolves,Minnesota,2016,2021,1,nan
+201977,Marcus Thornton,4,23.402394317394318,Guard-Forward,6-4,205.0,USA,8,nan,nan,2009,2016,2,0.0
+2203,Shane Battier,1,25.8933286908078,Forward,6-8,220.0,USA,13,Grizzlies,Memphis,2001,2013,1,0.0
+200761,Shawne Williams,1,19.546586879432624,Forward,6-10,230.0,USA,8,Pacers,Indiana,2006,2014,1,0.0
+201575,Brandon Rush,1,21.579655172413794,Guard-Forward,6-6,225.0,USA,10,Pacers,Indiana,2008,2016,1,0.0
+2205,DeSagana Diop,0,10.923608058608059,Center,7-0,280.0,Senegal,13,Mavericks,Dallas,2001,2012,1,0.0
+2207,Joe Johnson,4,32.661178425357875,Guard-Forward,6-7,240.0,USA,18,Hawks,Atlanta,2001,2017,1,6.0
+203085,Austin Rivers,4,24.630199724517905,Guard,6-4,200.0,USA,9,Nuggets,Denver,2012,2021,1,nan
+2209,Vladimir Radmanovic,1,15.655652557319222,Forward,6-10,235.0,Serbia,13,SuperSonics,Seattle,2001,2012,1,0.0
+202325,Wesley Johnson,1,22.12703125,Forward-Guard,6-7,215.0,USA,10,Wizards,Washington,2010,2018,1,0.0
+1627827,Dorian Finney-Smith,1,22.270300546448087,Forward,6-7,220.0,USA,5,Mavericks,Dallas,2016,2021,Undrafted,nan
+2210,Richard Jefferson,1,22.72778051450465,Forward,6-7,233.0,USA,18,Nuggets,Denver,2001,2017,1,0.0
+2211,Troy Murphy,1,22.343148148148146,Forward-Center,6-11,245.0,USA,12,nan,nan,2001,2012,1,0.0
+1628391,D.J. Wilson,1,13.616238095238096,Forward,6-10,231.0,USA,5,Rockets,Houston,2017,2020,1,0.0
+101107,Marvin Williams,1,27.45174657534246,Forward,6-8,237.0,USA,16,Bucks,Milwaukee,2005,2019,1,0.0
+202376,Luke Harangody,1,12.44892857142857,Forward,6-7,245.0,USA,3,Cavaliers,Cleveland,2010,2011,2,0.0
+2216,Zach Randolph,5,31.833374451754384,Forward,6-9,250.0,USA,18,Kings,Sacramento,2001,2017,1,2.0
+1626195,Willy Hernangomez,5,14.778586142322096,Center-Forward,6-11,250.0,Spain,5,Pelicans,New Orleans,2016,2021,2,nan
+201593,Nikola Pekovic,5,24.939506172839504,Center,6-11,307.0,Montenegro,7,Timberwolves,Minnesota,2010,2016,2,0.0
+202683,Enes Kanter,5,22.210245854774158,Center,6-10,250.0,Turkey,10,Celtics,Boston,2011,2021,1,nan
+2223,Samuel Dalembert,0,21.8405974025974,Center,6-11,255.0,Haiti,14,nan,nan,2001,2014,1,0.0
+1627751,Jakob Poeltl,0,16.113970125786164,Center,7-1,245.0,Austria,5,Spurs,San Antonio,2016,2021,1,nan
+203515,Phil Pressey,3,13.616475225225225,Guard,5-11,175.0,USA,4,nan,nan,2013,2015,Undrafted,0.0
+2225,Tony Parker,6,27.949169262720662,Guard,6-2,185.0,France,19,Hornets,Charlotte,2001,2018,1,6.0
+201565,Derrick Rose,6,32.47889964157706,Guard,6-2,200.0,USA,12,Knicks,New York,2008,2021,1,nan
+101198,Will Bynum,6,19.610731707317072,Guard,6-0,185.0,USA,9,Pistons,Detroit,2005,2014,Undrafted,0.0
+201196,Ramon Sessions,6,22.68273007856341,Guard,6-3,190.0,USA,12,Wizards,Washington,2007,2017,2,0.0
+101181,Jose Calderon,3,26.03321724709784,Guard,6-3,200.0,Spain,15,Pistons,Detroit,2005,2018,Undrafted,0.0
+2749,Jameer Nelson,3,28.29784277879342,Guard,6-0,190.0,USA,15,Pistons,Detroit,2004,2017,1,0.0
+2230,Maurice Evans,1,18.232888257575755,Guard-Forward,6-5,220.0,USA,10,Hawks,Atlanta,2001,2011,Undrafted,0.0
+203106,Jeffery Taylor,2,19.447373737373738,Unknown,nan,nan,Sweden,3,nan,nan,2012,2016,2,0.0
+202341,James Anderson,4,17.492840755735493,Guard-Forward,6-6,213.0,USA,6,Spurs,San Antonio,2010,2015,1,0.0
+101177,Fabricio Oberto,1,11.214726775956285,Center,6-10,245.0,Argentina,6,nan,nan,2005,2010,Undrafted,0.0
+202498,Lance Thomas,1,18.417297527706733,Forward,6-8,225.0,USA,10,Nets,Brooklyn,2011,2019,Undrafted,0.0
+201943,Brandon Jennings,6,30.328333333333333,Guard,6-1,170.0,USA,9,Bucks,Milwaukee,2009,2017,1,0.0
+101126,Nate Robinson,4,20.499955357142856,Guard,5-9,180.0,USA,11,nan,nan,2005,2015,1,0.0
+1627832,Fred VanVleet,4,20.1929472693032,Guard,6-1,197.0,USA,5,Raptors,Toronto,2016,2021,Undrafted,nan
+201957,Byron Mullens,0,18.236666666666668,Center,7-0,275.0,USA,5,Bobcats,Charlotte,2009,2013,1,0.0
+1627816,Alex Poythress,0,11.085065359477126,Forward,6-9,235.0,USA,4,Hawks,Atlanta,2016,2018,Undrafted,0.0
+203499,Shane Larkin,3,19.095071895424834,Guard,5-11,175.0,USA,4,Nets,Brooklyn,2013,2017,1,0.0
+2250,Bobby Simmons,1,15.633364779874213,Forward,6-6,235.0,USA,11,Clippers,Los Angeles,2001,2011,2,0.0
+2562,Sasha Pavlovic,1,12.29789855072464,Guard-Forward,6-7,235.0,Montenegro,11,Cavaliers,Cleveland,2003,2012,1,0.0
+101120,Antoine Wright,1,19.23538288288288,Forward-Guard,6-7,215.0,USA,6,nan,nan,2005,2010,1,0.0
+2575,Luke Walton,3,12.109351851851851,Forward,6-8,235.0,USA,11,Lakers,Los Angeles,2003,2012,2,0.0
+2365,Chris Andersen,0,17.983879781420764,Forward-Center,6-10,245.0,USA,15,nan,nan,2001,2016,Undrafted,0.0
+203105,Festus Ezeli,0,14.086755952380951,Center,6-11,265.0,Nigeria,4,Trail Blazers,Portland,2012,2016,1,0.0
+203481,Jeff Withey,0,10.012230273752014,Center,7-0,230.0,USA,5,nan,nan,2013,2017,2,0.0
+1626257,Salah Mejri,0,11.912728758169935,Center,7-2,235.0,Tunisia,5,Mavericks,Dallas,2015,2018,Undrafted,0.0
+2400,Drew Gooden,0,20.67016129032258,Forward,6-10,250.0,USA,15,Cavaliers,Cleveland,2002,2015,1,0.0
+203156,Henry Sims,0,18.824444444444442,Center-Forward,6-10,248.0,USA,5,76ers,Philadelphia,2012,2015,Undrafted,0.0
+1627746,Skal Labissiere,5,17.63791304347826,Forward-Center,6-10,235.0,Haiti,5,Hawks,Atlanta,2016,2019,1,0.0
+1628397,Ivan Rabb,5,14.544607843137255,Forward,6-10,220.0,USA,3,Grizzlies,Memphis,2017,2018,2,0.0
+2403,Nene,5,24.64556862745098,Center-Forward,6-11,250.0,Brazil,18,Rockets,Houston,2002,2018,1,0.0
+203939,Dwight Powell,5,17.811822759315206,Forward-Center,6-10,240.0,Canada,7,Mavericks,Dallas,2014,2021,2,nan
+200794,Paul Millsap,5,31.567524822695034,Forward,6-7,257.0,USA,15,Nets,Brooklyn,2006,2021,2,nan
+2404,Chris Wilcox,5,15.257231481481481,Forward-Center,6-10,235.0,USA,12,Clippers,Los Angeles,2002,2012,1,0.0
+202344,Trevor Booker,0,20.438170426065163,Forward,6-8,228.0,USA,8,Wizards,Washington,2010,2017,1,0.0
+201581,JJ Hickson,5,23.75268794326241,Center-Forward,6-9,242.0,USA,9,Cavaliers,Cleveland,2008,2015,1,0.0
+1626143,Jahlil Okafor,5,21.116991228070177,Center-Forward,6-10,270.0,USA,7,Pistons,Detroit,2015,2020,1,0.0
+200746,LaMarcus Aldridge,5,35.23994727189363,Center-Forward,6-11,250.0,USA,15,Nets,Brooklyn,2006,2021,1,nan
+2406,Caron Butler,1,26.865706429780033,Forward,6-7,228.0,USA,15,Wizards,Washington,2002,2015,1,1.0
+201162,Jared Dudley,1,24.266666666666666,Forward,6-6,237.0,USA,15,Lakers,Los Angeles,2007,2020,1,0.0
+202350,Daniel Orton,0,10.612908496732025,Center,6-10,275.0,USA,3,nan,nan,2010,2013,1,0.0
+200780,Solomon Jones,0,12.853733333333334,Forward,6-10,235.0,USA,8,nan,nan,2006,2013,2,0.0
+202345,Damion James,0,16.004102564102563,Forward,6-7,225.0,USA,4,Nets,Brooklyn,2010,2013,1,0.0
+2419,Tayshaun Prince,2,28.47226957726958,Forward,6-9,212.0,USA,15,Pistons,Detroit,2002,2015,1,0.0
+101211,Stephen Graham,1,13.664483204134367,Guard-Forward,6-6,215.0,USA,7,Pacers,Indiana,2005,2010,Undrafted,0.0
+203103,Perry Jones III,1,11.62768779342723,Forward,6-11,235.0,USA,4,Thunder,Oklahoma City,2012,2014,1,0.0
+1628407,Dwayne Bacon,1,15.329861111111109,Guard-Forward,6-6,221.0,USA,5,Magic,Orlando,2017,2020,2,0.0
+2420,Nenad Krstic,0,22.52785714285714,Center,7-0,240.0,Serbia,8,Nets,New Jersey,2004,2010,1,0.0
+101138,Brandon Bass,0,23.449452554744525,Forward,6-8,250.0,USA,13,Celtics,Boston,2005,2016,2,0.0
+201574,Jason Thompson,0,24.743025793650794,Forward-Center,6-11,250.0,USA,9,Kings,Sacramento,2008,2015,1,0.0
+203957,Dante Exum,1,19.33028594771242,Guard,6-5,214.0,Australia,7,Rockets,Houston,2014,2020,1,0.0
+2427,Roger Mason Jr.,1,15.970590969455511,Guard,6-5,205.0,USA,11,nan,nan,2002,2013,2,0.0
+2574,Jason Kapono,1,12.560709876543209,Forward,6-8,215.0,USA,9,nan,nan,2003,2011,2,0.0
+2429,Dan Gadzuric,0,10.391973684210527,Center,6-11,240.0,Netherlands,11,Bucks,Milwaukee,2002,2011,2,0.0
+200811,Lou Amundson,0,13.201064814814814,Forward,6-9,220.0,USA,11,Suns,Phoenix,2006,2015,Undrafted,0.0
+202334,Ed Davis,0,20.2480464267084,Center-Forward,6-9,218.0,USA,11,Cavaliers,Cleveland,2010,2021,1,nan
+2430,Carlos Boozer,5,30.027789432789433,Forward,6-9,258.0,USA,13,Jazz,Utah,2002,2014,2,1.0
+101135,David Lee,5,29.985919753086417,Forward-Center,6-9,245.0,USA,13,Spurs,San Antonio,2005,2016,1,2.0
+2449,Luis Scola,5,25.025687967760508,Forward,6-9,241.0,Argentina,10,nan,nan,2007,2016,2,0.0
+202696,Nikola Vucevic,5,30.031239875389407,Center,6-10,260.0,Montenegro,10,Bulls,Chicago,2011,2021,1,nan
+203094,Andrew Nicholson,0,14.351355633802816,Forward,6-9,250.0,Canada,6,Magic,Orlando,2012,2016,1,0.0
+2436,Flip Murray,4,22.30771111111111,Guard,6-3,200.0,USA,9,SuperSonics,Seattle,2002,2009,2,0.0
+201564,O.J. Mayo,4,29.62759899208063,Guard,6-5,210.0,USA,9,Grizzlies,Memphis,2008,2015,1,0.0
+202343,Elliot Williams,2,13.490275229357799,Guard,6-5,190.0,USA,6,nan,nan,2010,2015,1,0.0
+2440,Matt Barnes,4,25.773412838633686,Forward,6-7,226.0,USA,15,Warriors,Golden State,2002,2016,2,0.0
+2748,Dorell Wright,4,23.549352078239608,Forward-Guard,6-9,205.0,USA,12,Heat,Miami,2004,2015,1,0.0
+1626147,Justin Anderson,2,13.225763888888888,Forward-Guard,6-5,231.0,USA,6,Nets,Brooklyn,2015,2019,1,0.0
+2443,Darius Songaila,2,17.415,Forward,6-9,248.0,Lithuania,9,Wizards,Washington,2003,2010,2,0.0
+2605,Marquis Daniels,0,17.538673469387756,Forward,6-6,200.0,USA,11,Mavericks,Dallas,2003,2012,Undrafted,0.0
+203940,Adreian Payne,0,13.11260124610592,Forward,6-10,237.0,USA,4,nan,nan,2014,2017,1,0.0
+2446,Rasual Butler,1,18.648953953953953,Forward,6-7,215.0,USA,14,nan,nan,2002,2015,2,0.0
+1628681,Rodney Purvis,4,18.099166666666665,Guard,6-4,205.0,USA,2,Magic,Orlando,2017,2017,Undrafted,0.0
+1627734,Domantas Sabonis,5,23.006600877192984,Forward-Center,6-11,240.0,Lithuania,5,Pacers,Indiana,2016,2021,1,nan
+2457,Jannero Pargo,4,12.686548269581056,Guard,6-1,185.0,USA,11,nan,nan,2002,2014,Undrafted,0.0
+201988,Patty Mills,4,19.00439393939394,Guard,6-0,180.0,Australia,12,Nets,Brooklyn,2009,2021,2,nan
+200770,Jordan Farmar,4,20.593140350877192,Guard,6-2,180.0,USA,10,nan,nan,2006,2016,1,0.0
+201975,Jodie Meeks,4,22.46764378478664,Guard,6-4,210.0,USA,11,Raptors,Toronto,2009,2018,2,0.0
+203484,Kentavious Caldwell-Pope,4,29.72238805970149,Guard,6-5,204.0,USA,8,Wizards,Washington,2013,2021,1,nan
+2501,Reggie Evans,0,18.674642857142857,Center-Forward,6-8,245.0,USA,13,SuperSonics,Seattle,2002,2014,Undrafted,0.0
+2585,Zaza Pachulia,0,19.65061143984221,Center,6-11,270.0,Georgia,17,Pistons,Detroit,2003,2018,2,0.0
+2544,LeBron James,6,37.30999309392266,Forward,6-9,250.0,USA,18,Lakers,Los Angeles,2003,2021,1,nan
+201566,Russell Westbrook,6,34.72008141112619,Guard,6-3,200.0,USA,13,Lakers,Los Angeles,2008,2021,1,nan
+201142,Kevin Durant,6,36.90791366906475,Forward,6-10,240.0,USA,13,Nets,Brooklyn,2007,2021,1,nan
+2548,Dwyane Wade,6,31.5884797979798,Guard,6-4,220.0,USA,17,Heat,Miami,2003,2018,1,12.0
+2545,Darko Milicic,0,21.725089743589745,Center,7-0,275.0,Serbia,10,nan,nan,2003,2012,1,0.0
+203089,John Henson,0,20.11691419141914,Forward-Center,6-9,219.0,USA,9,Pistons,Detroit,2012,2019,1,0.0
+1627745,Damian Jones,0,11.906394557823129,Center,6-11,245.0,USA,5,Kings,Sacramento,2016,2021,1,nan
+2547,Chris Bosh,5,34.46428414096916,Forward,6-11,235.0,USA,14,Heat,Miami,2003,2016,1,9.0
+201936,Tyreke Evans,6,30.713400786958964,Guard,6-6,220.0,USA,10,nan,nan,2009,2018,1,0.0
+203507,Giannis Antetokounmpo,6,32.73177060931899,Forward,6-11,242.0,Greece,8,Bucks,Milwaukee,2013,2021,1,nan
+203100,Tony Wroten,6,21.320381944444442,Guard,6-6,205.0,USA,5,76ers,Philadelphia,2012,2015,1,0.0
+2549,Chris Kaman,5,24.0432664756447,Center,7-0,265.0,USA,14,Clippers,Los Angeles,2003,2015,1,1.0
+2744,Al Jefferson,5,29.335836197021763,Center,6-10,280.0,USA,14,Jazz,Utah,2004,2017,1,0.0
+202338,Kevin Seraphin,0,15.202494089834515,Forward-Center,6-10,278.0,France,8,Wizards,Washington,2010,2016,1,0.0
+101162,Marcin Gortat,0,26.939853007688825,Center,6-11,240.0,Poland,12,nan,nan,2007,2018,2,0.0
+1628373,Frank Ntilikina,3,21.56406336088154,Guard,6-4,200.0,France,4,Mavericks,Dallas,2017,2021,1,nan
+2551,T.J. Ford,3,21.104068627450978,Guard,6-0,165.0,USA,8,nan,nan,2003,2011,1,0.0
+2738,Andre Iguodala,3,30.801547788873037,Guard-Forward,6-6,215.0,USA,17,Warriors,Golden State,2004,2021,1,nan
+201938,Jonny Flynn,3,22.889022633744855,Guard,6-0,185.0,USA,4,Timberwolves,Minnesota,2009,2011,1,0.0
+2553,Jarvis Hayes,1,22.944,Forward,6-8,228.0,USA,8,Wizards,Washington,2003,2009,1,0.0
+2554,Mickael Pietrus,4,21.250388601036267,Forward,6-6,215.0,France,11,Warriors,Golden State,2003,2012,1,0.0
+203798,PJ Hairston,4,18.021561561561562,Forward-Guard,6-6,230.0,USA,3,Hornets,Charlotte,2014,2015,1,0.0
+201858,Cartier Martin,4,14.691357142857143,Forward,6-7,220.0,USA,8,Wizards,Washington,2008,2014,Undrafted,0.0
+2556,Marcus Banks,3,10.623533333333333,Guard,6-2,205.0,USA,9,Celtics,Boston,2003,2010,1,0.0
+202779,Dwight Buycks,3,14.204013605442176,Guard,6-3,190.0,USA,3,Pistons,Detroit,2013,2017,Undrafted,0.0
+1628983,Shai Gilgeous-Alexander,3,26.511056910569106,Guard,6-6,180.0,Canada,3,Thunder,Oklahoma City,2018,2021,1,nan
+2742,Sebastian Telfair,3,16.614104361370714,Guard,6-0,170.0,USA,10,nan,nan,2004,2014,1,0.0
+201573,Jerryd Bayless,3,22.242201257861634,Guard,6-3,200.0,USA,12,Timberwolves,Minnesota,2008,2018,1,0.0
+201143,Al Horford,0,32.91756933542648,Center-Forward,6-9,240.0,Dominican Republic,14,Celtics,Boston,2007,2021,1,nan
+1626173,Rashad Vaughn,1,12.023009592326138,Guard,6-6,202.0,USA,3,nan,nan,2015,2017,1,0.0
+2563,Dahntay Jones,2,15.834496644295303,Guard-Forward,6-6,225.0,USA,14,Grizzlies,Memphis,2003,2016,1,0.0
+202333,Xavier Henry,2,15.704621621621621,Forward-Guard,6-6,220.0,USA,6,nan,nan,2010,2014,1,0.0
+201177,Josh McRoberts,1,20.316454081632653,Forward-Center,6-10,240.0,USA,11,nan,nan,2007,2017,2,0.0
+2566,Travis Outlaw,1,19.94281496062992,Forward,6-9,207.0,USA,11,Trail Blazers,Portland,2003,2013,1,0.0
+1627835,Paul Zipser,1,17.01408163265306,Forward,6-8,226.0,Germany,2,Bulls,Chicago,2016,2017,2,0.0
+2568,Carlos Delfino,4,28.92625,Guard-Forward,6-6,230.0,Argentina,9,Pistons,Detroit,2004,2013,1,0.0
+2756,Sasha Vujacic,4,14.850585774058578,Guard,6-7,195.0,Slovenia,11,Lakers,Los Angeles,2004,2016,1,0.0
+2571,Leandro Barbosa,6,17.45399061032864,Guard,6-3,194.0,Brazil,15,Suns,Phoenix,2003,2016,1,0.0
+203897,Zach LaVine,6,29.935665529010237,Guard-Forward,6-5,200.0,USA,7,Bulls,Chicago,2014,2021,1,nan
+203115,Will Barton,2,23.29406345565749,Guard,6-5,181.0,USA,9,Nuggets,Denver,2012,2021,2,nan
+202705,MarShon Brooks,2,17.277311557788945,Guard,6-5,200.0,USA,5,nan,nan,2011,2018,1,0.0
+2572,Josh Howard,2,23.589844236760122,Forward-Guard,6-7,210.0,USA,10,nan,nan,2003,2012,1,1.0
+201814,Gary Forbes,2,13.548318318318318,Forward,6-7,220.0,Panama,3,Nuggets,Denver,2010,2011,Undrafted,0.0
+1629121,Jaylen Adams,1,12.576127450980392,Guard,6-0,225.0,USA,3,nan,nan,2018,2020,Undrafted,0.0
+2584,Willie Green,4,18.755048118985126,Guard,6-3,205.0,USA,12,76ers,Philadelphia,2003,2014,2,0.0
+1627782,Wayne Selden,4,19.07994623655914,Guard,6-4,232.0,USA,3,Knicks,New York,2016,2021,nan,nan
+101144,Von Wafer,2,11.225549450549451,Guard,6-5,209.0,USA,8,Rockets,Houston,2005,2011,2,0.0
+203469,Cody Zeller,0,22.91611265004617,Forward-Center,6-11,240.0,USA,8,Trail Blazers,Portland,2013,2021,1,nan
+2588,Matt Bonner,1,15.59271662763466,Center-Forward,6-10,235.0,USA,13,Spurs,San Antonio,2004,2015,2,0.0
+202337,Luke Babbitt,1,14.007912280701753,Forward,6-9,225.0,USA,9,Heat,Miami,2010,2017,1,0.0
+1629244,Cameron Reynolds,1,13.65517543859649,Forward,6-7,225.0,USA,2,nan,nan,2018,2020,Undrafted,0.0
+2590,Mo Williams,4,28.389242424242425,Guard,6-1,198.0,USA,14,Bucks,Milwaukee,2003,2015,2,1.0
+203504,Trey Burke,4,23.62355493998153,Guard,6-0,185.0,USA,8,Mavericks,Dallas,2013,2021,1,nan
+201166,Aaron Brooks,4,21.078151397011048,Guard,6-0,161.0,USA,11,Timberwolves,Minnesota,2007,2017,1,0.0
+2592,James Jones,1,12.40011463844797,Guard-Forward,6-8,218.0,USA,15,Heat,Miami,2003,2016,2,0.0
+201161,Daequan Cook,1,14.017482817869414,Guard,6-5,210.0,USA,7,Heat,Miami,2007,2012,1,0.0
+2594,Kyle Korver,4,25.69369534555712,Guard-Forward,6-7,212.0,USA,18,Bucks,Milwaukee,2003,2019,2,1.0
+202087,Alonzo Gee,2,21.695076305220883,Forward,6-6,225.0,USA,8,nan,nan,2009,2016,Undrafted,0.0
+202361,Landry Fields,2,23.641850393700786,Guard-Forward,6-7,215.0,USA,5,Knicks,New York,2010,2014,2,0.0
+201153,Julian Wright,2,13.638847222222221,Forward,6-8,225.0,USA,5,Hornets,New Orleans,2007,2010,1,0.0
+2730,Dwight Howard,5,33.53155416012559,Center-Forward,6-10,265.0,USA,17,Lakers,Los Angeles,2004,2021,1,nan
+203994,Jusuf Nurkic,5,22.912827956989247,Center,6-11,290.0,Bosnia and Herzegovina,7,Trail Blazers,Portland,2014,2021,1,nan
+1626210,Alan Williams,5,13.01092039800995,Forward-Center,6-8,265.0,USA,5,Suns,Phoenix,2015,2018,Undrafted,0.0
+203497,Rudy Gobert,5,28.72084564860427,Center,7-1,258.0,France,8,Jazz,Utah,2013,2021,1,nan
+202390,Gary Neal,4,21.323300189393937,Guard,6-4,210.0,USA,7,nan,nan,2010,2016,Undrafted,0.0
+2733,Shaun Livingston,3,19.2568573551263,Guard,6-7,192.0,USA,16,Warriors,Golden State,2004,2018,1,0.0
+203489,Nate Wolters,3,18.747857142857143,Guard,6-4,190.0,USA,3,nan,nan,2013,2017,2,0.0
+202709,Cory Joseph,3,21.489192015209127,Guard,6-3,200.0,Canada,10,Pistons,Detroit,2011,2021,1,nan
+2734,Devin Harris,6,23.308671874999998,Guard,6-3,185.0,USA,16,Mavericks,Dallas,2004,2018,1,1.0
+202391,Jeremy Lin,6,25.452684027777778,Guard,6-3,200.0,USA,10,Raptors,Toronto,2010,2018,Undrafted,0.0
+1628412,Frank Mason,6,15.771907407407406,Guard,5-11,190.0,USA,5,nan,nan,2017,2020,2,0.0
+202688,Brandon Knight,6,30.125079365079365,Guard,6-2,182.0,USA,9,Pistons,Detroit,2011,2019,1,0.0
+2736,Luol Deng,2,34.81342706502636,Forward,6-9,237.0,United Kingdom,16,Timberwolves,Minnesota,2004,2018,1,2.0
+201145,Jeff Green,2,29.478224121557453,Forward,6-8,235.0,USA,13,Nuggets,Denver,2007,2021,1,nan
+1626153,Delon Wright,6,19.226675084175085,Guard,6-5,185.0,USA,6,Hawks,Atlanta,2015,2021,1,nan
+1627936,Alex Caruso,3,17.263944444444444,Guard,6-5,186.0,USA,4,Bulls,Chicago,2017,2021,Undrafted,nan
+203526,Raul Neto,3,14.152001675041877,Guard,6-2,180.0,Brazil,6,Wizards,Washington,2015,2021,2,nan
+2743,Kris Humphries,0,21.257609262883232,Forward,6-9,235.0,USA,14,Nets,Brooklyn,2004,2016,1,0.0
+203092,Tyler Zeller,0,17.57338605028386,Forward-Center,6-11,250.0,USA,9,Spurs,San Antonio,2012,2019,1,0.0
+1629028,Deandre Ayton,5,30.74208920187793,Center,6-11,250.0,Bahamas,3,Suns,Phoenix,2018,2021,1,nan
+2746,Josh Smith,2,31.755649935649934,Forward,6-9,225.0,USA,13,nan,nan,2004,2017,1,0.0
+201576,Anthony Randolph,5,14.344779541446208,Unknown,nan,nan,USA,6,nan,nan,2008,2016,1,0.0
+200752,Rudy Gay,2,34.0464475743349,Forward-Guard,6-8,250.0,USA,15,Jazz,Utah,2006,2021,1,nan
+2747,JR Smith,4,29.267640901771333,Guard,6-6,220.0,USA,17,Lakers,Los Angeles,2004,2019,1,0.0
+203552,Seth Curry,4,21.567092013888885,Guard,6-2,185.0,USA,7,76ers,Philadelphia,2013,2021,Undrafted,nan
+101139,CJ Miles,4,22.04028165374677,Guard,6-6,220.0,USA,15,nan,nan,2005,2019,2,0.0
+1628978,Donte DiVincenzo,4,15.232839506172839,Guard,6-4,203.0,USA,3,Bucks,Milwaukee,2018,2021,1,nan
+203109,Jae Crowder,4,24.24038817005545,Forward,6-6,235.0,USA,9,Suns,Phoenix,2012,2021,2,nan
+200771,Sergio Rodriguez,3,19.142823383084576,Guard,6-3,176.0,Spain,6,Trail Blazers,Portland,2006,2016,1,0.0
+2753,Delonte West,3,23.46740157480315,Guard,6-3,180.0,USA,9,Celtics,Boston,2004,2011,1,0.0
+203898,Tyler Ennis,3,12.526801801801803,Guard,6-3,194.0,Canada,4,Lakers,Los Angeles,2014,2017,1,0.0
+1628393,Jawun Evans,3,15.03940476190476,Guard,6-0,190.0,USA,3,Thunder,Oklahoma City,2017,2018,2,0.0
+2754,Tony Allen,2,23.67689633767846,Guard-Forward,6-4,213.0,USA,14,nan,nan,2004,2017,1,0.0
+1627885,Shaquille Harrison,3,18.90048611111111,Guard,6-7,190.0,USA,5,Nuggets,Denver,2017,2020,Undrafted,0.0
+201147,Corey Brewer,2,23.098317039106146,Guard-Forward,6-9,188.0,USA,14,Kings,Sacramento,2007,2019,1,0.0
+201152,Thaddeus Young,2,31.31841988459831,Forward,6-8,235.0,USA,14,Spurs,San Antonio,2007,2021,1,nan
+2755,Kevin Martin,6,30.147374485596707,Guard,6-7,199.0,USA,13,Kings,Sacramento,2004,2015,1,0.0
+203930,Sean Kilpatrick,4,19.626125265392783,Guard,6-4,212.0,USA,4,Nets,Brooklyn,2014,2017,Undrafted,0.0
+203501,Tim Hardaway Jr.,6,26.102665837479268,Guard-Forward,6-5,205.0,USA,8,Mavericks,Dallas,2013,2021,1,nan
+201962,Toney Douglas,4,19.059340101522842,Guard,6-2,195.0,USA,8,nan,nan,2009,2016,1,0.0
+1627788,Furkan Korkmaz,4,12.241370967741936,Guard-Forward,6-7,202.0,Turkey,4,76ers,Philadelphia,2017,2021,1,nan
+2804,Andres Nocioni,4,17.598202380952383,Unknown,nan,nan,Argentina,8,nan,nan,2004,2016,Undrafted,0.0
+1628995,Kevin Knox II,4,28.771911111111113,Forward,6-7,215.0,USA,3,Knicks,New York,2018,2021,1,nan
+1627789,Timothe Luwawu-Cabarrot,4,15.589269005847953,Guard-Forward,6-7,215.0,France,5,Hawks,Atlanta,2016,2021,1,nan
+2863,Damien Wilkins,2,16.331027060270603,Guard-Forward,6-6,217.0,USA,10,nan,nan,2004,2017,Undrafted,0.0
+101106,Andrew Bogut,0,25.713026515151515,Center,7-0,260.0,Australia,15,Warriors,Golden State,2005,2018,1,0.0
+203124,Kyle O'Quinn,0,14.471342383107089,Center-Forward,6-9,250.0,USA,9,76ers,Philadelphia,2012,2019,2,0.0
+201948,Austin Daye,1,14.087682648401827,Forward,6-11,220.0,USA,7,Pistons,Detroit,2009,2014,1,0.0
+1627846,Abdel Nader,1,11.199537037037036,Forward,6-5,225.0,Egypt,4,Suns,Phoenix,2017,2021,2,nan
+1627823,Juancho Hernangomez,1,15.777951167728238,Forward,6-9,214.0,Spain,5,Celtics,Boston,2016,2021,1,nan
+101108,Chris Paul,6,34.11831278890601,Guard,6-0,175.0,USA,16,Suns,Phoenix,2005,2021,1,nan
+201937,Ricky Rubio,3,30.862911646586344,Guard,6-2,190.0,Spain,10,Cavaliers,Cleveland,2011,2021,1,nan
+101109,Raymond Felton,3,26.912913466461855,Guard,6-1,205.0,USA,15,Thunder,Oklahoma City,2005,2018,1,0.0
+202714,Shelvin Mack,3,18.40588450292398,Guard,6-3,203.0,USA,9,Hornets,Charlotte,2011,2018,2,0.0
+1627755,Tyler Ulis,3,20.917443609022556,Guard,5-10,160.0,USA,4,nan,nan,2016,2018,2,0.0
+101111,Charlie Villanueva,4,16.520354330708663,Forward,6-11,232.0,USA,12,Pistons,Detroit,2005,2015,1,0.0
+201583,Ryan Anderson,4,26.578034997131383,Forward,6-9,240.0,USA,12,nan,nan,2008,2019,1,0.0
+202703,Nikola Mirotic,4,24.195355276906998,Forward,6-10,250.0,Montenegro,6,Bucks,Milwaukee,2014,2018,1,0.0
+203142,Chris Copeland,4,12.337115009746588,Forward,6-9,239.0,USA,5,nan,nan,2012,2015,Undrafted,0.0
+101112,Channing Frye,1,23.22834422657952,Forward-Center,7-0,255.0,USA,14,Cavaliers,Cleveland,2005,2018,1,0.0
+203998,Bruno Caboclo,1,14.672439613526569,Forward,6-9,218.0,Brazil,7,nan,nan,2014,2020,1,0.0
+101113,Ike Diogu,5,12.731973684210526,Forward,6-9,250.0,USA,7,nan,nan,2005,2011,1,0.0
+1627790,Ante Zizic,5,14.244047619047619,Center,6-10,266.0,Croatia,4,Cavaliers,Cleveland,2017,2019,1,0.0
+201171,Carl Landry,5,23.221295833333333,Forward,6-9,248.0,USA,10,Kings,Sacramento,2007,2015,2,0.0
+203915,Spencer Dinwiddie,6,24.380480895915678,Guard,6-6,215.0,USA,7,Wizards,Washington,2014,2021,2,nan
+201951,Ty Lawson,6,29.185236363636363,Guard,5-11,195.0,USA,10,Wizards,Washington,2009,2017,1,0.0
+203186,Willie Reed,5,12.396085526315789,Center,6-11,245.0,USA,3,nan,nan,2012,2017,0,0.0
+202685,Jonas Valanciunas,5,25.16310403832991,Center,6-11,265.0,Lithuania,9,Pelicans,New Orleans,2012,2021,1,nan
+1628382,Justin Jackson,1,20.936297539149887,Forward,6-8,220.0,USA,5,Bucks,Milwaukee,2017,2020,1,0.0
+202713,Kyle Singler,1,21.879352112676056,Forward,6-8,228.0,USA,6,Pistons,Detroit,2012,2017,2,0.0
+101121,Joey Graham,2,13.18704248366013,Forward,6-7,230.0,USA,7,Raptors,Toronto,2005,2010,1,0.0
+201154,Al Thornton,2,23.718002283105022,Forward,6-8,235.0,USA,5,Clippers,Los Angeles,2007,2010,1,0.0
+202365,Devin Ebanks,2,11.2705291005291,Forward,6-9,215.0,USA,4,Lakers,Los Angeles,2010,2012,2,0.0
+203199,DeQuan Jones,2,12.807284946236559,Forward,6-8,221.0,USA,2,Magic,Orlando,2012,2012,Undrafted,0.0
+101122,Danny Granger,4,30.95810633213859,Forward-Guard,6-9,222.0,USA,11,Pacers,Indiana,2005,2014,1,1.0
+1627759,Jaylen Brown,2,24.428763197586726,Guard-Forward,6-6,223.0,USA,5,Celtics,Boston,2016,2021,1,nan
+1626162,Kelly Oubre Jr.,2,22.061940639269405,Forward-Guard,6-6,203.0,USA,6,Hornets,Charlotte,2015,2021,1,nan
+1628369,Jayson Tatum,2,30.80256813417191,Forward-Guard,6-8,210.0,USA,4,Celtics,Boston,2017,2021,1,nan
+101123,Gerald Green,4,21.24185924369748,Guard-Forward,6-7,205.0,USA,13,Rockets,Houston,2005,2018,1,0.0
+201156,Nick Young,4,23.84586737714624,Guard-Forward,6-7,210.0,USA,12,nan,nan,2007,2018,1,0.0
+101124,Hakim Warrick,5,18.10353120243531,Forward,6-9,219.0,USA,8,nan,nan,2005,2012,1,0.0
+202396,Samardo Samuels,5,15.799678899082569,Unknown,nan,nan,Jamaica,3,nan,nan,2010,2017,Undrafted,0.0
+201946,Tyler Hansbrough,5,16.896456386292837,Unknown,nan,nan,USA,8,nan,nan,2009,2017,1,0.0
+202388,Donald Sloan,3,17.199174311926605,Guard,6-3,205.0,USA,6,Pacers,Indiana,2011,2015,Undrafted,0.0
+101128,Francisco Garcia,1,19.529605943152454,Guard-Forward,6-7,215.0,Dominican Republic,10,nan,nan,2005,2014,1,0.0
+201980,Danny Green,1,25.430158602150538,Guard,6-6,215.0,USA,12,76ers,Philadelphia,2009,2021,2,nan
+1629003,Shake Milton,1,13.41125,Guard-Forward,6-5,205.0,USA,3,76ers,Philadelphia,2018,2021,2,nan
+101129,Luther Head,4,16.812825203252032,Guard,6-3,185.0,USA,6,nan,nan,2005,2010,1,0.0
+201167,Arron Afflalo,4,30.386141067538126,Guard,6-5,210.0,USA,12,Magic,Orlando,2007,2017,1,0.0
+101131,Jason Maxiell,0,19.453923992673992,Forward,6-7,260.0,USA,10,Pistons,Detroit,2005,2014,1,0.0
+201805,Chris Hunter,0,13.048944444444446,Center-Forward,6-11,240.0,USA,3,Warriors,Golden State,2008,2009,Undrafted,0.0
+101132,Linas Kleiza,4,22.82398148148148,Forward,6-8,234.0,Lithuania,8,Nuggets,Denver,2005,2012,1,0.0
+203118,Mike Scott,4,16.339166666666667,Forward,6-7,237.0,USA,10,76ers,Philadelphia,2012,2020,2,0.0
+201978,Chase Budinger,4,19.651158886158886,Forward,6-7,209.0,USA,8,Rockets,Houston,2009,2015,2,0.0
+101133,Ian Mahinmi,0,16.612097149505527,Center,6-11,262.0,France,13,Wizards,Washington,2007,2019,1,0.0
+201146,Yi Jianlian,0,20.479459770114943,Forward,7-0,250.0,China,6,Nets,New Jersey,2007,2011,1,0.0
+203082,Terrence Ross,4,24.300571428571427,Guard-Forward,6-6,206.0,USA,9,Magic,Orlando,2012,2021,1,nan
+203482,Kelly Olynyk,4,21.579004629629626,Forward-Center,6-11,240.0,Canada,8,Pistons,Detroit,2013,2021,1,nan
+101142,Ronny Turiaf,0,16.367586726998493,Center,6-10,249.0,France,10,nan,nan,2005,2014,2,0.0
+1628415,Dillon Brooks,2,26.797266666666665,Guard-Forward,6-7,225.0,Canada,4,Grizzlies,Memphis,2017,2021,2,nan
+101145,Monta Ellis,6,35.81659444444444,Guard,6-3,185.0,USA,13,Warriors,Golden State,2005,2016,2,0.0
+203506,Victor Oladipo,6,33.227302576891105,Guard,6-4,213.0,USA,8,Heat,Miami,2013,2021,1,nan
+202339,Eric Bledsoe,6,27.945246045694198,Guard,6-1,214.0,USA,11,Clippers,LA,2010,2021,1,nan
+101153,Mickael Gelabale,1,17.887638888888887,Forward,6-7,215.0,France,4,SuperSonics,Seattle,2006,2012,2,0.0
+203922,Glenn Robinson III,1,14.354178082191781,Forward,6-6,222.0,USA,7,nan,nan,2014,2020,2,0.0
+101154,Andray Blatche,5,25.252728205128207,Center-Forward,6-11,260.0,USA,9,Wizards,Washington,2005,2013,2,0.0
+202328,Greg Monroe,5,27.657274167987318,Center,6-11,265.0,USA,10,76ers,Philadelphia,2010,2018,1,0.0
+1628385,Harry Giles III,5,14.137758620689656,Forward-Center,6-11,240.0,USA,4,Trail Blazers,Portland,2017,2020,1,0.0
+201964,Victor Claver,1,13.398041666666666,Unknown,nan,nan,Spain,3,nan,nan,2012,2016,1,0.0
+1626172,Kevon Looney,0,14.014648692810457,Forward,6-9,222.0,USA,6,Warriors,Golden State,2015,2021,1,nan
+201959,Taj Gibson,0,25.867171648550727,Forward,6-9,232.0,USA,12,Knicks,New York,2009,2021,1,nan
+101179,Ronnie Price,3,15.289591836734694,Guard,6-2,190.0,USA,13,Jazz,Utah,2005,2016,Undrafted,0.0
+201596,Mario Chalmers,3,25.920812647754136,Guard,6-2,190.0,USA,9,Heat,Miami,2008,2017,2,0.0
+1626145,Tyus Jones,3,17.74792682926829,Guard,6-0,196.0,USA,6,Grizzlies,Memphis,2015,2021,1,nan
+101187,Alan Anderson,1,21.571225845410627,Forward-Guard,6-6,220.0,USA,9,Nets,Brooklyn,2005,2016,Undrafted,0.0
+101189,James Singleton,0,17.973985507246375,Forward,6-8,230.0,USA,6,Clippers,Los Angeles,2005,2011,Undrafted,0.0
+1628411,Wes Iwundu,2,17.33465384615385,Forward,6-6,195.0,USA,5,Pelicans,New Orleans,2017,2020,2,0.0
+203111,Orlando Johnson,1,10.803317152103558,Guard,6-5,220.0,USA,4,nan,nan,2012,2015,2,0.0
+101235,Kelenna Azubuike,6,20.747777777777777,Guard,6-5,215.0,United Kingdom,5,Warriors,Golden State,2006,2011,Undrafted,0.0
+201966,Jermaine Taylor,2,12.076051282051283,Guard,6-4,210.0,USA,2,nan,nan,2009,2010,2,0.0
+203933,T.J. Warren,2,27.71691570881226,Forward,6-8,220.0,USA,7,Pacers,Indiana,2014,2021,1,nan
+101236,Chuck Hayes,0,18.95774222222222,Forward-Center,6-6,240.0,USA,11,nan,nan,2005,2015,Undrafted,0.0
+101249,John Lucas III,4,13.397909760589318,Guard,5-11,166.0,USA,8,nan,nan,2005,2016,Undrafted,0.0
+200081,Jamario Moon,1,17.32743489583333,Forward,6-8,205.0,USA,6,Raptors,Toronto,2007,2011,Undrafted,0.0
+1628470,Torrey Craig,1,18.702433628318584,Forward,6-7,221.0,USA,4,Pacers,Indiana,2017,2021,Undrafted,nan
+201578,Marreese Speights,5,15.005454788657035,Forward-Center,6-10,255.0,USA,11,Magic,Orlando,2008,2017,1,0.0
+200748,Tyrus Thomas,0,19.495530303030304,Forward,6-10,225.0,USA,8,nan,nan,2006,2014,1,0.0
+203952,Andrew Wiggins,6,35.9434126984127,Forward,6-7,197.0,Canada,7,Warriors,Golden State,2014,2021,1,nan
+201942,DeMar DeRozan,6,34.133295555555556,Guard-Forward,6-6,220.0,USA,12,Bulls,Chicago,2009,2021,1,nan
+1628367,Josh Jackson,6,25.30349358974359,Guard-Forward,6-8,207.0,USA,4,Pistons,Detroit,2017,2021,1,nan
+203953,Jabari Parker,2,29.72189608636977,Forward,6-7,245.0,USA,7,Celtics,Boston,2014,2021,1,nan
+200755,JJ Redick,4,28.221309352517988,Guard,6-3,200.0,USA,16,Mavericks,Dallas,2006,2020,1,0.0
+200757,Thabo Sefolosha,3,23.902717041800642,Forward-Guard,6-6,215.0,Switzerland,15,Rockets,Houston,2006,2019,1,0.0
+202082,Larry Owens,3,11.470614035087719,Forward-Guard,6-7,210.0,USA,2,nan,nan,2010,2011,Undrafted,0.0
+200758,Ronnie Brewer,3,21.35264129181084,Forward,6-7,235.0,USA,8,Jazz,Utah,2006,2013,1,0.0
+200776,Mardy Collins,3,10.938217054263566,Guard,6-6,220.0,USA,5,Knicks,New York,2006,2009,1,0.0
+200760,Rodney Carney,4,12.550771929824561,Forward,6-7,205.0,USA,5,nan,nan,2006,2010,1,0.0
+1628404,Josh Hart,4,24.35997416020672,Guard,6-5,215.0,USA,4,Pelicans,New Orleans,2017,2021,1,nan
+200762,Oleksiy Pecherov,0,10.081705426356589,Forward-Center,7-0,234.0,Ukraine,4,Wizards,Washington,2007,2009,1,0.0
+200765,Rajon Rondo,3,32.781689342403624,Guard,6-1,180.0,USA,15,Lakers,Los Angeles,2006,2021,1,nan
+203901,Elfrid Payton,6,29.54398148148148,Guard,6-3,195.0,USA,7,Suns,Phoenix,2014,2021,1,nan
+204456,T.J. McConnell,6,22.026231422505308,Guard,6-1,190.0,USA,6,Pacers,Indiana,2015,2021,0,nan
+200766,Marcus Williams,3,14.199371584699453,Guard,6-3,205.0,USA,5,Nets,New Jersey,2006,2009,1,0.0
+201953,Eric Maynor,3,14.588589263420724,Guard,6-3,175.0,USA,5,nan,nan,2009,2013,1,0.0
+200767,Josh Boone,0,16.594656084656084,Forward-Center,6-10,240.0,USA,5,Nets,New Jersey,2006,2009,1,0.0
+203101,Miles Plumlee,0,16.3527408477842,Center,6-11,249.0,USA,8,Hawks,Atlanta,2012,2018,1,0.0
+200769,Shannon Brown,2,20.28570147679325,Guard,6-3,215.0,USA,9,nan,nan,2006,2014,1,0.0
+202340,Avery Bradley,4,28.64334612923864,Guard,6-3,180.0,USA,11,Lakers,Los Angeles,2010,2021,1,nan
+203914,Gary Harris,4,28.42801178992497,Guard,6-4,210.0,USA,7,Magic,Orlando,2014,2021,1,nan
+201041,Walker Russell,2,12.758869047619047,Guard,6-0,170.0,USA,2,Pistons,Detroit,2011,2011,4,0.0
+200779,Steve Novak,4,12.398185071574643,Forward,6-10,225.0,USA,11,nan,nan,2006,2016,2,0.0
+203584,Troy Daniels,1,15.458270547945204,Guard,6-4,200.0,USA,8,Nuggets,Denver,2013,2019,Undrafted,0.0
+1626214,Bryce Dejean-Jones,1,19.896904761904757,Guard,6-6,203.0,USA,1,nan,nan,2015,2015,Undrafted,0.0
+200783,Craig Smith,5,13.42492156862745,Forward,6-7,265.0,USA,6,Timberwolves,Minnesota,2006,2011,2,0.0
+201168,Tiago Splitter,5,19.189549295774647,Center-Forward,6-11,245.0,Brazil,8,Spurs,San Antonio,2010,2016,1,0.0
+200796,Leon Powe,5,11.268699999999999,Forward,6-8,240.0,USA,6,Celtics,Boston,2006,2010,2,0.0
+200797,Ryan Hollins,0,12.864995670995672,Center,7-0,240.0,USA,10,nan,nan,2006,2015,2,0.0
+203920,Khem Birch,0,13.27465579710145,Center,6-9,233.0,Canada,4,Raptors,Toronto,2017,2021,Undrafted,nan
+200817,Pooh Jeter,3,14.00710382513661,Guard,5-11,175.0,USA,2,Kings,Sacramento,2010,2010,Undrafted,0.0
+202724,Charles Jenkins,3,12.231987767584098,Guard,6-3,215.0,USA,3,Warriors,Golden State,2011,2012,2,0.0
+202704,Reggie Jackson,6,25.227398989898987,Guard,6-2,208.0,USA,10,Clippers,LA,2011,2021,1,nan
+1628973,Jalen Brunson,6,21.79805936073059,Guard,6-1,190.0,USA,3,Mavericks,Dallas,2018,2021,2,nan
+201141,Greg Oden,5,16.084806201550386,Center,7-0,273.0,USA,4,Trail Blazers,Portland,2007,2013,1,0.0
+202355,Hassan Whiteside,5,26.10558966861598,Center,7-0,265.0,USA,9,Jazz,Utah,2010,2021,2,nan
+1626164,Devin Booker,6,32.88835784313726,Guard,6-5,206.0,USA,6,Suns,Phoenix,2015,2021,1,nan
+201563,Michael Beasley,2,22.506189120809616,Forward,6-9,235.0,USA,12,nan,nan,2008,2018,1,0.0
+203084,Harrison Barnes,2,30.722445685909374,Forward,6-8,225.0,USA,9,Kings,Sacramento,2012,2021,1,nan
+201160,Jason Smith,0,16.478466542750926,Forward-Center,7-0,240.0,USA,11,nan,nan,2007,2018,1,0.0
+1627786,Troy Williams,2,16.33002314814815,Forward,6-7,218.0,USA,4,Kings,Sacramento,2016,2018,Undrafted,0.0
+203145,Kent Bazemore,6,20.66230503795721,Guard-Forward,6-4,195.0,USA,9,Lakers,Los Angeles,2012,2021,Undrafted,nan
+201148,Brandan Wright,5,16.770395238095237,Forward-Center,6-10,235.0,USA,10,nan,nan,2007,2017,1,0.0
+1626158,Richaun Holmes,5,16.921733038348084,Forward,6-10,235.0,USA,6,Kings,Sacramento,2015,2021,2,nan
+203093,Terrence Jones,5,23.77531339031339,Forward,6-9,252.0,USA,6,nan,nan,2012,2018,1,0.0
+201149,Joakim Noah,0,29.478222871994802,Forward-Center,6-11,232.0,USA,14,Clippers,LA,2007,2019,1,2.0
+1628389,Bam Adebayo,0,21.72705298013245,Center-Forward,6-9,255.0,USA,4,Heat,Miami,2017,2021,1,nan
+201151,Acie Law,6,12.462142857142856,Guard,6-3,202.0,USA,5,Hawks,Atlanta,2007,2010,1,0.0
+201954,Darren Collison,6,29.368109065155807,Guard,6-0,175.0,USA,11,Pacers,Indiana,2009,2018,1,0.0
+202686,Jan Vesely,0,15.156183127572017,Forward,7-0,242.0,Czech Republic,3,Wizards,Washington,2011,2013,1,0.0
+201974,Derrick Brown,2,14.950901960784313,Forward,6-8,233.0,USA,4,Bobcats,Charlotte,2009,2011,2,0.0
+201157,Sean Williams,0,10.790860215053764,Forward-Center,6-10,235.0,USA,5,Nets,New Jersey,2007,2011,1,0.0
+202363,Jarvis Varnado,0,10.744774774774775,Forward-Center,6-9,230.0,USA,2,76ers,Philadelphia,2012,2013,2,0.0
+201163,Wilson Chandler,2,30.81030012771392,Forward,6-8,235.0,USA,13,Nets,Brooklyn,2007,2019,1,0.0
+1627774,Jake Layman,4,12.312340425531914,Forward,6-8,209.0,USA,5,Timberwolves,Minnesota,2016,2021,2,nan
+201164,Rudy Fernandez,4,23.264132149901382,Unknown,nan,nan,Spain,5,nan,nan,2008,2016,1,0.0
+203894,Shabazz Napier,3,16.06238177623991,Guard,6-0,175.0,USA,7,Wizards,Washington,2014,2019,1,0.0
+201976,Patrick Beverley,3,28.31408333333333,Guard,6-1,180.0,USA,9,Timberwolves,Minnesota,2012,2021,2,nan
+203992,Bogdan Bogdanovic,4,27.853547297297297,Guard,6-6,225.0,Serbia,4,Hawks,Atlanta,2017,2021,1,nan
+203098,John Jenkins,4,12.765204678362572,Guard,6-4,215.0,USA,7,Hawks,Atlanta,2012,2018,1,0.0
+203500,Steven Adams,5,26.806519713261647,Center,6-11,265.0,New Zealand,8,Grizzlies,Memphis,2013,2021,1,nan
+1626159,Justise Winslow,3,28.249528985507244,Forward-Guard,6-6,222.0,USA,6,Clippers,LA,2015,2021,1,nan
+201188,Marc Gasol,5,33.7221354899203,Center,6-11,255.0,Spain,14,Lakers,Los Angeles,2008,2020,2,3.0
+201274,Ivan Johnson,5,15.75352,Forward,6-8,255.0,USA,3,Hawks,Atlanta,2011,2012,Undrafted,0.0
+201609,Goran Dragic,6,29.17119724988146,Guard,6-3,190.0,Slovenia,13,Raptors,Toronto,2008,2021,2,nan
+202322,John Wall,6,35.85308027923211,Guard,6-3,210.0,USA,10,Rockets,Houston,2010,2021,1,nan
+201567,Kevin Love,5,32.94955284552845,Forward-Center,6-8,251.0,USA,13,Cavaliers,Cleveland,2008,2021,1,nan
+1626780,Jonathan Gibson,4,12.911666666666665,Guard,6-2,185.0,USA,4,Mavericks,Dallas,2016,2018,Undrafted,0.0
+1626184,Chasson Randle,3,13.892688888888888,Guard,6-2,185.0,USA,5,Magic,Orlando,2016,2020,nan,0.0
+1628984,Devonte' Graham,3,14.697717391304348,Guard,6-1,195.0,USA,3,Pelicans,New Orleans,2018,2021,2,nan
+201572,Brook Lopez,5,31.010795155344915,Center,7-0,282.0,USA,13,Bucks,Milwaukee,2008,2021,1,nan
+201588,George Hill,4,29.58664869029276,Guard,6-4,188.0,USA,13,Bucks,Milwaukee,2008,2021,1,nan
+202962,Greg Smith,0,12.311901565995527,Center,6-10,250.0,USA,6,Rockets,Houston,2011,2015,Undrafted,0.0
+201577,Robin Lopez,0,24.132437352245862,Center,7-0,281.0,USA,13,Magic,Orlando,2008,2021,1,nan
+1627834,Georgios Papagiannis,0,12.221239316239316,Center,7-1,240.0,Greece,2,Kings,Sacramento,2016,2017,1,0.0
+201580,JaVale McGee,5,17.655203836930454,Center-Forward,7-0,270.0,USA,13,Suns,Phoenix,2008,2021,1,nan
+203991,Clint Capela,5,25.06605649717514,Center,6-10,256.0,Switzerland,7,Hawks,Atlanta,2014,2021,1,nan
+1627767,Cheick Diallo,5,12.595864661654135,Forward-Center,6-8,219.0,Mali,5,Suns,Phoenix,2016,2019,2,0.0
+203141,Mirza Teletovic,4,17.81330237358101,Forward,6-9,242.0,Bosnia and Herzegovina,6,nan,nan,2012,2017,Undrafted,0.0
+201584,Courtney Lee,1,27.683199530516433,Guard,6-5,215.0,USA,13,Mavericks,Dallas,2008,2019,1,0.0
+202734,E'Twaun Moore,4,21.64898635477583,Guard,6-3,191.0,USA,10,Magic,Orlando,2011,2021,2,nan
+1629102,Brandon Sampson,1,15.307500000000001,Guard,6-5,184.0,USA,2,Bulls,Chicago,2018,2018,nan,0.0
+204028,Tarik Black,0,15.083189393939394,Forward-Center,6-9,250.0,USA,5,Rockets,Houston,2014,2017,Undrafted,0.0
+201586,Serge Ibaka,0,28.7125,Forward,6-10,235.0,Republic of the Congo,12,Clippers,LA,2009,2021,1,nan
+1628964,Mo Bamba,0,16.301985815602837,Center,7-0,231.0,USA,3,Magic,Orlando,2018,2021,1,nan
+1626167,Myles Turner,0,28.082720238095238,Center-Forward,6-11,250.0,USA,6,Pacers,Indiana,2015,2021,1,nan
+201589,Darrell Arthur,2,17.52778560250391,Forward,6-9,235.0,USA,10,Nuggets,Denver,2008,2017,1,0.0
+201947,Earl Clark,0,13.91228607918263,Forward,6-10,234.0,USA,6,Magic,Orlando,2009,2014,1,0.0
+201967,Dante Cunningham,2,20.82255383895131,Forward,6-8,230.0,USA,11,Spurs,San Antonio,2009,2018,2,0.0
+201590,Donte Greene,2,17.806159052453467,Forward,6-11,226.0,USA,6,Kings,Sacramento,2008,2012,1,0.0
+201595,Joey Dorsey,0,11.677650918635171,Unknown,nan,nan,USA,4,nan,nan,2008,2016,2,0.0
+202716,Jordan Williams,0,14.763100775193797,Center,6-10,260.0,USA,2,Nets,New Jersey,2011,2011,2,0.0
+203935,Marcus Smart,3,28.382622549019608,Guard,6-4,220.0,USA,7,Celtics,Boston,2014,2021,1,nan
+201599,DeAndre Jordan,5,29.165124183006537,Center,6-11,265.0,USA,13,Lakers,Los Angeles,2008,2021,2,nan
+203458,Alex Len,5,19.903147249190937,Center,7-0,250.0,Ukraine,8,Kings,Sacramento,2013,2021,1,nan
+201601,Luc Mbah a Moute,2,23.023698175787725,Forward,6-8,230.0,Cameroon,13,Rockets,Houston,2008,2019,2,0.0
+201602,Kyle Weaver,1,12.575000000000001,Guard,6-6,201.0,USA,3,nan,nan,2008,2010,2,0.0
+202066,Garrett Temple,1,20.289286640726328,Guard-Forward,6-5,195.0,USA,11,Pelicans,New Orleans,2009,2021,Undrafted,nan
+201603,Sonny Weems,2,19.178440545808968,Guard-Forward,6-6,205.0,USA,4,nan,nan,2008,2015,2,0.0
+1627820,Tyrone Wallace,2,16.07503623188406,Guard,6-5,198.0,USA,3,nan,nan,2017,2019,2,0.0
+201605,Nathan Jawai,0,10.248991228070174,Forward,6-10,280.0,Australia,3,Timberwolves,Minnesota,2008,2009,2,0.0
+203928,Cory Jefferson,0,10.021063218390806,Forward,6-9,218.0,USA,3,nan,nan,2014,2015,2,0.0
+1628372,Dennis Smith Jr.,6,29.16049180327869,Guard,6-2,205.0,USA,4,Trail Blazers,Portland,2017,2021,1,nan
+1628368,De'Aaron Fox,6,29.684242424242424,Guard,6-3,185.0,USA,4,Kings,Sacramento,2017,2021,1,nan
+201785,Othyus Jeffers,2,11.93572072072072,Guard-Forward,6-5,210.0,USA,3,Wizards,Washington,2009,2013,Undrafted,0.0
+1628977,Hamidou Diallo,2,10.512433333333334,Guard,6-5,202.0,USA,3,Pistons,Detroit,2018,2021,2,nan
+203382,Aron Baynes,0,15.11775956284153,Center-Forward,6-10,260.0,Australia,10,Raptors,Toronto,2012,2020,Undrafted,0.0
+202692,Alec Burks,2,21.099316239316238,Guard,6-6,214.0,USA,10,Knicks,New York,2011,2021,1,nan
+203613,Jonathon Simmons,2,20.538016795865634,Forward,6-6,195.0,USA,5,76ers,Philadelphia,2015,2018,0,0.0
+201880,Greg Stiemsma,0,15.014064039408867,Center,6-11,260.0,USA,5,Timberwolves,Minnesota,2009,2014,Undrafted,0.0
+203512,Lucas Nogueira,0,12.374309523809522,Center,7-0,220.0,Brazil,5,Raptors,Toronto,2014,2017,1,0.0
+201933,Blake Griffin,5,35.026326699834165,Forward,6-9,250.0,USA,11,Nets,Brooklyn,2009,2021,1,nan
+203944,Julius Randle,5,28.49528494623656,Forward-Center,6-8,250.0,USA,7,Knicks,New York,2014,2021,1,nan
+201935,James Harden,6,34.1237385620915,Guard,6-5,220.0,USA,12,Nets,Brooklyn,2009,2021,1,nan
+202738,Isaiah Thomas,6,29.39717046238785,Guard,5-9,185.0,USA,10,nan,nan,2011,2020,2,2.0
+1629029,Luka Doncic,6,32.19083333333333,Forward-Guard,6-7,230.0,Slovenia,3,Mavericks,Dallas,2018,2021,1,nan
+201939,Stephen Curry,6,34.371736613603474,Guard,6-2,185.0,USA,12,Warriors,Golden State,2009,2021,1,nan
+1626156,D'Angelo Russell,6,28.4975306372549,Guard,6-4,193.0,USA,6,Timberwolves,Minnesota,2015,2021,1,nan
+201941,Jordan Hill,5,18.80477587612062,Forward-Center,6-10,240.0,USA,9,Lakers,Los Angeles,2009,2016,1,0.0
+1627742,Brandon Ingram,6,31.654298245614036,Forward,6-8,190.0,USA,5,Pelicans,New Orleans,2016,2021,1,nan
+201944,Terrence Williams,2,19.09478213507625,Guard-Forward,6-6,220.0,USA,5,Nets,New Jersey,2009,2012,1,0.0
+202362,Lance Stephenson,2,23.371709486166004,Guard,6-6,230.0,USA,10,Lakers,Los Angeles,2010,2018,2,0.0
+1628972,Troy Brown Jr.,2,14.033397435897436,Guard-Forward,6-6,215.0,USA,3,Bulls,Chicago,2018,2021,1,nan
+1626185,Jarell Martin,1,15.90471920289855,Forward,6-10,239.0,USA,5,Magic,Orlando,2015,2018,1,0.0
+203488,Mike Muscala,1,15.90026688453159,Forward-Center,6-10,240.0,USA,8,Thunder,Oklahoma City,2013,2021,2,nan
+201949,James Johnson,2,20.686131447587353,Forward,6-7,240.0,USA,12,Nets,Brooklyn,2009,2021,1,nan
+1628401,Derrick White,3,22.222638888888888,Guard,6-4,190.0,USA,4,Spurs,San Antonio,2017,2021,1,nan
+1627780,Gary Payton II,2,10.5003125,Guard,6-3,195.0,USA,5,Warriors,Golden State,2016,2021,Undrafted,nan
+1628455,Mike James,6,19.06912037037037,Guard,6-1,175.0,USA,3,Nets,Brooklyn,2017,2020,Undrafted,0.0
+1628420,Monte Morris,3,23.476392156862744,Guard,6-2,183.0,USA,4,Nuggets,Denver,2017,2021,2,nan
+1626273,Marcelo Huertas,3,14.544451754385966,Guard,6-3,200.0,Brazil,2,nan,nan,2015,2016,Undrafted,0.0
+201956,Omri Casspi,2,20.34153038046564,Forward,6-9,225.0,Israel,10,nan,nan,2009,2018,1,0.0
+201960,DeMarre Carroll,2,24.183236714975845,Forward,6-6,215.0,USA,12,Rockets,Houston,2009,2019,1,0.0
+201958,Rodrigue Beaubois,6,15.940451197053408,Guard,6-2,185.0,France,5,Mavericks,Dallas,2009,2012,1,0.0
+1627814,Damion Lee,2,16.58723404255319,Guard-Forward,6-5,210.0,USA,4,Warriors,Golden State,2017,2021,Undrafted,nan
+203490,Otto Porter Jr.,2,26.93544277360067,Forward,6-8,198.0,USA,8,Warriors,Golden State,2013,2021,1,nan
+1626179,Terry Rozier,4,20.040178351783517,Guard,6-1,190.0,USA,6,Hornets,Charlotte,2015,2021,1,nan
+201963,Christian Eyenga,2,20.576339869281046,Forward,6-7,210.0,Congo,3,Cavaliers,Cleveland,2010,2011,1,0.0
+1628966,Keita Bates-Diop,2,16.779222222222224,Forward,6-8,229.0,USA,3,Spurs,San Antonio,2018,2021,2,nan
+1628021,David Nwaba,2,21.47109929078014,Guard-Forward,6-5,219.0,USA,5,Rockets,Houston,2016,2021,Undrafted,nan
+201971,DeJuan Blair,5,16.63756289308176,Center-Forward,6-7,270.0,USA,7,nan,nan,2009,2015,2,0.0
+201973,Jonas Jerebko,2,17.84738809899947,Forward,6-10,231.0,Sweden,10,Warriors,Golden State,2009,2018,2,0.0
+202357,Nemanja Bjelica,1,20.17900497512438,Forward,6-9,234.0,Serbia,6,Warriors,Golden State,2015,2021,2,nan
+204060,Joe Ingles,3,24.709170771756977,Forward-Guard,6-8,220.0,Australia,7,Jazz,Utah,2014,2021,Undrafted,nan
+202130,Reggie Williams,4,18.13363268608414,Forward,6-6,205.0,USA,7,nan,nan,2009,2016,Undrafted,0.0
+1626224,Cedi Osman,4,22.747481751824814,Forward,6-7,230.0,Turkey,4,Cavaliers,Cleveland,2017,2021,2,nan
+201979,Nick Calathes,3,15.585361757105943,Guard,6-6,213.0,USA,2,Grizzlies,Memphis,2013,2014,2,0.0
+1627739,Kris Dunn,3,24.13174242424242,Guard,6-3,205.0,USA,6,Hawks,Atlanta,2016,2020,1,0.0
+203477,Isaiah Canaan,4,20.41604964539007,Guard,6-0,200.0,USA,6,nan,nan,2013,2018,2,0.0
+201991,Lester Hudson,3,10.422690058479533,Guard,6-3,190.0,USA,5,Celtics,Boston,2009,2014,2,0.0
+1628414,Sindarius Thornwell,3,10.725048661800487,Guard,6-4,215.0,USA,5,Magic,Orlando,2017,2020,2,0.0
+1627775,Patrick McCaw,3,15.493142250530784,Guard,6-7,181.0,USA,5,nan,nan,2016,2020,2,0.0
+202711,Bojan Bogdanovic,4,27.78214824120603,Forward,6-7,226.0,Croatia,7,Jazz,Utah,2014,2021,2,nan
+202178,Sundiata Gaines,6,11.599321533923304,Guard,6-1,200.0,USA,4,Nets,New Jersey,2009,2011,Undrafted,0.0
+202220,Zabian Dowdell,3,12.154097222222221,Guard,6-3,191.0,USA,2,Suns,Phoenix,2010,2010,Undrafted,0.0
+202227,Terrel Harris,1,10.842142857142857,Guard,6-4,190.0,USA,3,Heat,Miami,2011,2012,Undrafted,0.0
+203508,Sergey Karasev,1,11.689157894736843,Guard-Forward,6-7,208.0,Russia,4,Nets,Brooklyn,2013,2015,1,0.0
+203934,Lamar Patterson,1,10.881666666666666,Guard-Forward,6-5,225.0,USA,2,nan,nan,2015,2016,2,0.0
+202324,Derrick Favors,5,25.740100210970464,Forward,6-9,265.0,USA,11,Thunder,Oklahoma City,2010,2021,1,nan
+202326,DeMarcus Cousins,5,32.002419928825624,Center,6-10,270.0,USA,10,Bucks,Milwaukee,2010,2021,1,nan
+203076,Anthony Davis,5,34.54547670250896,Forward-Center,6-10,253.0,USA,9,Lakers,Los Angeles,2012,2021,1,nan
+203954,Joel Embiid,5,30.712025316455698,Center-Forward,7-0,280.0,Cameroon,5,76ers,Philadelphia,2014,2021,1,nan
+202329,Al-Farouq Aminu,2,25.2365072247135,Forward,6-8,220.0,USA,12,Bulls,Chicago,2010,2020,1,0.0
+203921,Cleanthony Early,1,14.301220238095238,Forward,6-8,210.0,USA,3,Knicks,New York,2014,2015,2,0.0
+202331,Paul George,6,33.80791044776119,Forward,6-8,220.0,USA,11,Clippers,LA,2010,2021,1,nan
+202695,Kawhi Leonard,6,30.843879371877232,Forward,6-7,225.0,USA,10,Clippers,LA,2011,2021,1,nan
+202335,Patrick Patterson,1,21.807066559312936,Forward,6-8,235.0,USA,12,Clippers,LA,2010,2020,1,0.0
+202336,Larry Sanders,0,19.55458333333333,Forward-Center,6-11,230.0,USA,6,nan,nan,2010,2016,1,0.0
+1629151,Ryan Broekhoff,4,10.79968253968254,Guard-Forward,6-6,215.0,Australia,3,76ers,Philadelphia,2018,2019,Undrafted,0.0
+1627738,Deyonta Davis,0,12.141666666666666,Center-Forward,6-11,237.0,USA,4,nan,nan,2016,2018,2,0.0
+203546,Ian Clark,4,13.652762626262627,Guard,6-3,175.0,USA,7,Pelicans,New Orleans,2013,2018,Undrafted,0.0
+1628425,Sterling Brown,4,16.16794642857143,Guard-Forward,6-5,219.0,USA,4,Mavericks,Dallas,2017,2021,2,nan
+202348,Jordan Crawford,6,24.35255634638197,Guard,6-5,195.0,USA,6,Wizards,Washington,2010,2017,1,0.0
+203960,JaKarr Sampson,2,15.967620423892098,Forward,6-7,214.0,USA,7,Pacers,Indiana,2014,2020,Undrafted,0.0
+204037,Travis Wear,1,13.232205882352941,Forward,6-10,225.0,USA,3,Knicks,New York,2014,2017,Undrafted,0.0
+1628365,Markelle Fultz,2,20.600959595959594,Guard,6-4,209.0,USA,4,Magic,Orlando,2017,2021,1,nan
+202951,Jeremy Pargo,3,13.001204819277108,Guard,6-2,219.0,USA,3,nan,nan,2011,2019,0,0.0
+202407,Elijah Millsap,3,16.224734299516907,Guard-Forward,6-7,215.0,USA,4,Jazz,Utah,2014,2016,Undrafted,0.0
+202732,DeAndre Liggins,3,10.771704331450094,Guard,6-6,209.0,USA,6,Cavaliers,Cleveland,2011,2017,2,0.0
+203906,Devyn Marble,3,10.384280303030302,Forward,6-6,200.0,USA,3,Magic,Orlando,2014,2015,2,0.0
+1627855,Okaro White,1,12.659431818181817,Forward,6-8,205.0,USA,3,nan,nan,2016,2018,Undrafted,0.0
+1628378,Donovan Mitchell,6,33.56654914529914,Guard,6-1,215.0,USA,4,Jazz,Utah,2017,2021,1,nan
+202682,Derrick Williams,2,20.70814641744548,Forward,6-8,240.0,USA,7,nan,nan,2011,2017,1,0.0
+1626254,Maurice Ndour,2,10.35796875,Forward,6-9,200.0,Senegal,2,Knicks,New York,2016,2016,Undrafted,0.0
+202691,Klay Thompson,4,33.07170479302832,Guard,6-6,220.0,USA,8,Warriors,Golden State,2011,2021,1,nan
+1627741,Buddy Hield,4,26.751120218579235,Guard,6-4,220.0,Bahamas,5,Kings,Sacramento,2016,2021,1,nan
+1629019,Allonzo Trier,2,22.790052083333332,Guard,6-4,200.0,USA,2,nan,nan,2018,2019,nan,0.0
+202693,Markieff Morris,2,26.000420991926184,Forward,6-9,245.0,USA,10,Heat,Miami,2011,2021,1,nan
+202694,Marcus Morris Sr.,4,26.51099388379205,Forward,6-8,218.0,USA,10,Clippers,LA,2011,2021,1,nan
+202699,Tobias Harris,2,30.419806985294116,Forward,6-7,226.0,USA,10,76ers,Philadelphia,2011,2021,1,nan
+202702,Kenneth Faried,5,24.564348739495795,Forward-Center,6-8,220.0,USA,9,Rockets,Houston,2011,2018,1,0.0
+1629140,Johnathan Williams,5,15.797971014492752,Forward,6-9,228.0,USA,3,Wizards,Washington,2018,2019,Undrafted,0.0
+203080,Thomas Robinson,5,13.43425747863248,Forward,6-10,237.0,USA,6,Trail Blazers,Portland,2012,2016,1,0.0
+203471,Dennis Schroder,6,24.711984496124032,Guard,6-1,172.0,Germany,8,Celtics,Boston,2013,2021,1,nan
+1626144,Emmanuel Mudiay,6,25.780884353741495,Guard,6-3,200.0,Democratic Republic of the Congo,6,Jazz,Utah,2015,2019,1,0.0
+202706,Jordan Hamilton,4,13.907417218543046,Guard-Forward,6-7,220.0,USA,6,Nuggets,Denver,2011,2015,1,0.0
+202708,Norris Cole,3,22.27583796296296,Guard,6-2,175.0,USA,7,Heat,Miami,2011,2016,1,0.0
+1627735,Wade Baldwin IV,3,10.340892857142858,Guard,6-4,200.0,USA,3,nan,nan,2016,2018,1,0.0
+202710,Jimmy Butler,6,32.924284802043424,Forward,6-7,230.0,USA,10,Heat,Miami,2011,2021,1,nan
+203102,Arnett Moultrie,0,12.352005649717514,Forward,6-10,240.0,USA,2,76ers,Philadelphia,2012,2013,1,0.0
+203158,Kevin Jones,0,10.438020833333333,Forward,6-8,260.0,USA,2,Cavaliers,Cleveland,2012,2012,Undrafted,0.0
+203530,Joffrey Lauvergne,0,13.573125000000001,Center,6-11,260.0,France,5,Spurs,San Antonio,2014,2017,2,0.0
+202721,Darius Morris,3,11.092626262626263,Guard,6-4,195.0,USA,5,Lakers,Los Angeles,2011,2014,2,0.0
+203492,Ray McCallum,3,18.22648268398268,Guard,6-3,190.0,USA,4,nan,nan,2013,2015,2,0.0
+202722,Davis Bertans,4,16.024886363636362,Forward,6-10,225.0,Latvia,5,Wizards,Washington,2016,2021,2,nan
+202723,Malcolm Lee,3,14.823796296296296,Guard,6-5,200.0,USA,3,nan,nan,2011,2014,2,0.0
+202725,Josh Harrellson,0,11.8366,Forward-Center,6-10,275.0,USA,4,Knicks,New York,2011,2013,2,0.0
+1626245,Cristiano Felicio,0,14.550110062893083,Forward-Center,6-11,270.0,Brazil,7,Bulls,Chicago,2015,2020,Undrafted,0.0
+1626149,Montrezl Harrell,5,19.190169934640522,Forward-Center,6-7,240.0,USA,6,Wizards,Washington,2015,2021,2,nan
+203077,Michael Kidd-Gilchrist,2,25.410459224069676,Forward,6-6,232.0,USA,9,Mavericks,Dallas,2012,2019,1,0.0
+203078,Bradley Beal,6,34.38245560109289,Guard,6-4,207.0,USA,9,Wizards,Washington,2012,2021,1,nan
+203468,CJ McCollum,6,29.98611382113821,Guard,6-3,190.0,USA,8,Trail Blazers,Portland,2013,2021,1,nan
+203903,Jordan Clarkson,6,27.540835520559927,Guard,6-4,194.0,USA,7,Jazz,Utah,2014,2021,2,nan
+203081,Damian Lillard,6,36.25484460694698,Guard,6-2,195.0,USA,9,Trail Blazers,Portland,2012,2021,1,nan
+203083,Andre Drummond,5,30.83204320987654,Center,6-10,279.0,USA,9,76ers,Philadelphia,2012,2021,1,nan
+203086,Meyers Leonard,1,15.539710144927536,Forward-Center,7-0,260.0,USA,9,nan,nan,2012,2020,1,0.0
+203088,Kendall Marshall,3,19.270520833333332,Guard,6-4,200.0,USA,5,Lakers,Los Angeles,2012,2015,1,0.0
+203090,Maurice Harkless,2,23.04295358649789,Forward-Guard,6-7,220.0,USA,9,Kings,Sacramento,2012,2021,1,nan
+1628970,Miles Bridges,2,21.204166666666666,Forward,6-7,225.0,USA,3,Hornets,Charlotte,2018,2021,1,nan
+203956,Mitch McGary,5,10.718942307692307,Forward,6-10,255.0,USA,3,Thunder,Oklahoma City,2014,2015,1,0.0
+1627750,Jamal Murray,4,28.429936708860758,Guard,6-3,215.0,Canada,5,Nuggets,Denver,2016,2021,1,nan
+203096,Jared Sullinger,5,24.28055142503098,Center-Forward,6-9,260.0,USA,5,nan,nan,2012,2016,1,0.0
+203516,James Ennis III,2,20.554502398081535,Forward,6-6,215.0,USA,8,Magic,Orlando,2014,2020,2,0.0
+1626209,Mario Hezonja,4,18.904151624548735,Forward-Guard,6-8,220.0,Croatia,6,Trail Blazers,Portland,2015,2019,1,0.0
+203110,Draymond Green,3,28.112220125786163,Forward,6-6,230.0,USA,9,Warriors,Golden State,2012,2021,2,nan
+203527,Ryan Kelly,1,19.17204498977505,Forward,6-11,230.0,USA,5,Lakers,Los Angeles,2013,2016,2,0.0
+203113,Quincy Miller,1,13.543719806763285,Forward,6-9,210.0,USA,4,Nuggets,Denver,2012,2014,2,0.0
+1626168,Trey Lyles,2,17.495232288037165,Forward,6-9,234.0,Canada,6,Pistons,Detroit,2015,2021,1,nan
+203133,Robbie Hummel,1,14.25452380952381,Forward,6-9,219.0,USA,3,Timberwolves,Minnesota,2013,2014,2,0.0
+203925,Joe Harris,4,22.65876117496807,Guard-Forward,6-6,220.0,USA,7,Nets,Brooklyn,2014,2021,2,nan
+1626163,Frank Kaminsky,4,22.16832151300236,Forward-Center,7-0,240.0,USA,6,Suns,Phoenix,2015,2021,1,nan
+203187,Chris Johnson,1,15.475306122448979,Forward,6-6,206.0,USA,5,Jazz,Utah,2012,2015,Undrafted,0.0
+1628384,OG Anunoby,1,20.097364066193855,Forward,6-7,232.0,United Kingdom,4,Raptors,Toronto,2017,2021,1,nan
+203197,Diante Garrett,3,13.299740740740742,Guard,6-4,190.0,USA,2,Jazz,Utah,2012,2013,Undrafted,0.0
+203461,Anthony Bennett,0,12.614966887417218,Forward,6-8,235.0,Canada,5,nan,nan,2013,2016,1,0.0
+203268,Jorge Gutierrez,3,10.24982269503546,Guard,6-3,189.0,Mexico,4,Nets,Brooklyn,2013,2015,Undrafted,0.0
+203457,Nerlens Noel,5,22.860618729096988,Center-Forward,6-11,220.0,USA,7,Knicks,New York,2013,2021,1,nan
+1626204,Larry Nance Jr.,2,22.85219638242894,Forward-Center,6-7,245.0,USA,6,Trail Blazers,Portland,2015,2021,1,nan
+203460,Andre Roberson,1,22.572267573696145,Guard-Forward,6-7,210.0,USA,7,nan,nan,2013,2020,1,0.0
+203473,Dewayne Dedmon,0,18.347223809523808,Center,7-0,245.0,USA,8,Heat,Miami,2013,2021,Undrafted,nan
+203543,Vitor Faverani,0,13.178783783783784,Center,6-11,260.0,Brazil,2,Celtics,Boston,2013,2013,Undrafted,0.0
+1628464,Daniel Theis,0,14.2884496124031,Forward-Center,6-9,245.0,Germany,4,Rockets,Houston,2017,2021,Undrafted,nan
+203486,Mason Plumlee,5,22.10223404255319,Forward-Center,6-11,254.0,USA,8,Hornets,Charlotte,2013,2021,1,nan
+203487,Michael Carter-Williams,6,26.241814814814816,Guard,6-5,190.0,USA,8,Magic,Orlando,2013,2021,1,nan
+1628424,Kobi Simmons,3,19.54222222222222,Guard,6-5,180.0,USA,3,Hornets,Charlotte,2017,2019,Undrafted,0.0
+203496,Robert Covington,4,29.89368609406953,Forward,6-7,209.0,USA,8,Trail Blazers,Portland,2013,2021,Undrafted,nan
+1628390,Terrance Ferguson,1,19.94067164179104,Guard,6-6,190.0,USA,4,nan,nan,2017,2020,1,0.0
+203505,Vander Blue,3,13.330000000000002,Guard,6-5,200.0,USA,3,nan,nan,2013,2017,Undrafted,0.0
+203518,Alex Abrines,4,15.963544061302683,Guard,6-6,200.0,Spain,3,nan,nan,2016,2018,2,0.0
+203544,Pero Antic,1,17.363023598820057,Forward-Center,6-11,260.0,Macedonia,2,Hawks,Atlanta,2013,2014,Undrafted,0.0
+203580,Larry Drew II,3,13.14310606060606,Guard,6-2,180.0,USA,2,76ers,Philadelphia,2014,2017,Undrafted,0.0
+1629013,Landry Shamet,4,22.808776371308014,Guard,6-4,190.0,USA,3,Suns,Phoenix,2018,2021,1,nan
+203705,Josh Magette,3,12.009166666666665,Guard,6-1,160.0,USA,2,nan,nan,2017,2019,0,0.0
+204025,Tim Frazier,3,18.216231292517005,Guard,6-0,170.0,USA,8,Grizzlies,Memphis,2014,2020,Undrafted,0.0
+203710,C.J. Williams,1,15.748459119496854,Guard,6-5,226.0,USA,3,Timberwolves,Minnesota,2017,2018,0,0.0
+203900,Markel Brown,2,15.887182890855456,Guard,6-3,190.0,USA,4,Nets,Brooklyn,2014,2017,2,0.0
+203909,KJ McDaniels,2,14.140056306306308,Guard-Forward,6-6,205.0,USA,4,Nets,Brooklyn,2014,2016,2,0.0
+203913,Jabari Brown,4,29.913771929824563,Guard,6-5,214.0,USA,2,Lakers,Los Angeles,2014,2014,nan,0.0
+203924,Jerami Grant,2,24.079157940663176,Forward,6-8,210.0,USA,7,Pistons,Detroit,2014,2021,2,nan
+1627748,Thon Maker,2,14.217307692307692,Forward-Center,7-0,221.0,South Sudan,5,nan,nan,2016,2020,1,0.0
+1627854,Bryn Forbes,4,20.67872053872054,Guard,6-2,205.0,USA,5,Spurs,San Antonio,2016,2021,Undrafted,nan
+203926,Doug McDermott,1,19.931925708699904,Forward,6-7,225.0,USA,7,Spurs,San Antonio,2014,2021,1,nan
+203937,Kyle Anderson,3,19.6105,Forward-Guard,6-9,230.0,USA,7,Grizzlies,Memphis,2014,2021,1,nan
+203943,Noah Vonleh,0,17.70817168338907,Forward,6-10,257.0,USA,7,nan,nan,2014,2020,1,0.0
+1628381,John Collins,5,26.763123456790122,Forward-Center,6-9,226.0,USA,4,Hawks,Atlanta,2017,2021,1,nan
+203962,Josh Huestis,1,14.044934210526316,Guard,6-7,230.0,USA,4,Thunder,Oklahoma City,2015,2017,1,0.0
+1627733,Dragan Bender,1,20.287904483430797,Forward,7-0,249.0,Croatia,4,nan,nan,2016,2019,1,0.0
+203966,Jamil Wilson,4,18.250444444444444,Forward,6-7,229.0,USA,1,nan,nan,2017,2017,Undrafted,0.0
+203999,Nikola Jokic,5,28.319761129207382,Center,6-11,284.0,Serbia,6,Nuggets,Denver,2015,2021,2,nan
+1626157,Karl-Anthony Towns,5,34.414120082815735,Center-Forward,6-11,248.0,USA,6,Timberwolves,Minnesota,2015,2021,1,nan
+204001,Kristaps Porzingis,5,30.98948028673835,Forward-Center,7-3,240.0,Latvia,5,Mavericks,Dallas,2015,2021,1,nan
+1628991,Jaren Jackson Jr.,5,26.11531609195402,Forward-Center,6-11,242.0,USA,3,Grizzlies,Memphis,2018,2021,1,nan
+1626166,Cameron Payne,3,16.035435729847496,Guard,6-1,183.0,USA,6,Suns,Phoenix,2015,2021,1,nan
+204098,Xavier Munford,3,13.252333333333334,Guard,6-4,173.0,USA,2,Grizzlies,Memphis,2015,2017,nan,0.0
+1626148,Anthony Brown,1,18.571341463414633,Forward-Guard,6-7,224.0,USA,4,Lakers,Los Angeles,2015,2017,2,0.0
+1628400,Semi Ojeleye,1,13.524405684754521,Forward,6-6,240.0,USA,4,Bucks,Milwaukee,2017,2021,2,nan
+1628963,Marvin Bagley III,5,25.282177419354838,Forward,6-11,235.0,USA,3,Kings,Sacramento,2018,2021,1,nan
+1628405,Johnathan Motley,5,10.054040404040403,Forward,6-8,230.0,USA,4,Clippers,LA,2017,2019,Undrafted,0.0
+1626150,Andrew Harrison,3,20.59262068965517,Guard,6-6,213.0,USA,4,nan,nan,2016,2018,2,0.0
+1627098,Malcolm Delaney,3,17.808792650918637,Guard,6-3,190.0,USA,2,Hawks,Atlanta,2016,2017,Undrafted,0.0
+1627761,DeAndre' Bembry,2,18.885182648401827,Guard-Forward,6-5,210.0,USA,5,Nets,Brooklyn,2016,2021,1,nan
+1628537,Jaylen Morris,2,12.700333333333333,Guard,6-5,185.0,USA,3,nan,nan,2017,2018,Undrafted,0.0
+1626161,Willie Cauley-Stein,5,24.02950847457627,Center,7-0,240.0,USA,6,Mavericks,Dallas,2015,2021,1,nan
+1626171,Bobby Portis,5,20.25392904953146,Forward,6-10,250.0,USA,6,Bucks,Milwaukee,2015,2021,1,nan
+1627752,Taurean Prince,4,25.498741496598637,Forward,6-6,218.0,USA,5,Timberwolves,Minnesota,2016,2021,1,nan
+1626188,Quinn Cook,4,16.420371900826446,Guard,6-1,180.0,USA,6,nan,nan,2016,2020,Undrafted,0.0
+1626220,Royce O'Neale,1,18.679845474613685,Forward,6-5,226.0,USA,4,Jazz,Utah,2017,2021,Undrafted,nan
+1629026,Kenrich Williams,1,23.461304347826086,Guard-Forward,6-6,210.0,USA,3,Thunder,Oklahoma City,2018,2021,Undrafted,nan
+1626253,Axel Toupane,1,14.115533333333333,Guard-Forward,6-7,210.0,France,4,Bucks,Milwaukee,2015,2020,Undrafted,0.0
+1627215,Walt Lemon Jr.,6,18.38651515151515,Guard,6-3,180.0,USA,3,Bulls,Chicago,2017,2018,nan,0.0
+1627362,Briante Weber,3,13.558444444444444,Guard,6-2,165.0,USA,4,Rockets,Houston,2015,2017,Undrafted,0.0
+1627395,Julian Washburn,1,14.104814814814814,Forward-Guard,6-8,209.0,USA,2,Grizzlies,Memphis,2018,2018,nan,0.0
+1627732,Ben Simmons,6,33.94885416666666,Guard-Forward,6-11,240.0,Australia,4,76ers,Philadelphia,2016,2021,1,nan
+1627737,Marquese Chriss,2,19.132292724196276,Forward,6-9,240.0,USA,6,nan,nan,2016,2020,1,0.0
+1627747,Caris LeVert,6,24.78236111111111,Guard,6-6,205.0,USA,5,Pacers,Indiana,2016,2021,1,nan
+1627749,Dejounte Murray,2,17.34795518207283,Guard,6-4,180.0,USA,4,Spurs,San Antonio,2016,2021,1,nan
+1627756,Denzel Valentine,4,22.922910447761193,Guard,6-4,220.0,USA,4,Cavaliers,Cleveland,2016,2021,1,nan
+1628989,Kevin Huerter,4,27.31373333333333,Guard-Forward,6-7,198.0,USA,3,Hawks,Atlanta,2018,2021,1,nan
+1627763,Malcolm Brogdon,2,28.074857397504456,Guard,6-5,229.0,USA,5,Pacers,Indiana,2016,2021,2,nan
+1629066,Rodions Kurucs,2,20.535714285714285,Forward,6-9,228.0,Latvia,3,nan,nan,2018,2020,2,0.0
+1627785,Isaiah Whitehead,2,20.48460674157303,Guard,6-4,213.0,USA,3,Pistons,Detroit,2016,2018,2,0.0
+1627821,James Webb III,1,11.993166666666667,Forward,6-9,202.0,USA,1,Nets,Brooklyn,2017,2017,nan,0.0
+1627848,Shawn Long,5,12.978611111111112,Forward,6-9,255.0,USA,2,76ers,Philadelphia,2016,2016,Undrafted,0.0
+1627851,Mindaugas Kuzminskas,4,14.755917874396134,Forward,6-9,215.0,Lithuania,2,nan,nan,2016,2017,Undrafted,0.0
+1627858,Kyle Collinsworth,3,14.986145833333333,Guard,6-6,210.0,USA,2,Mavericks,Dallas,2017,2017,nan,0.0
+1627883,Jalen Jones,2,12.35921875,Forward,6-7,220.0,USA,3,nan,nan,2017,2018,nan,0.0
+1627884,Derrick Jones Jr.,2,17.35811011904762,Forward,6-6,210.0,USA,5,Bulls,Chicago,2016,2021,Undrafted,nan
+1627988,Myke Henry,3,18.90383333333333,Forward,6-6,210.0,USA,2,Grizzlies,Memphis,2017,2017,nan,0.0
+1629001,De'Anthony Melton,3,19.6778,Guard,6-2,200.0,USA,3,Grizzlies,Memphis,2018,2021,2,nan
+1628035,Alfonzo McKinnie,2,12.288333333333332,Forward,6-7,215.0,USA,5,Lakers,Los Angeles,2017,2020,Undrafted,0.0
+1628370,Malik Monk,4,15.526470588235293,Guard,6-3,200.0,USA,4,Lakers,Los Angeles,2017,2021,1,nan
+1628463,Tyler Cavanaugh,1,11.159566666666667,Forward,6-9,238.0,USA,3,Jazz,Utah,2017,2018,Undrafted,0.0
+1628395,Jordan Bell,0,12.777626666666666,Forward,6-8,216.0,USA,5,Warriors,Golden State,2017,2020,2,0.0
+1628398,Kyle Kuzma,4,32.07079908675799,Forward,6-9,221.0,USA,4,Wizards,Washington,2017,2021,1,nan
+1628402,Frank Jackson,4,19.161693989071036,Guard,6-3,205.0,USA,3,Pistons,Detroit,2017,2021,2,nan
+1628469,Antonio Blakeney,4,15.038640350877193,Guard,6-4,192.0,USA,3,Bulls,Chicago,2017,2018,Undrafted,0.0
+1628409,Alec Peters,4,11.24275,Forward,6-9,235.0,USA,1,Suns,Phoenix,2017,2017,2,0.0
+1628510,Andrew White III,4,13.940444444444445,Forward,6-7,210.0,USA,2,Hawks,Atlanta,2017,2017,nan,0.0
+1628971,Bruce Brown,1,19.585360360360358,Guard-Forward,6-4,202.0,USA,3,Nets,Brooklyn,2018,2021,2,nan
+1628413,Jonah Bolden,1,14.51526515151515,Forward,6-8,225.0,Australia,2,nan,nan,2018,2019,2,0.0
+1628416,Tyler Dorsey,4,16.077532051282052,Guard,6-5,183.0,USA,3,Grizzlies,Memphis,2017,2018,2,0.0
+1628417,Jaron Blossomgame,1,16.265185185185185,Forward,6-8,220.0,USA,2,Cavaliers,Cleveland,2018,2018,2,0.0
+1628436,Luke Kornet,4,16.82563131313131,Forward-Center,7-2,250.0,USA,5,Celtics,Boston,2017,2020,Undrafted,0.0
+1628439,Isaiah Hicks,0,12.943015873015874,Forward,6-9,230.0,USA,3,Knicks,New York,2017,2018,Undrafted,0.0
+1628443,Kadeem Allen,3,14.128018018018018,Guard,6-1,200.0,USA,3,nan,nan,2017,2019,2,0.0
+1628462,Milos Teodosic,4,21.400972222222222,Guard,6-5,196.0,Serbia,2,nan,nan,2017,2018,Undrafted,0.0
+1629012,Collin Sexton,6,31.768577235772355,Guard,6-1,190.0,USA,3,Cavaliers,Cleveland,2018,2021,1,nan
+1628495,Milton Doyle,3,12.451666666666664,Guard,6-4,180.0,USA,2,Nets,Brooklyn,2017,2017,nan,0.0
+1629006,Josh Okogie,2,23.74554054054054,Guard,6-4,213.0,Nigeria,3,Timberwolves,Minnesota,2018,2021,1,nan
+1628503,Jamel Artis,1,18.600555555555555,Guard,6-7,213.0,USA,2,Magic,Orlando,2017,2017,Undrafted,0.0
+1628515,Isaiah Briscoe,3,14.33923076923077,Guard,6-3,215.0,USA,1,nan,nan,2018,2018,Undrafted,0.0
+1628959,Rawle Alkins,2,12.035333333333332,Guard,6-5,225.0,USA,2,Bulls,Chicago,2018,2018,Undrafted,0.0
+1628960,Grayson Allen,4,10.955087719298247,Guard,6-4,198.0,USA,3,Bucks,Milwaukee,2018,2021,1,nan
+1628975,Jevon Carter,4,14.782094017094018,Guard,6-1,200.0,USA,3,Nets,Brooklyn,2018,2021,2,nan
+1628988,Aaron Holiday,4,12.9166,Guard,6-0,185.0,USA,3,Wizards,Washington,2018,2021,1,nan
+1628990,Chandler Hutchison,2,20.33215909090909,Forward-Guard,6-6,210.0,USA,3,Suns,Phoenix,2018,2021,1,nan
+1629139,Yuta Watanabe,1,11.623333333333333,Guard-Forward,6-9,215.0,Japan,3,Raptors,Toronto,2018,2021,Undrafted,nan
+1629004,Svi Mykhailiuk,4,10.479285714285714,Guard-Forward,6-7,205.0,Ukraine,3,Raptors,Toronto,2018,2021,2,nan
+1629011,Mitchell Robinson,5,20.598611111111108,Center-Forward,7-0,240.0,USA,3,Knicks,New York,2018,2021,2,nan
+1629021,Moritz Wagner,2,10.008253968253968,Forward-Center,6-11,245.0,Germany,3,Magic,Orlando,2018,2021,1,nan
+1629027,Trae Young,6,30.90471193415638,Guard,6-1,164.0,USA,3,Hawks,Atlanta,2018,2021,1,nan
+1629033,Theo Pinson,4,11.742962962962963,Guard-Forward,6-5,212.0,USA,4,Knicks,New York,2018,2020,Undrafted,0.0
+1629034,Ray Spalding,5,10.544761904761904,Forward,6-9,225.0,USA,2,nan,nan,2018,2020,2,0.0
+1629061,Deng Adel,1,10.219473684210527,Forward,6-7,200.0,South Sudan,2,Cavaliers,Cleveland,2018,2018,nan,0.0
+1629109,Gary Clark,1,12.56091503267974,Forward,6-6,225.0,USA,3,Pelicans,New Orleans,2018,2021,Undrafted,nan
+1629130,Duncan Robinson,4,10.729111111111111,Forward,6-7,215.0,USA,3,Heat,Miami,2018,2021,Undrafted,nan
+1629541,Dairis Bertans,1,13.920277777777777,Guard,6-4,200.0,Latvia,2,Pelicans,New Orleans,2018,2018,Undrafted,0.0
