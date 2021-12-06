@@ -155,9 +155,12 @@ d3.dsv(",", "full_game_df.csv", function(d)
 { return {
 	name : d["PLAYER_NAME"],
 	date : d["GAME_DATE"],
-	MIN : d["MIN"],
-	PTS : d["PTS"],
-	PIE : d["PIE"]
+	AST : d["AST"],
+	BLK : d["BLK"],
+	FG3A : d["FG3A"], 
+	FGM : d["FGM"],
+	PFD : d["PFD"], 
+	PTS_2ND_CHANCE : d["PTS_2ND_CHANCE"]
 }
 }).then(function(gameData) 
 {
@@ -344,9 +347,9 @@ var y = d3.scaleOrdinal()
  //     console.log(links)
 
   var svg = d3.select("body").append("svg")
-      .attr("width", width)
+      .attr("width", width + 200)
       .attr("height", height)
-      .attr("transform","translate(-350,-75) scale(0.7)");
+      .attr("transform","translate(-550,-75) scale(0.55)");
 
   // add the links
   var path = svg.append("g")
@@ -589,7 +592,8 @@ filtered.style("stroke-width", 2)
 ////// FD //////
 
 // create parameter drop down
-var parameters = ["MIN", "PTS", "PIE"];
+var parameters = ["AST", "BLK", "FG3A", "FGM", "PFD", "PTS_2ND_CHANCE"];
+
 
 // create drop down button
 var parameterSelect = d3.select("#parameterSelectButton")
